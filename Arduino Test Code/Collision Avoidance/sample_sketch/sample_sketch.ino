@@ -1,6 +1,6 @@
 #define TRIGPIN 11   //Trig
 #define ECHOPIN 12   //Echo
-#define TIMEOUT 55000 //Time out for waiting for signal
+#define TIMEOUT 65000 //Time out for waiting for signal
 long duration, cm, inches;
  
 void setup() {
@@ -28,16 +28,21 @@ void loop()
   // of the ping to the reception of its echo off of an object.
   
   duration = pulseIn(ECHOPIN, HIGH, TIMEOUT);
- 
-  // convert the time into a distance
-  cm = (duration/2) / 29.1;
-  inches = (duration/2) / 74; 
-  
-  Serial.print(inches);
-  Serial.print("in, ");
-  Serial.print(cm);
-  Serial.print("cm");
-  Serial.println();
-  
-  delay(250);
+  if(duration != 0){
+    // convert the time into a distance
+    cm = (duration/2) / 29.1;
+    inches = (duration/2) / 74; 
+    
+    Serial.print(inches);
+    Serial.print("in, ");
+    Serial.print(cm);
+    Serial.print("cm");
+    Serial.println();
+    
+    delay(250);
+  }
+  else{
+    Serial.println("delaying due to timeout");
+    delay(500);
+  }
 }
