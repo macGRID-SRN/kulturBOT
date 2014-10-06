@@ -1,5 +1,6 @@
 #define TRIGPIN 11   //Trig
 #define ECHOPIN 12   //Echo
+#define TIMEOUT 55000 //Time out for waiting for signal
 long duration, cm, inches;
  
 void setup() {
@@ -25,8 +26,8 @@ void loop()
   // Read the signal from the sensor: a HIGH pulse whose
   // duration is the time (in microseconds) from the sending
   // of the ping to the reception of its echo off of an object.
-  pinMode(ECHOPIN, INPUT);
-  duration = pulseIn(ECHOPIN, HIGH);
+  
+  duration = pulseIn(ECHOPIN, HIGH, TIMEOUT);
  
   // convert the time into a distance
   cm = (duration/2) / 29.1;
