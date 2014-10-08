@@ -12,11 +12,12 @@ We want to keep kulturBOT as simple as possible. Our overall plan is to incremen
 
 This is the first version which we consider an early prototype. This is the *bare minimum* functionality required.
 
-- [ ] Raspberry Pi mounted on the iRobot Create
-- [ ] Pi Cam mounted such that it's FOV is pointed straight
+- [ ] Raspberry Pi mounted on the iRobot Create, hopefully using a 3D printed bracket.
+- [ ] Pi Cam mounted such that it's FOV is pointed straight, again hopefully 3D printed.
 - [ ] Pi using a 5V step down board (borrowed from hitchBOT) to bring the build in NiCad's down for use with the Pi
 - [ ] Backend Server (not sure the implementation details yet) which will receive the pictures from Pi Cam via WiFi. Store them accordingly.
 - [ ] Run iRobot Create in it's various 'demo' modes. This will require no interfacing from the Pi.
+- [ ] Tweet pictures that KulturBOT takes with generated Markov Chain text. 
 
 - [ ] **Version 1**
 
@@ -30,4 +31,12 @@ This is the first version which we consider an early prototype. This is the *bar
 
 **Version 2**
 
-*specs coming soon!*
+The idea of this version is to start the integration of the Pi and the iRobot Create. The Raspberry Pi should only act as a conveyor of information and instructions.
+
+- [ ] Further develop backend to communication with the Pi. There should be the ability to fully control the iRobot Create and view all the sensor data from the backend.
+- [ ] Abstacle avoidance. Using an Ultra Sonic sensor or similar. This should allow KulturBOT to stop before bumping into something. I am not sure whether or not the Pi should enact this or the backend. Obviously due to latency, we probably want to Pi to handle it. 
+- [ ] 
+
+**Version 3**
+
+This is when things get more intense. Localization. Orientation. We've got to know it all. 
