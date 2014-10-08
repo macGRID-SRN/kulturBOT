@@ -9,6 +9,7 @@ Project Road Map
 We want to keep kulturBOT as simple as possible. Our overall plan is to incrementally add new features and functionality as outline below.
 
 **Version 1**
+
 This is the first version which we consider an early prototype. This is the *bare minimum* functionality required.
 
 - [ ] Raspberry Pi mounted on the iRobot Create
