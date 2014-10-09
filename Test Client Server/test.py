@@ -1,12 +1,28 @@
 import socket
 
-HOST, PORT = "127.0.0.1", 5000
+class Connection:
+	HOST, PORT = "127.0.0.1", 5000
+	
+	def __init__(self):
+		self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		self.sock.connect((Connection.HOST,Connection.PORT))
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	def sendData(self, data, type=None):
+		print type
+		if type is None:
+			self.sock.send('\00')
+		else:
+			self.sock.send(bytearray([type]))
+		self.sock.send(data)
+		self.sock.send()
+		return self.sock.recv(1)
+		
+	def sendFile(self, path):
+		sendfile = open(path, 'rb')
+		return self.sendData(sendfile.read(), 1)
 
-sock.connect((HOST, PORT))
+	def closeConnection(self):
+		self.sock.close()
 
-sock.send("Hello World")
-data = sock.recv(1024)
-sock.close()
-print repr(data)
+server = Connection()
+print server.sendFile("testFile.txt")
