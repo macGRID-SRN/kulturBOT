@@ -14,7 +14,7 @@ This is the first version which we consider an early prototype. This is the *bar
 
 - [ ] Raspberry Pi mounted on the iRobot Create, hopefully using a 3D printed bracket.
 - [ ] Pi Cam mounted such that it's FOV is pointed straight, again hopefully 3D printed. Mounting should be in such a way not to interfere with the front IR beacon of the iRobot Create.
-- [ ] Pi using a 5V step down board (borrowed from hitchBOT) to bring the build in NiCad's down for use with the Pi
+- [ ] Pi using a 5V step down board (borrowed from hitchBOT) to bring the built in NiCad's down for use with the Pi
 - [ ] Backend Server (not sure the implementation details yet) which will receive the pictures from Pi Cam via WiFi. Store them accordingly.
 - [ ] Python script to take a picture using the Pi Cam, connect to the backend server and send it over the WiFi.
 - [ ] Run iRobot Create in it's various 'demo' modes. This will require no interfacing from the Pi.
