@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System;
+using System.Text;
 using System.Net.Sockets;
 using System.Threading;
 using System.Net;
-using System.IO;
 
 namespace kulturServer
 {
@@ -42,91 +43,41 @@ namespace kulturServer
             TcpClient tcpClient = (TcpClient)client;
             NetworkStream clientStream = tcpClient.GetStream();
 
-            byte[] messageType = new byte[1];
+            byte[] message = new byte[4096];
+            int bytesRead;
 
-            try
+            while (true)
             {
-                clientStream.Read(messageType, 0, 1);
-            }
-            catch
-            {
-                System.Diagnostics.Debug.WriteLine("Something went wrong.");
-            }
+                bytesRead = 0;
 
-            //for now this picture being sent
-            if (messageType[0] == 1)
-            {
-                byte[] message = new byte[1024];
-                int bytesRead;
-                var output = File.Create("output.txt");
-
-                while (true)
+                try
                 {
-                    bytesRead = 0;
-
-                    try
-                    {
-                        //blocks until a client sends a message
-                        bytesRead = clientStream.Read(message, 0, 1024);
-                    }
-                    catch
-                    {
-                        //a socket error has occured
-                        break;
-                    }
-
-                    if (bytesRead == 0)
-                    {
-                        //the client has disconnected from the server
-                        break;
-                    }
-
-                    output.Write(message, 0, bytesRead);
-
-
+                    //blocks until a client sends a message
+                    bytesRead = clientStream.Read(message, 0, 4096);
+                }
+                catch
+                {
+                    //a socket error has occured
+                    break;
                 }
 
-                output.Close();
-            }
-            else
-            {
-
-                byte[] message = new byte[1024];
-                int bytesRead;
-
-                while (true)
+                if (bytesRead == 0)
                 {
-                    bytesRead = 0;
-
-                    try
-                    {
-                        //blocks until a client sends a message
-                        bytesRead = clientStream.Read(message, 0, 1024);
-                    }
-                    catch
-                    {
-                        //a socket error has occured
-                        break;
-                    }
-
-                    if (bytesRead == 0)
-                    {
-                        //the client has disconnected from the server
-                        break;
-                    }
-
-                    //message has successfully been received
-                    ASCIIEncoding encoder = new ASCIIEncoding();
-                    System.Diagnostics.Debug.WriteLine(encoder.GetString(message, 0, bytesRead));
-
-                    
+                    //the client has disconnected from the server
+                    break;
                 }
+
+                //message has successfully been received
+                ASCIIEncoding encoder = new ASCIIEncoding();
+                System.Diagnostics.Debug.WriteLine(encoder.GetString(message, 0, bytesRead));
+
+                byte[] buffer = encoder.GetBytes("Hello Client!");
+
+                clientStream.Write(buffer, 0, buffer.Length);
+                clientStream.Flush();
             }
 
-            byte[] buffer = { 255 };
 
-            clientStream.Write(buffer, 0, buffer.Length);
-            clientStream.Flush();
 
             tcpClient.Close();
         }
