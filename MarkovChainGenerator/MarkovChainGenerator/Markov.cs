@@ -54,8 +54,13 @@ namespace MarkovChainGenerator
 
         public string formatText()
         {
+            Random r = new Random();
+            int puncNum = r.Next(3);
+            string[] punc = new string[] {"!", ".", "?"};
             StringBuilder sb = this.generateText();
-            return sb.ToString();
+            string text = sb.ToString();
+            text = text.Substring(0, 1).ToUpper() + text.Substring(1, text.Length - 1) + punc[puncNum];
+            return text;
         }
     }
 }

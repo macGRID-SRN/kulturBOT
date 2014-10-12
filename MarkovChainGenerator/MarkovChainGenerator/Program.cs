@@ -10,8 +10,12 @@ namespace MarkovChainGenerator
     {
         static void Main(string[] args)
         {
-            Markov m = new Markov(144, 6);
-            Console.WriteLine(m.formatText());
+            //First integer sets character limit, second integer sets chain size (bigger number increases context)
+            Markov m = new Markov(144, 3);
+            for (int i = 0; i < 11; i++)
+            {
+                Console.WriteLine(m.formatText());
+            }
             Console.ReadKey();
         }
     }
