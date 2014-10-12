@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System;
-using System.Text;
 using System.Net.Sockets;
 using System.Threading;
 using System.Net;
+using System.IO;
 
 namespace kulturServer
 {
@@ -42,6 +41,7 @@ namespace kulturServer
         {
             TcpClient tcpClient = (TcpClient)client;
             NetworkStream clientStream = tcpClient.GetStream();
+            var TotalByteList = new List<byte>();
 
             byte[] message = new byte[4096];
             int bytesRead;
@@ -67,17 +67,20 @@ namespace kulturServer
                     break;
                 }
 
+                TotalByteList.AddRange(message);
                 //message has successfully been received
-                ASCIIEncoding encoder = new ASCIIEncoding();
-                System.Diagnostics.Debug.WriteLine(encoder.GetString(message, 0, bytesRead));
+                //ASCIIEncoding encoder = new ASCIIEncoding();
+                //System.Diagnostics.Debug.WriteLine(encoder.GetString(message, 0, bytesRead));
 
-                byte[] buffer = encoder.GetBytes("Hello Client!");
+                //byte[] buffer = encoder.GetBytes("Hello Client!");
 
-                clientStream.Write(buffer, 0, buffer.Length);
-                clientStream.Flush();
+                //clientStream.Write(buffer, 0, buffer.Length);
+                //clientStream.Flush();
             }
 
-            
+            System.Diagnostics.Debug.WriteLine("Received packet of " + TotalByteList.Count + " length.");
+
+            File.WriteAllBytes("test.jpg", TotalByteList.ToArray());
 
             tcpClient.Close();
         }
