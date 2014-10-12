@@ -10,7 +10,7 @@ namespace MarkovChainGenerator
     {
         static void Main(string[] args)
         {
-            Markov m = new Markov(144, 3);
+            Markov m = new Markov(144, 6);
             Console.WriteLine(m.formatText());
             Console.ReadKey();
         }
