@@ -51,16 +51,16 @@ The idea of this version is to start the integration of the Pi and the iRobot Cr
 
 This furthers the integration of the Pi with the backend, adding the remaining and less necessary functionality. This version also hopes to add some controlling options as well as safety features.
 
-- [ ] On board dedicated batteries for the Raspberry Pi.
-- [ ] Create an add-on to the existing docking station to charge the new on board batteries for the Pi.
+- [ ] On board dedicated batteries for the Raspberry Pi. This will allow for increased capacity and possibly reduced charging time.
+- [ ] Create an add-on to the existing docking station to charge the new on board batteries for the Pi. This will most likely require an external charging circuit.
 - [ ] Fully control the iRobot Create and view all the sensor data from the backend.
-- [ ] Control the robot with a controller, much like the Botlr. It might be cool to make another stand-alone application which can view live information about KulturBOT, maybe post this onto a website/webpage?
+- [ ] Control the robot with a controller, much like the Botlr. It might be cool to make another stand-alone application which can view live information about KulturBOT, maybe post this onto a website/webpage? Let people in the room control it?
 - [ ] Emergency shutdown control system. Noticed that this is common practice, there should be a way to immediately cut power to KulturBOT from the wall/computer desk system.
 
 **Shopping List**
 
 - [ ] PS4 OR XboxOne Controller and any interfacing hardware (possibly bluetooth) required.
-- [ ] Lithium Batteries
+- [ ] Lithium Batteries and Charger Supplies
 
 **Version 4**
 
