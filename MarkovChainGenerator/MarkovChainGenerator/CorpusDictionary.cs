@@ -10,8 +10,8 @@ namespace MarkovChainGenerator
     class CorpusDictionary
     {
         string futuristManifesto;
-        public List<List<char>> keyCollection { get; set; }
-        public Dictionary<List<char>, List<char>> dic { get; set; }
+        public List<string> keyCollection { get; set; }
+        public Dictionary<string, List<char>> dic { get; set; }
         int numChar;
 
         public CorpusDictionary(string filePath, int numChars)
@@ -19,28 +19,35 @@ namespace MarkovChainGenerator
             using (StreamReader sr = new StreamReader(filePath))
             {
                 futuristManifesto = sr.ReadToEnd();
+                futuristManifesto = futuristManifesto.Replace("\r", "");
+                futuristManifesto = futuristManifesto.Replace("\n", "");
+
             }
-            dic = new Dictionary<List<char>, List<char>>();
+            dic = new Dictionary<string, List<char>>();
             this.numChar = numChars;
-            keyCollection = new List<List<char>>();
+            keyCollection = new List<string>();
             this.parseCorpus();
         }
 
         private void parseCorpus()
         {
-            List<char> tempArray;
+            string tempArray;
 
             for (int i = 0; i < futuristManifesto.Length - numChar; i++)
             {
-                tempArray = new List<char>();
-                for (int j = 0; j < numChar - 1; j++)
+                tempArray = string.Empty;
+
+                for (int j = 0; j < numChar; j++)
                 {
-                    tempArray.Add(futuristManifesto[i + j]);
+                    tempArray += futuristManifesto[i + j];
+                    if(i + j == i + numChar - 1 && j == numChar - 1)
+                    {
+//
+                   }
                 }
                 keyCollection.Add(tempArray);
                 bool containsKey = dic.ContainsKey(tempArray);
-                if(containsKey)
-                    Console.WriteLine(containsKey);
+                
                 if (containsKey)
                 {
                     dic[tempArray].Add(futuristManifesto[i + numChar]);
