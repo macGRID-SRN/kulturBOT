@@ -43,6 +43,21 @@ namespace kulturServer
             NetworkStream clientStream = tcpClient.GetStream();
             var TotalByteList = new List<byte>();
 
+            byte[] messageInfo = new byte[3];
+            int infoBytesRead = 0;
+
+            try
+            {
+                infoBytesRead = clientStream.Read(messageInfo, 0, 3);
+            }
+            catch
+            {
+                System.Diagnostics.Debug.WriteLine("Client didn't send the 3 init bytes correctly");
+            }
+
+            clientStream.Write(new byte[] { 255 }, 0, 1);
+            clientStream.Flush();
+
             byte[] message = new byte[4096];
             int bytesRead;
 

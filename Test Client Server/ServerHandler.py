@@ -8,14 +8,19 @@ class Connection:
 	def __init__(self):
 		self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		self.sock.connect((self.HOST,self.PORT))
-
+	
 	def sendFile(self, path):
-		with open(path, 'rb') as fd:
-			buf = fd.read(Connection.BUF_SIZE)
-			while(buf):
-				self.sock.send(buf)
+		inits = bytearray([ComType.ImageSend, ImageType.PNG, AdditionalInfo.NULL])
+		self.sock.send(inits)
+		cont = self.sock.recv(1)
+		if (cont):
+			with open(path, 'rb') as fd:
 				buf = fd.read(Connection.BUF_SIZE)
-		return True
+				while(buf):
+					self.sock.send(buf)
+					buf = fd.read(Connection.BUF_SIZE)
+			return True
+		return False
 
 	def closeConnection(self):
 		self.sock.close()
@@ -26,5 +31,6 @@ def sendImage(path):
 	server.sendFile(path)
 	server.closeConnection()
 	print "Successfully sent file " + path + " to the server"
-	
+
+
 sendImage("z8Z9wi8.jpg")
