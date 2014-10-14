@@ -5,6 +5,9 @@
 *.jpg
 *.jpeg
 
+# Compiled Python Files
+*.pyc
+
 # User-specific files
 *.suo
 *.user
