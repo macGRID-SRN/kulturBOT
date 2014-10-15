@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
-//using System.ComponentModel.DataAnnotations;
-//using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace kulturServer.Models
 {
@@ -25,6 +25,7 @@ namespace kulturServer.Models
 
         public string FileDirectory { get; set; }
         
+        [Required]
         public virtual iRobotCreate iRobot { get; set; }
         
         public DateTime TimeCreated { get; set; }
