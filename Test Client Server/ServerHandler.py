@@ -9,8 +9,8 @@ class Connection:
 		self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		self.sock.connect((self.HOST,self.PORT))
 	
-	def sendFile(self, path):
-		inits = bytearray([ComType.ImageSend, ImageType.PNG, AdditionalInfo.NULL])
+	def sendFile(self, path, ComType, FileType):
+		inits = bytearray([ComType, FileType, AdditionalInfo.NULL])
 		self.sock.send(inits)
 		cont = self.sock.recv(1)
 		if (cont):
@@ -28,9 +28,8 @@ class Connection:
 #Onto functions that can't be put ABOVE THE CLASS BECAUSE STUPID REASONS PYTHON...
 def sendImage(path):
 	server = Connection()
-	server.sendFile(path)
+	server.sendFile(path, ComType.ImageSend, ImageType.JPG)
 	server.closeConnection()
 	print "Successfully sent file " + path + " to the server"
-
 
 sendImage("z8Z9wi8.jpg")
