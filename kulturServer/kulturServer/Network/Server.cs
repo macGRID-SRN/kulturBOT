@@ -41,7 +41,6 @@ namespace kulturServer.Network
         {
             TcpClient tcpClient = (TcpClient)client;
             NetworkStream clientStream = tcpClient.GetStream();
-            var TotalByteList = new List<byte>();
 
             byte[] messageInfo = new byte[3];
             int infoBytesRead = 0;
@@ -55,51 +54,38 @@ namespace kulturServer.Network
                 System.Diagnostics.Debug.WriteLine("Client didn't send the 3 init bytes correctly");
             }
 
+            //find the right type of Handler to make
+            var myObj = CommType.GetCommType(messageInfo[0]).Type;
 
+            var myHandler = (Handler)Activator.CreateInstance(myObj, messageInfo, tcpClient);
 
-            clientStream.Write(new byte[] { 255 }, 0, 1);
-            clientStream.Flush();
-
-            byte[] message = new byte[4096];
-            int bytesRead;
-
-            while (true)
-            {
-                bytesRead = 0;
-
-                try
-                {
-                    //blocks until a client sends a message
-                    bytesRead = clientStream.Read(message, 0, 4096);
-                }
-                catch
-                {
-                    //a socket error has occured
-                    break;
-                }
-
-                if (bytesRead == 0)
-                {
-                    //the client has disconnected from the server
-                    break;
-                }
-
-                TotalByteList.AddRange(message);
-                //message has successfully been received
-                //ASCIIEncoding encoder = new ASCIIEncoding();
-                //System.Diagnostics.Debug.WriteLine(encoder.GetString(message, 0, bytesRead));
-
-                //byte[] buffer = encoder.GetBytes("Hello Client!");
-
-                //clientStream.Write(buffer, 0, buffer.Length);
-                //clientStream.Flush();
-            }
-
-            System.Diagnostics.Debug.WriteLine("Received packet of " + TotalByteList.Count + " length.");
-
-            File.WriteAllBytes("test.jpg", TotalByteList.ToArray());
-
-            tcpClient.Close();
+            myHandler.PerformAction();
         }
+    }
+
+    public sealed class CommType
+    {
+        public readonly Type Type;
+        private readonly byte value;
+
+        private static readonly Dictionary<byte, CommType> instance = new Dictionary<byte, CommType>();
+
+        public static CommType ImageHandler = new CommType(0, typeof(ImageHandler));
+
+        private CommType(byte value, Type t)
+        {
+            //what is this magic?
+            instance[value] = this;
+            this.Type = t;
+            this.value = value;
+        }
+
+        public static CommType GetCommType(byte CommTypeByte)
+        {
+            if (instance.ContainsKey(CommTypeByte))
+                return instance[CommTypeByte];
+            throw new Exception("Communication Type not found!");
+        }
+
     }
 }
