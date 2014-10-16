@@ -10,7 +10,7 @@ namespace kulturServer.Models
 {
     class Image
     {
-        //yes this is stupid but it ~almost~ guarantees a default value\
+        //yes this is stupid but it ~almost~ guarantees a default value
         private const bool DEFAULT_STATE = true;
         private bool _state = DEFAULT_STATE;
 

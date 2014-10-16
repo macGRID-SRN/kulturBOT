@@ -26,6 +26,9 @@ namespace kulturServer.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            //makes sure our little tester robot always finds itself in the database!
+            context.Robots.AddOrUpdate(p => p.Name, new Models.iRobotCreate { Name = "TestRobot", TimeCreated = DateTime.UtcNow});
         }
     }
 }
