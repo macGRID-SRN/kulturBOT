@@ -56,9 +56,11 @@
     <Compile Include="Models\Database.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\iRobotCreate.cs" />
+    <Compile Include="Network\Handler.cs" />
+    <Compile Include="Network\ImageHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Server.cs" />
+    <Compile Include="Network\Server.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -7,7 +7,7 @@ using System.Threading;
 using System.Net;
 using System.IO;
 
-namespace kulturServer
+namespace kulturServer.Network
 {
     class Server
     {
@@ -54,6 +54,8 @@ namespace kulturServer
             {
                 System.Diagnostics.Debug.WriteLine("Client didn't send the 3 init bytes correctly");
             }
+
+
 
             clientStream.Write(new byte[] { 255 }, 0, 1);
             clientStream.Flush();
