@@ -26,10 +26,20 @@ class Connection:
 		self.sock.close()
 		
 #Onto functions that can't be put ABOVE THE CLASS BECAUSE STUPID REASONS PYTHON...
-def sendImage(path):
+def sendImage(path, ImageType):
 	server = Connection()
-	server.sendFile(path, ComType.ImageSend, ImageType.JPG)
+	server.sendFile(path, ComType.ImageSend, ImageType)
 	server.closeConnection()
-	print "Successfully sent file " + path + " to the server"
+	print "Successfully sent image " + path + " to the server"
 
-sendImage("z8Z9wi8.jpg")
+def sendJPG(path):
+	sendImage(path, ImageType.JPG)
+
+def sendPNG(path):
+	sendImage(path, ImageType.PNG)
+	
+def sendBMP(path):
+	sendImage(path, ImageType.BITMAP)
+	
+#test jpg file being sent!
+sendJPG("z8Z9wi8.jpg")
