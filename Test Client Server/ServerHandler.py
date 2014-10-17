@@ -18,7 +18,11 @@ class Connection:
 				buf = fd.read(Connection.BUF_SIZE)
 				while(buf):
 					self.sock.send(buf)
+					self.sock.recv(1)
 					buf = fd.read(Connection.BUF_SIZE)
+				print "Done sending"
+				self.sock.send(bytearray([255]))
+				#if (readyForHash):
 			return True
 		return False
 

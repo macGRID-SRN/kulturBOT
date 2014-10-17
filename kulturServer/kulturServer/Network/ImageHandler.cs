@@ -12,8 +12,6 @@ namespace kulturServer.Network
     {
         public ImageHandler(byte[] PacketHeader, TcpClient tcpClient) : base(PacketHeader, tcpClient) { }
 
-        //public ImageHandler(Object[] param) : base((byte[])param[0], (TcpClient)param[1]) { }
-
         public override bool PerformAction()
         {
             ImageFormat myFormat = ImageFormat.GetImageFormat(this.PacketHeader[1]);
@@ -21,34 +19,7 @@ namespace kulturServer.Network
 
             var TotalByteList = new List<byte>();
 
-            byte[] message = new byte[4096];
-            int bytesRead;
-
-            while (true)
-            {
-                bytesRead = 0;
-
-                try
-                {
-                    //blocks until a client sends a message
-                    bytesRead = clientStream.Read(message, 0, 4096); //taking off some *bite* sized pieces. ha.
-                }
-                catch
-                {
-                    //a socket error has occured.. something went wrong!
-                    return false;
-                }
-
-                if (bytesRead == 0)
-                {
-                    //the client has disconnected from the server
-                    break;
-                }
-
-                TotalByteList.AddRange(message);
-            }
-
-            System.Diagnostics.Debug.WriteLine("Received packet of " + TotalByteList.Count + " length.");
+            GetAllBytes(TotalByteList);
 
             File.WriteAllBytes("test" + myFormat.Extension, TotalByteList.ToArray());
 
