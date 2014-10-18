@@ -24,9 +24,9 @@ This is the first version which we consider an early prototype. This is the *bar
 
 **Shopping List**
 
-- [ ] Raspberry Pi x2
-- [ ] Pi Cam x2
-- [ ] WiFi Dongle x2
+- [X] Raspberry Pi x2
+- [X] Pi Cam x2
+- [X] WiFi Dongle x2
 - [ ] WiFi Router - Extended Range Preferred
 - [ ] Standalone Computer/Server to run backend. (server could be run in the cloud but this will heavily effect latency in the future versions)
 - [ ] DB-25 connector/saddle.

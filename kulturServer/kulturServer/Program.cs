@@ -9,7 +9,7 @@ namespace kulturServer
     {
         static void Main(string[] args)
         {
-            Server myServer = new Server();
+            var myServer = new Network.Server();
 
             Console.ReadLine();
         }
