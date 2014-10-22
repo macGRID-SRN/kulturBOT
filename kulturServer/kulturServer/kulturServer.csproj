@@ -53,11 +53,13 @@
     <StartupObject>kulturServer.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net40\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="LinqToTwitter.AspNet">
       <HintPath>..\packages\linqtotwitter.3.0.5\lib\net45\LinqToTwitter.AspNet.dll</HintPath>
@@ -88,10 +90,15 @@
     <Compile Include="Migrations\201410152214416_InitialWithImages.Designer.cs">
       <DependentUpon>201410152214416_InitialWithImages.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410221620339_AddTwitterAccounts.cs" />
+    <Compile Include="Migrations\201410221620339_AddTwitterAccounts.Designer.cs">
+      <DependentUpon>201410221620339_AddTwitterAccounts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Database.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\iRobotCreate.cs" />
+    <Compile Include="Models\TwitterAccount.cs" />
     <Compile Include="Network\Handler.cs" />
     <Compile Include="Network\ImageHandler.cs" />
     <Compile Include="Program.cs" />
@@ -105,6 +112,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201410152214416_InitialWithImages.resx">
       <DependentUpon>201410152214416_InitialWithImages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410221620339_AddTwitterAccounts.resx">
+      <DependentUpon>201410221620339_AddTwitterAccounts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -16,5 +16,6 @@ namespace kulturServer.Models
 
         public DbSet<Image> Images { get; set; }
         public DbSet<iRobotCreate> Robots { get; set; }
+        public DbSet<TwitterAccount> TwitterAccounts { get; set; }
     }
 }
