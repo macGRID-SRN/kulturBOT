@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\Hashing.cs" />
+    <Compile Include="Helpers\Twitter.cs" />
     <Compile Include="Migrations\201410152214416_InitialWithImages.cs" />
     <Compile Include="Migrations\201410152214416_InitialWithImages.Designer.cs">
       <DependentUpon>201410152214416_InitialWithImages.cs</DependentUpon>
