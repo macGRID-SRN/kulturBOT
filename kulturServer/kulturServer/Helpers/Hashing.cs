@@ -17,7 +17,7 @@ namespace kulturServer.Helpers
             {
                 using (var stream = File.OpenRead(path))
                 {
-                    return md5.ComputeHash(stream);
+                    return ASCIIEncoding.ASCII.GetString(md5.ComputeHash(stream));
                 }
             }
         }
