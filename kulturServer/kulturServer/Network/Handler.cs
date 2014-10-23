@@ -9,6 +9,7 @@ namespace kulturServer.Network
 {
     class Handler
     {
+        protected Models.iRobotCreate iRobotCreate;
         protected TcpClient tcpClient;
         protected NetworkStream clientStream;
         protected byte[] PacketHeader;
