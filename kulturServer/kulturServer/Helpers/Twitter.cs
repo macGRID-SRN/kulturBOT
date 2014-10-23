@@ -43,6 +43,17 @@ namespace kulturServer.Helpers
             }
         }
 
+        public static async void PostTweetWithImage(int iRobotID, int ImageID, string TweetText)
+        {
+            using (var db = new Models.Database())
+            {
+                string UserID;
+                var twitterContext = GetContext(iRobotID, out UserID);
+                Status tweet = await twitterContext.TweetWithMediaAsync("", false, new byte[] { });
+
+            }
+        }
+
         public static SingleUserAuthorizer GetAuthorization(Models.TwitterAccount TwitterAccount, out string UserID)
         {
             UserID = TwitterAccount.UserID;
