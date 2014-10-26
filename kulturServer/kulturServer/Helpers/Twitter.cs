@@ -9,7 +9,7 @@ namespace kulturServer.Helpers
 {
     public static class Twitter
     {
-        public static async void PostTweetText(int iRobot, string TweetText)
+        public static async void PostTweetText(int iRobot, string TweetText = "")
         {
             using (var db = new Models.Database())
             {
@@ -19,7 +19,6 @@ namespace kulturServer.Helpers
                     var twitterContext = GetContext(iRobot, out UserID);
                     Status response = await twitterContext.TweetAsync(TweetText);
 
-                    db.SaveChanges();
                 }
                 //catch (TwitterQueryException e)
                 //{
@@ -40,17 +39,27 @@ namespace kulturServer.Helpers
                 catch (Exception e)
                 {
                 }
+                db.SaveChanges();
             }
         }
 
-        public static async void PostTweetWithImage(int iRobotID, int ImageID, string TweetText)
+        public static async void PostTweetWithImage(int iRobotID, int ImageID, string TweetText = "")
         {
+            if (string.IsNullOrWhiteSpace(TweetText))
+            {
+                //get stuffs from markov factory
+                TweetText = "Markov not added yet!";
+            }
             using (var db = new Models.Database())
             {
                 string UserID;
                 var twitterContext = GetContext(iRobotID, out UserID);
-                Status tweet = await twitterContext.TweetWithMediaAsync("", false, new byte[] { });
 
+                var image = db.Images.FirstOrDefault(l => l.ID == ImageID);
+
+                byte[] imageBytes = Helpers.FileOperations.GetFileBytes(image.FileDirectory);
+
+                Status tweet = await twitterContext.TweetWithMediaAsync(TweetText, false, imageBytes);
             }
         }
 

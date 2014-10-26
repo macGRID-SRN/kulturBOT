@@ -28,7 +28,7 @@ namespace kulturServer.Network
             File.WriteAllBytes(fileName, TotalByteList.ToArray());
 
 
-            //in order to record images properly we need to know which robot is sending the picture! Haven't implemented this yet on the python side of things.
+            int imageID;
             using (var db = new Models.Database())
             {
                 var robot = db.Robots.FirstOrDefault(l => l.ID == this.ROBOT_ID);
@@ -45,10 +45,13 @@ namespace kulturServer.Network
                 db.Images.Add(image);
 
                 db.SaveChanges();
+                imageID = image.ID;
             }
 
             //need to consider order of operations here, should the connection remain open while writing to file? to db?
             CloseConnection();
+
+            
             return true;
         }
 
