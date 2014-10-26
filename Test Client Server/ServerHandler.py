@@ -11,7 +11,7 @@ class Connection:
 		self.sock.connect((self.HOST,self.PORT))
 	
 	def sendFile(self, path, ComType, FileType):
-		inits = bytearray([ROBOT_ID, ComType, FileType, AdditionalInfo.NULL])
+		inits = bytearray([self.ROBOT_ID, ComType, FileType, AdditionalInfo.NULL])
 		self.sock.send(inits)
 		cont = self.sock.recv(1)
 		if (cont):

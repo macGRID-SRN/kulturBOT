@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace kulturServer.Models
 {
-    class Image
+    public class Image
     {
         //yes this is stupid but it ~almost~ guarantees a default value
         private const bool DEFAULT_STATE = true;

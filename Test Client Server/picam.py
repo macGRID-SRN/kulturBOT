@@ -2,7 +2,7 @@ DEBUG = True
 #DEBUG = False
 from ServerHandler import *
 
-if(not DEBUG)
+if(not DEBUG):
 	import io
 	import time
 	import picamera
@@ -26,7 +26,7 @@ if(not DEBUG)
 			sendJPG(fileName)
 			time.sleep(PICTURE_INTERVAL_SECONDS)
 			#Does the camera have to be turned off here? - does it remain on?
-else
+else:
 	
 	#test jpg file being sent!
 	sendJPG("z8Z9wi8.jpg")

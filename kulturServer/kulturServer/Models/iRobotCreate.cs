@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace kulturServer.Models
 {
-    class iRobotCreate
+    public class iRobotCreate
     {
         //yes this is stupid but it ~almost~ guarantees a default value\
         private const bool DEFAULT_STATE = true;
