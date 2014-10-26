@@ -22,7 +22,7 @@ if(not DEBUG):
 	if __name__ == "__main__":
 		while True:
 			pT = PictureTaker()
-			fileName = pT.takePhoto()
+			fileName = pT.takePhotoJPG()
 			sendJPG(fileName)
 			time.sleep(PICTURE_INTERVAL_SECONDS)
 			#Does the camera have to be turned off here? - does it remain on?
