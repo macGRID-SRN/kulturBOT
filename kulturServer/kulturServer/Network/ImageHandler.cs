@@ -26,7 +26,7 @@ namespace kulturServer.Network
             string fileName = GetImgDir() + DateTime.UtcNow.ToString("yyyyMMddHHmmss") + myFormat.Extension;
 
             File.WriteAllBytes(fileName, TotalByteList.ToArray());
-
+            System.Diagnostics.Debug.WriteLine("Wrote file: " + fileName);
 
             int imageID;
             using (var db = new Models.Database())
@@ -47,6 +47,8 @@ namespace kulturServer.Network
                 db.SaveChanges();
                 imageID = image.ID;
             }
+
+            System.Diagnostics.Debug.WriteLine("Saved Image to db with ID: " + imageID);
 
             //need to consider order of operations here, should the connection remain open while writing to file? to db?
             CloseConnection();
