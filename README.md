@@ -20,14 +20,16 @@ This is the first version which we consider an early prototype. This is the *bar
 - [ ] Python script to take a picture using the Pi Cam, connect to the backend server and send it over the WiFi.
 - [ ] Run iRobot Create in it's various 'demo' modes. This will require no interfacing from the Pi.
 - [ ] Tweet pictures that KulturBOT takes with some generated Markov Chain text. 
-
+- [ ] Wacky inflatable airtube man ontop of a strainer for the robot. Let's do it!
 
 **Shopping List**
 
 - [X] Raspberry Pi x2
 - [X] Pi Cam x2
 - [X] WiFi Dongle x2
-- [ ] WiFi Router - Extended Range Preferred
+- [X] Fabric for Wacky Inflatable Tube Man
+- [X] Desktop Fan for said Inflatable Tube Man
+- [X] WiFi Router - Extended Range Preferred
 - [ ] Standalone Computer/Server to run backend. (server could be run in the cloud but this will heavily effect latency in the future versions)
 - [ ] DB-25 connector/saddle.
 - [ ] Raspberry Pi IO header/saddle.

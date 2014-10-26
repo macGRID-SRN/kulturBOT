@@ -4,13 +4,14 @@ from Enumerators import *
 class Connection:
 	HOST, PORT = "127.0.0.1", 5000
 	BUF_SIZE = 4096
+	ROBOT_ID = 1
 	
 	def __init__(self):
 		self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		self.sock.connect((self.HOST,self.PORT))
 	
 	def sendFile(self, path, ComType, FileType):
-		inits = bytearray([ComType, FileType, AdditionalInfo.NULL])
+		inits = bytearray([ROBOT_ID, ComType, FileType, AdditionalInfo.NULL])
 		self.sock.send(inits)
 		cont = self.sock.recv(1)
 		if (cont):
@@ -44,6 +45,3 @@ def sendPNG(path):
 	
 def sendBMP(path):
 	sendImage(path, ImageType.BITMAP)
-	
-#test jpg file being sent!
-sendJPG("z8Z9wi8.jpg")

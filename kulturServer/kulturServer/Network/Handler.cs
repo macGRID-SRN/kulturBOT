@@ -9,9 +9,11 @@ namespace kulturServer.Network
 {
     class Handler
     {
+        protected Models.iRobotCreate iRobotCreate;
         protected TcpClient tcpClient;
         protected NetworkStream clientStream;
         protected byte[] PacketHeader;
+        protected byte ROBOT_ID;
 
         protected const int BUF_SIZE = 4096;
         protected const byte CONFIRM_BYTE = 255;
@@ -21,6 +23,7 @@ namespace kulturServer.Network
             this.PacketHeader = PacketHeader;
             this.tcpClient = tcpClient;
             this.clientStream = tcpClient.GetStream();
+            this.ROBOT_ID = this.PacketHeader[0];
         }
 
         /// <summary>

@@ -23,6 +23,10 @@ namespace kulturServer.Models
 
         public string IP_ADDRESS { get; set; }
         public string Name { get; set; }
+
+        public virtual List<Image> Images { get; set; }
+        public virtual TwitterAccount TwitterAccount { get; set; }
+
         public DateTime TimeCreated { get; set; }
     }
 }

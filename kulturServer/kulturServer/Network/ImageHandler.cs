@@ -10,21 +10,60 @@ namespace kulturServer.Network
 {
     class ImageHandler : Handler
     {
+        public static const string fileDirectory = "kulturbotIMG";
+
         public ImageHandler(byte[] PacketHeader, TcpClient tcpClient) : base(PacketHeader, tcpClient) { }
 
         public override bool PerformAction()
         {
-            ImageFormat myFormat = ImageFormat.GetImageFormat(this.PacketHeader[1]);
+            ImageFormat myFormat = ImageFormat.GetImageFormat(this.PacketHeader[2]);
             this.SendConfirmPacket();
 
             var TotalByteList = new List<byte>();
 
             GetAllBytes(TotalByteList);
 
-            File.WriteAllBytes("test" + myFormat.Extension, TotalByteList.ToArray());
+            string fileName = GetImgDir() + DateTime.UtcNow.ToString("yyyyMMDDHHmmss") + myFormat.Extension;
 
+            File.WriteAllBytes(fileName, TotalByteList.ToArray());
+
+
+            int imageID;
+            using (var db = new Models.Database())
+            {
+                var robot = db.Robots.FirstOrDefault(l => l.ID == this.ROBOT_ID);
+
+                var image = new Models.Image()
+                {
+                    iRobot = robot,
+                    FileDirectory = fileName,
+                    TimeAdded = DateTime.UtcNow,
+                    TimeCreated = DateTime.UtcNow,
+                    TimeTaken = DateTime.UtcNow
+                };
+
+                db.Images.Add(image);
+
+                db.SaveChanges();
+                imageID = image.ID;
+            }
+
+            //need to consider order of operations here, should the connection remain open while writing to file? to db?
             CloseConnection();
+
+            
             return true;
+        }
+
+        public string GetImgDir()
+        {
+            string rootC = @"c:\";
+            if (!Directory.Exists(rootC + fileDirectory))
+            {
+                Directory.CreateDirectory(rootC + fileDirectory);
+            }
+
+            return rootC + fileDirectory;
         }
 
         //this is some beaut code adapted from here: http://stackoverflow.com/questions/424366/c-sharp-string-enums
