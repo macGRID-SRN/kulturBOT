@@ -9,3 +9,12 @@ class ImageType:
 	
 class AdditionalInfo:
 	NULL = 0
+	
+class UpdateType:
+	SensorDump = 0
+	GetAction = 1
+
+class ActionType:
+	StopEverything = 0
+	TakePicture = 1
+	Surprise = 2
