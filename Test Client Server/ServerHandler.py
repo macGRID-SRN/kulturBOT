@@ -44,6 +44,3 @@ def sendPNG(path):
 	
 def sendBMP(path):
 	sendImage(path, ImageType.BITMAP)
-	
-#test jpg file being sent!
-sendJPG("z8Z9wi8.jpg")
