@@ -1,6 +1,7 @@
 class ComType:
 	ImageSend = 0
 	RequestUpdate = 1
+	SendUpdate = 2
 
 class ImageType:
 	JPG = 0

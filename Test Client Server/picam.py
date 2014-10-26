@@ -1,5 +1,5 @@
-DEBUG = TRUE
-#DEBUG = FALSE
+DEBUG = True
+#DEBUG = False
 from ServerHandler import *
 
 if(not DEBUG)

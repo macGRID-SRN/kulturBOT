@@ -16,7 +16,7 @@ namespace kulturServer.Network
 
         public override bool PerformAction()
         {
-            ImageFormat myFormat = ImageFormat.GetImageFormat(this.PacketHeader[1]);
+            ImageFormat myFormat = ImageFormat.GetImageFormat(this.PacketHeader[2]);
             this.SendConfirmPacket();
 
             var TotalByteList = new List<byte>();
@@ -31,13 +31,20 @@ namespace kulturServer.Network
             //in order to record images properly we need to know which robot is sending the picture! Haven't implemented this yet on the python side of things.
             using (var db = new Models.Database())
             {
+                var robot = db.Robots.FirstOrDefault(l => l.ID == this.ROBOT_ID);
+
                 var image = new Models.Image()
                 {
+                    iRobot = robot,
                     FileDirectory = fileName,
                     TimeAdded = DateTime.UtcNow,
                     TimeCreated = DateTime.UtcNow,
                     TimeTaken = DateTime.UtcNow
                 };
+
+                db.Images.Add(image);
+
+                db.SaveChanges();
             }
 
             //need to consider order of operations here, should the connection remain open while writing to file? to db?

@@ -42,20 +42,20 @@ namespace kulturServer.Network
             TcpClient tcpClient = (TcpClient)client;
             NetworkStream clientStream = tcpClient.GetStream();
 
-            byte[] messageInfo = new byte[3];
+            byte[] messageInfo = new byte[4];
             int infoBytesRead = 0;
 
             try
             {
-                infoBytesRead = clientStream.Read(messageInfo, 0, 3);
+                infoBytesRead = clientStream.Read(messageInfo, 0, 4);
             }
             catch
             {
-                System.Diagnostics.Debug.WriteLine("Client didn't send the 3 init bytes correctly");
+                System.Diagnostics.Debug.WriteLine("Client didn't send the 4 init bytes correctly");
             }
 
             //find the right type of Handler to make
-            var myObj = CommType.GetCommType(messageInfo[0]).Type;
+            var myObj = CommType.GetCommType(messageInfo[1]).Type;
 
             var myHandler = (Handler)Activator.CreateInstance(myObj, messageInfo, tcpClient);
 
