@@ -40,14 +40,14 @@ namespace MarkovChainGenerator
                 for (int j = 0; j < numChar; j++)
                 {
                     tempArray += futuristManifesto[i + j];
-                    if(i + j == i + numChar - 1 && j == numChar - 1)
+                    if (i + j == i + numChar - 1 && j == numChar - 1)
                     {
-//
-                   }
+                        //
+                    }
                 }
                 keyCollection.Add(tempArray);
                 bool containsKey = dic.ContainsKey(tempArray);
-                
+
                 if (containsKey)
                 {
                     dic[tempArray].Add(futuristManifesto[i + numChar]);
@@ -57,6 +57,6 @@ namespace MarkovChainGenerator
                     dic.Add(tempArray, new List<char> { futuristManifesto[i + numChar] });
                 }
             }
-      }
+        }
     }
 }

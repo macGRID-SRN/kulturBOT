@@ -53,7 +53,14 @@ namespace kulturServer.Network
             //need to consider order of operations here, should the connection remain open while writing to file? to db?
             CloseConnection();
 
-            Helpers.Twitter.PostTweetWithImage(this.ROBOT_ID, imageID);
+            try
+            {
+                Helpers.Twitter.PostTweetWithImage(this.ROBOT_ID, imageID);
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("Wasn't able to tweet image.");
+            }
 
             return true;
         }

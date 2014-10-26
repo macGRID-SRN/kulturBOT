@@ -48,7 +48,15 @@ namespace kulturServer.Helpers
             if (string.IsNullOrWhiteSpace(TweetText))
             {
                 //get stuffs from markov factory
-                TweetText = "Markov not added yet!";
+                try
+                {
+                    TweetText = Helpers.Markov.GetNextTwitterMarkov();
+                }
+                catch
+                {
+                    TweetText = "Wasn't able to generate Markov.";
+                    System.Diagnostics.Debug.WriteLine("Generating Markov threw an error.");
+                }
             }
             using (var db = new Models.Database())
             {
