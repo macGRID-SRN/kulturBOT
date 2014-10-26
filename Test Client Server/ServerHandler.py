@@ -2,7 +2,7 @@ import socket
 from Enumerators import *
 
 class Connection:
-	HOST, PORT = "127.0.0.1", 5000
+	HOST, PORT = "192.168.1.100", 5000
 	BUF_SIZE = 4096
 	ROBOT_ID = 1
 	
