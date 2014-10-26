@@ -10,7 +10,7 @@ namespace kulturServer.Network
 {
     class ImageHandler : Handler
     {
-        public static const string fileDirectory = "kulturbotIMG";
+        public const string fileDirectory = @"kulturbotIMG\";
 
         public ImageHandler(byte[] PacketHeader, TcpClient tcpClient) : base(PacketHeader, tcpClient) { }
 
@@ -23,7 +23,7 @@ namespace kulturServer.Network
 
             GetAllBytes(TotalByteList);
 
-            string fileName = GetImgDir() + DateTime.UtcNow.ToString("yyyyMMDDHHmmss") + myFormat.Extension;
+            string fileName = GetImgDir() + DateTime.UtcNow.ToString("yyyyMMddHHmmss") + myFormat.Extension;
 
             File.WriteAllBytes(fileName, TotalByteList.ToArray());
 
@@ -51,7 +51,8 @@ namespace kulturServer.Network
             //need to consider order of operations here, should the connection remain open while writing to file? to db?
             CloseConnection();
 
-            
+            Helpers.Twitter.PostTweetWithImage(this.ROBOT_ID, imageID);
+
             return true;
         }
 

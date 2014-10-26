@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace kulturServer.Models
 {
-    class TwitterAccount
+    public class TwitterAccount
     {
         public int ID { get; set; }
         public string UserID { get; set; }

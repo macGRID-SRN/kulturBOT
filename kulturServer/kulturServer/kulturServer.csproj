@@ -86,6 +86,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\FileOperations.cs" />
     <Compile Include="Helpers\Hashing.cs" />
     <Compile Include="Helpers\Twitter.cs" />
     <Compile Include="Migrations\201410152214416_InitialWithImages.cs" />
