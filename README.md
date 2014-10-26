@@ -27,9 +27,9 @@ This is the first version which we consider an early prototype. This is the *bar
 - [X] Raspberry Pi x2
 - [X] Pi Cam x2
 - [X] WiFi Dongle x2
-- [ ] Fabric for Wacky Inflatable Tube Man
-- [ ] Desktop Fan for said Inflatable Tube Man
-- [ ] WiFi Router - Extended Range Preferred
+- [X] Fabric for Wacky Inflatable Tube Man
+- [X] Desktop Fan for said Inflatable Tube Man
+- [X] WiFi Router - Extended Range Preferred
 - [ ] Standalone Computer/Server to run backend. (server could be run in the cloud but this will heavily effect latency in the future versions)
 - [ ] DB-25 connector/saddle.
 - [ ] Raspberry Pi IO header/saddle.
