@@ -1,5 +1,5 @@
 from ServerHandler import *
-from ThreadHandler import *
+#from ThreadHandler import *
 import platform
 
 if(platform.system() == "Linux"):
@@ -28,7 +28,8 @@ if(not DEBUG):
 
 		def jpg_callback(self,fileName):
 			self.camera.close()
-			ThreadHandler.sendToThread(sendJPG,fileName)
+			#ThreadHandler.sendToThread(sendJPG,fileName)
+			sendJPG(fileName)
 			time.sleep(PICTURE_INTERVAL_SECONDS)
 
 	if __name__ == "__main__":
@@ -38,4 +39,5 @@ if(not DEBUG):
 			
 else:	
 	#test jpg file being sent!
-	ThreadHandler.sendToThreadsendJPG("z8Z9wi8.jpg")
+	sendJPG("z8Z9wi8.jpg")
+	#ThreadHandler.sendToThreadsendJPG("z8Z9wi8.jpg")
