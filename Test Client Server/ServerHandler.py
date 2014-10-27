@@ -1,10 +1,14 @@
 import socket
 from Enumerators import *
+from debug import *
 
 class Connection:
 	HOST, PORT = "192.168.1.5", 5000
 	BUF_SIZE = 4096
 	ROBOT_ID = 1
+	
+	if(DEBUG):
+		HOST = "127.0.0.1"
 	
 	def __init__(self):
 		self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

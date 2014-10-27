@@ -48,7 +48,15 @@ namespace kulturServer.Helpers
             if (string.IsNullOrWhiteSpace(TweetText))
             {
                 //get stuffs from markov factory
-                TweetText = "Markov not added yet!";
+                try
+                {
+                    TweetText = Helpers.Markov.GetNextTwitterPictureMarkov();
+                }
+                catch
+                {
+                    TweetText = "Wasn't able to generate Markov.";
+                    System.Diagnostics.Debug.WriteLine("Generating Markov threw an error.");
+                }
             }
             using (var db = new Models.Database())
             {
@@ -59,7 +67,15 @@ namespace kulturServer.Helpers
 
                 byte[] imageBytes = Helpers.FileOperations.GetFileBytes(image.FileDirectory);
 
-                Status tweet = await twitterContext.TweetWithMediaAsync(TweetText, false, imageBytes);
+                try
+                {
+                    Status tweet = await twitterContext.TweetWithMediaAsync(TweetText, false, imageBytes);
+                }
+                catch(TwitterQueryException e)
+                {
+                    System.Diagnostics.Debug.WriteLine("Something went wrong with tweeting that image!");
+                    throw new Exception();
+                }
             }
         }
 
