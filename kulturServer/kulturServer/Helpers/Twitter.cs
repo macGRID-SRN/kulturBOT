@@ -50,7 +50,7 @@ namespace kulturServer.Helpers
                 //get stuffs from markov factory
                 try
                 {
-                    TweetText = Helpers.Markov.GetNextTwitterMarkov();
+                    TweetText = Helpers.Markov.GetNextTwitterPictureMarkov();
                 }
                 catch
                 {
@@ -67,7 +67,15 @@ namespace kulturServer.Helpers
 
                 byte[] imageBytes = Helpers.FileOperations.GetFileBytes(image.FileDirectory);
 
-                Status tweet = await twitterContext.TweetWithMediaAsync(TweetText, false, imageBytes);
+                try
+                {
+                    Status tweet = await twitterContext.TweetWithMediaAsync(TweetText, false, imageBytes);
+                }
+                catch(TwitterQueryException e)
+                {
+                    System.Diagnostics.Debug.WriteLine("Something went wrong with tweeting that image!");
+                    throw new Exception();
+                }
             }
         }
 

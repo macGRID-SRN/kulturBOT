@@ -11,7 +11,9 @@ namespace kulturServer.Helpers
     {
         private const int MARKOV_CHAIN_SIZE = 6;
         private static Random seed = new Random();
-        private static Markov TwitterGenerator = new Markov(140, MARKOV_CHAIN_SIZE);
+
+        private static Markov GenTwitterTextForPictures = new Markov(117, MARKOV_CHAIN_SIZE);
+        private static Markov GenTwitterText = new Markov(140, MARKOV_CHAIN_SIZE);
 
         CorpusDictionary cD;
         int characterCount;
@@ -68,7 +70,12 @@ namespace kulturServer.Helpers
 
         public static string GetNextTwitterMarkov()
         {
-            return TwitterGenerator.formatText();
+            return GenTwitterText.formatText();
+        }
+
+        public static string GetNextTwitterPictureMarkov()
+        {
+            return GenTwitterTextForPictures.formatText();
         }
 
         class CorpusDictionary

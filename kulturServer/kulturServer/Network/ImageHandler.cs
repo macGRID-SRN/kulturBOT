@@ -59,7 +59,7 @@ namespace kulturServer.Network
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("Wasn't able to tweet image.");
+
             }
 
             return true;
