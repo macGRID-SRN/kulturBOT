@@ -1,5 +1,12 @@
 from ServerHandler import *
 from ThreadHandler import *
+import platform
+
+if(platform.system() == "Linux"):
+        DEBUG = False
+
+else:
+        DEBUG = True
 
 if(not DEBUG):
 	import io
@@ -31,4 +38,4 @@ if(not DEBUG):
 			
 else:	
 	#test jpg file being sent!
-	sendJPG("z8Z9wi8.jpg")
+	ThreadHandler.sendToThreadsendJPG("z8Z9wi8.jpg")
