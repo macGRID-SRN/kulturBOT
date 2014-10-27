@@ -1,4 +1,12 @@
 from ServerHandler import *
+from ThreadHandler import *
+import platform
+
+if(platform.system() == "Linux"):
+        DEBUG = False
+
+else:
+        DEBUG = True
 
 if(not DEBUG):
 	import io
@@ -10,21 +18,24 @@ if(not DEBUG):
 
 	class PictureTaker(object):
 		def __init__(self):
-			self.camera = picamera.PiCamera()
-
+			self.camera = null
+			
 		def takePhotoJPG(self):
+			self.camera = picamera.PiCamera()
 			fileName = "photos/"+str(int(round(time.time() * 1000)))+'pipic.jpg'
 			self.camera.capture(fileName)
-			return fileName
+			self.jpg_callback(fileName)
+
+		def jpg_callback(self,fileName):
+			self.camera.close()
+			ThreadHandler.sendToThread(sendJPG,fileName)
+			time.sleep(PICTURE_INTERVAL_SECONDS)
 
 	if __name__ == "__main__":
 		pT = PictureTaker()
 		while True:
-			fileName = pT.takePhotoJPG()
-			sendJPG(fileName)
-			time.sleep(PICTURE_INTERVAL_SECONDS)
-			#Does the camera have to be turned off here? - does it remain on?
-else:
-	
+			pT.takePhotoJPG()
+			
+else:	
 	#test jpg file being sent!
-	sendJPG("z8Z9wi8.jpg")
+	ThreadHandler.sendToThreadsendJPG("z8Z9wi8.jpg")
