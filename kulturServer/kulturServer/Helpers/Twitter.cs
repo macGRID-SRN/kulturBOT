@@ -47,7 +47,6 @@ namespace kulturServer.Helpers
         {
             if (string.IsNullOrWhiteSpace(TweetText))
             {
-                //get stuffs from markov factory
                 try
                 {
                     TweetText = Helpers.Markov.GetNextTwitterPictureMarkov();

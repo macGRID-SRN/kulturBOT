@@ -47,15 +47,28 @@ namespace kulturServer.Network
                 db.SaveChanges();
                 imageID = image.ID;
             }
-
             System.Diagnostics.Debug.WriteLine("Saved Image to db with ID: " + imageID);
 
-            //need to consider order of operations here, should the connection remain open while writing to file? to db?
+            //should verify that the right thing was sent!
             CloseConnection();
+
+            string TweetText = string.Empty;
+            //get stuffs from markov factory
+            try
+            {
+                TweetText = Helpers.Markov.GetNextTwitterPictureMarkov();
+            }
+            catch
+            {
+                TweetText = "Wasn't able to generate Markov.";
+                System.Diagnostics.Debug.WriteLine("Generating Markov threw an error.");
+            }
+
+            Helpers.FileOperations.ImageOperations.ApplyTextToImage(TweetText, fileName);
 
             try
             {
-                Helpers.Twitter.PostTweetWithImage(this.ROBOT_ID, imageID);
+                Helpers.Twitter.PostTweetWithImage(this.ROBOT_ID, imageID, TweetText);
             }
             catch (Exception e)
             {
