@@ -1,4 +1,5 @@
 from ServerHandler import *
+from ThreadHandler import *
 
 if(not DEBUG):
 	import io
@@ -20,7 +21,7 @@ if(not DEBUG):
 
 		def jpg_callback(self,fileName):
 			self.camera.close()
-			sendJPG(fileName)
+			ThreadHandler.sendToThread(sendJPG,fileName)
 			time.sleep(PICTURE_INTERVAL_SECONDS)
 
 	if __name__ == "__main__":
@@ -28,8 +29,6 @@ if(not DEBUG):
 		while True:
 			pT.takePhotoJPG()
 			
-			#Does the camera have to be turned off here? - does it remain on?
-else:
-	
+else:	
 	#test jpg file being sent!
 	sendJPG("z8Z9wi8.jpg")

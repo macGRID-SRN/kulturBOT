@@ -8,6 +8,8 @@ import threading
             self.target(*self._args)
             
         def sendToThread(self, target *args):
+            self.target = target
+            self._args = args
             self.start()
             
                 
