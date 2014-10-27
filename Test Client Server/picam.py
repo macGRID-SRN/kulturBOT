@@ -10,19 +10,24 @@ if(not DEBUG):
 
 	class PictureTaker(object):
 		def __init__(self):
-			self.camera = picamera.PiCamera()
-
+			self.camera = null
+			
 		def takePhotoJPG(self):
+			self.camera = picamera.PiCamera()
 			fileName = "photos/"+str(int(round(time.time() * 1000)))+'pipic.jpg'
 			self.camera.capture(fileName)
-			return fileName
+			self.jpg_callback(fileName)
+
+		def jpg_callback(self,fileName):
+			self.camera.close()
+			sendJPG(fileName)
+			time.sleep(PICTURE_INTERVAL_SECONDS)
 
 	if __name__ == "__main__":
 		pT = PictureTaker()
 		while True:
-			fileName = pT.takePhotoJPG()
-			sendJPG(fileName)
-			time.sleep(PICTURE_INTERVAL_SECONDS)
+			pT.takePhotoJPG()
+			
 			#Does the camera have to be turned off here? - does it remain on?
 else:
 	
