@@ -13,11 +13,11 @@ if(not DEBUG):
 	import time
 	import picamera
 	import RPi.GPIO as GPIO
-
 	PICTURE_INTERVAL_SECONDS = 60
 
 	class PictureTaker(object):
 		def __init__(self):
+                        self.takingPicture = False
 			self.camera = null
 			sct = ServerCommunicationsThread()
 			
@@ -25,12 +25,18 @@ if(not DEBUG):
 			self.camera = picamera.PiCamera()
 			fileName = "photos/"+str(int(round(time.time() * 1000)))+'pipic.jpg'
 			self.camera.capture(fileName)
+			takingPicture = True
 			self.jpg_callback(fileName)
 
 		def jpg_callback(self,fileName):
 			self.camera.close()
+			takingPicture = False
 			sct.add(sendJPG, fileName)
-			time.sleep(PICTURE_INTERVAL_SECONDS)
+			#removed delay so that function can be called from outside
+
+		#Flag to check if picture is being taken
+		def isTakingPicture(self):
+                        return self.takingPicture
 
 	if __name__ == "__main__":
 		pT = PictureTaker()
