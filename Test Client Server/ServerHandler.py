@@ -29,7 +29,7 @@ class Connection:
 					self.sock.send(buf)
 					self.sock.recv(1)
 					buf = fd.read(Connection.BUF_SIZE)
-				print("Done sending")
+				print "Done sending"
 				self.sock.send(bytearray([255]))
 				#if (readyForHash):
 			return True
@@ -43,7 +43,7 @@ def sendImage(path, ImageType):
 	server = Connection()
 	server.sendFile(path, ComType.ImageSend, ImageType)
 	server.closeConnection()
-	print("Successfully sent image " + path + " to the server")
+	print "Successfully sent image " + path + " to the server"
 
 def sendJPG(path):
 	sendImage(path, ImageType.JPG)

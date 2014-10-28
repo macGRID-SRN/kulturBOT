@@ -12,7 +12,7 @@ class ServerCommunicationsThread(threading.Thread):
                 queue[0].startFunction()
                 queue.pop(0)
         except:
-            print("something went wrong");          
+            print "something went wrong";          
                 
     def add(self, target, *args):
         self.activity = Func(target, *args)
