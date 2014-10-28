@@ -1,10 +1,6 @@
 import socket
 from Enumerators import *
 from debug import *
-#from ThreadHandler import *
-# To send to a new thread "ThreadHandler.sendToThread(func, args)"
-
-#args is an array
 
 class Connection:
 	HOST, PORT = "192.168.1.5", 5000
