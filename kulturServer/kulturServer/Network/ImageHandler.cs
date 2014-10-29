@@ -11,21 +11,35 @@ namespace kulturServer.Network
     class ImageHandler : Handler
     {
         public const string fileDirectory = @"kulturbotIMG\";
+        public const int IMAGE_SEND_MAX_TRIES = 5;
+        public const int HASH_LENGTH = 16;
+
+        public ImageFormat myFormat;
 
         public ImageHandler(byte[] PacketHeader, TcpClient tcpClient) : base(PacketHeader, tcpClient) { }
 
         public override bool PerformAction()
         {
-            ImageFormat myFormat = ImageFormat.GetImageFormat(this.PacketHeader[2]);
+            this.myFormat = ImageFormat.GetImageFormat(this.PacketHeader[2]);
             this.SendConfirmPacket();
 
-            var TotalByteList = new List<byte>();
+            var hash = this.GetImageHash();
 
-            GetAllBytes(TotalByteList);
+            var bytes = this.GetWholeImage(hash);
 
-            string fileName = GetImgDir() + DateTime.UtcNow.ToString("yyyyMMddHHmmss") + myFormat.Extension;
+            //at this point we know the image was gotten properly (or not).
+            CloseConnection();
 
-            File.WriteAllBytes(fileName, TotalByteList.ToArray());
+            SaveToDiskDbAndTweet(bytes);
+
+            return true;
+        }
+
+        private void SaveToDiskDbAndTweet(byte[] bytes)
+        {
+            string fileName = this.GetFileName();
+
+            File.WriteAllBytes(fileName, bytes);
             System.Diagnostics.Debug.WriteLine("Wrote file: " + fileName);
 
             int imageID;
@@ -47,10 +61,8 @@ namespace kulturServer.Network
                 db.SaveChanges();
                 imageID = image.ID;
             }
-            System.Diagnostics.Debug.WriteLine("Saved Image to db with ID: " + imageID);
 
-            //should verify that the right thing was sent!
-            CloseConnection();
+            System.Diagnostics.Debug.WriteLine("Saved Image to db with ID: " + imageID);
 
             string TweetText = string.Empty;
             //get stuffs from markov factory
@@ -74,11 +86,45 @@ namespace kulturServer.Network
             {
 
             }
-
-            return true;
         }
 
-        public string GetImgDir()
+        private string GetFileName()
+        {
+            return GetImgDir() + DateTime.UtcNow.ToString("yyyyMMddHHmmss") + this.myFormat.Extension;
+        }
+
+        private byte[] GetWholeImage(byte[] hash)
+        {
+            this.SendConfirmPacket();
+            var counter = 0;
+            while (true)
+            {
+                List<byte> tempList = new List<byte>();
+
+                GetAllBytes(tempList);
+
+                var possibleImage = tempList.ToArray();
+
+                var tempHash = Helpers.Hashing.GetMd5HashBytes(possibleImage);
+
+                if (tempHash.SequenceEqual(hash))
+                    return possibleImage;
+                if (++counter >= IMAGE_SEND_MAX_TRIES)
+                    break;
+            }
+
+            throw new Exception("Couldn't transfer file properly!");
+        }
+
+        //not yet implemented
+        private byte[] GetImageHash()
+        {
+            var bytes = this.GetByteBurstOfSetSize(HASH_LENGTH);
+
+            return bytes;
+        }
+
+        private string GetImgDir()
         {
             string rootC = @"c:\";
             if (!Directory.Exists(rootC + fileDirectory))

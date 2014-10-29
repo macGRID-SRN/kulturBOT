@@ -1,7 +1,6 @@
 from ServerHandler import *
 from ThreadHandler import *
 
-
 if(not DEBUG):
         import io
         import time
