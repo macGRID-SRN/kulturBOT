@@ -26,16 +26,24 @@ class Connection:
 			self.sock.send(self.getMD5OfFile(path))
 			cont = self.sock.recv(1)
 			if (cont):
-				with open(path, 'rb') as fd:
-					buf = fd.read(Connection.BUF_SIZE)
-					while(buf):
-						self.sock.send(buf)
-						self.sock.recv(1)
+				count = 0;
+				while(True):
+					with open(path, 'rb') as fd:
 						buf = fd.read(Connection.BUF_SIZE)
-					print "Done sending file!"
-					self.sendConfirmPacket()
-					#if (readyForHash):
-				return True
+						while(buf):
+							self.sock.send(buf)
+							self.sock.recv(1)
+							buf = fd.read(Connection.BUF_SIZE)
+						print "Done sending file!"
+						self.sendConfirmPacket()
+						count += 1
+					if(self.sock.recv(1)):
+						return True
+					
+					print "Send failed! Attempt:", count
+					if(count >=5):
+						print "Max send tries reached"
+						return False
 		return False
 
 	def sendConfirmPacket(self):
@@ -48,14 +56,9 @@ class Connection:
 		hasher = hashlib.md5()
 		with open(path, 'rb') as afile:
 			buf = afile.read(self.BUF_SIZE)
-			count = 0
 			while (buf):
-				count += len(buf)
-				print len(buf), count
 				hasher.update(buf)
 				buf = afile.read(self.BUF_SIZE)
-		for i in bytearray.fromhex(hasher.hexdigest()):
-			print i
 		return bytearray.fromhex(hasher.hexdigest())
 		
 #Onto functions that can't be put ABOVE THE CLASS BECAUSE STUPID REASONS PYTHON...

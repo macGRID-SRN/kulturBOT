@@ -112,6 +112,12 @@ namespace kulturServer.Network
             this.clientStream.Flush();
         }
 
+        protected void SendFailPacket()
+        {
+            this.clientStream.WriteByte(0);
+            this.clientStream.Flush();
+        }
+
         protected void CloseConnection()
         {
             if (this.tcpClient.Connected)

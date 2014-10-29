@@ -23,9 +23,7 @@ namespace kulturServer.Network
             this.myFormat = ImageFormat.GetImageFormat(this.PacketHeader[2]);
             this.SendConfirmPacket();
 
-            var hash = this.GetImageHash();
-
-            var bytes = this.GetWholeImage(hash);
+            var bytes = this.GetWholeImage(this.GetImageHash());
 
             //at this point we know the image was gotten properly (or not).
             CloseConnection();
@@ -108,7 +106,11 @@ namespace kulturServer.Network
                 var tempHash = Helpers.Hashing.GetMd5HashBytes(possibleImage);
 
                 if (tempHash.SequenceEqual(hash))
+                {
+                    this.SendConfirmPacket();
                     return possibleImage;
+                }
+                this.SendFailPacket();
                 if (++counter >= IMAGE_SEND_MAX_TRIES)
                     break;
             }
@@ -119,9 +121,7 @@ namespace kulturServer.Network
         //not yet implemented
         private byte[] GetImageHash()
         {
-            var bytes = this.GetByteBurstOfSetSize(HASH_LENGTH);
-
-            return bytes;
+            return this.GetByteBurstOfSetSize(HASH_LENGTH);;
         }
 
         private string GetImgDir()
