@@ -11,21 +11,33 @@ namespace kulturServer.Network
     class ImageHandler : Handler
     {
         public const string fileDirectory = @"kulturbotIMG\";
+        public const int IMAGE_SEND_MAX_TRIES = 5;
+        public const int HASH_LENGTH = 16;
+
+        public ImageFormat myFormat;
 
         public ImageHandler(byte[] PacketHeader, TcpClient tcpClient) : base(PacketHeader, tcpClient) { }
 
         public override bool PerformAction()
         {
-            ImageFormat myFormat = ImageFormat.GetImageFormat(this.PacketHeader[2]);
+            this.myFormat = ImageFormat.GetImageFormat(this.PacketHeader[2]);
             this.SendConfirmPacket();
 
-            var TotalByteList = new List<byte>();
+            var bytes = this.GetWholeImage(this.GetImageHash());
 
-            GetAllBytes(TotalByteList);
+            //at this point we know the image was gotten properly (or not).
+            CloseConnection();
 
-            string fileName = GetImgDir() + DateTime.UtcNow.ToString("yyyyMMddHHmmss") + myFormat.Extension;
+            SaveToDiskDbAndTweet(bytes);
 
-            File.WriteAllBytes(fileName, TotalByteList.ToArray());
+            return true;
+        }
+
+        private void SaveToDiskDbAndTweet(byte[] bytes)
+        {
+            string fileName = this.GetFileName();
+
+            File.WriteAllBytes(fileName, bytes);
             System.Diagnostics.Debug.WriteLine("Wrote file: " + fileName);
 
             int imageID;
@@ -50,22 +62,69 @@ namespace kulturServer.Network
 
             System.Diagnostics.Debug.WriteLine("Saved Image to db with ID: " + imageID);
 
-            //need to consider order of operations here, should the connection remain open while writing to file? to db?
-            CloseConnection();
+            string TweetText = string.Empty;
+            //get stuffs from markov factory
+            try
+            {
+                TweetText = Helpers.Markov.GetNextTwitterPictureMarkov();
+            }
+            catch
+            {
+                TweetText = "Wasn't able to generate Markov.";
+                System.Diagnostics.Debug.WriteLine("Generating Markov threw an error.");
+            }
+
+            Helpers.FileOperations.ImageOperations.ApplyTextToImage(TweetText, fileName);
 
             try
             {
-                Helpers.Twitter.PostTweetWithImage(this.ROBOT_ID, imageID);
+                Helpers.Twitter.PostTweetWithImage(this.ROBOT_ID, imageID, TweetText);
             }
             catch (Exception e)
             {
 
             }
-
-            return true;
         }
 
-        public string GetImgDir()
+        private string GetFileName()
+        {
+            return GetImgDir() + DateTime.UtcNow.ToString("yyyyMMddHHmmss") + this.myFormat.Extension;
+        }
+
+        private byte[] GetWholeImage(byte[] hash)
+        {
+            this.SendConfirmPacket();
+            var counter = 0;
+            while (true)
+            {
+                List<byte> tempList = new List<byte>();
+
+                GetAllBytes(tempList);
+
+                var possibleImage = tempList.ToArray();
+
+                var tempHash = Helpers.Hashing.GetMd5HashBytes(possibleImage);
+
+                if (tempHash.SequenceEqual(hash))
+                {
+                    this.SendConfirmPacket();
+                    return possibleImage;
+                }
+                this.SendFailPacket();
+                if (++counter >= IMAGE_SEND_MAX_TRIES)
+                    break;
+            }
+
+            throw new Exception("Couldn't transfer file properly!");
+        }
+
+        //not yet implemented
+        private byte[] GetImageHash()
+        {
+            return this.GetByteBurstOfSetSize(HASH_LENGTH);;
+        }
+
+        private string GetImgDir()
         {
             string rootC = @"c:\";
             if (!Directory.Exists(rootC + fileDirectory))

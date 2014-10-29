@@ -47,6 +47,20 @@ namespace kulturServer.Network
             System.Diagnostics.Debug.WriteLine("Received packet of " + myBites.Count + " length.");
         }
 
+        protected byte[] GetAllBytes()
+        {
+            List<byte> myBites = new List<byte>();
+            while (true)
+            {
+                if (GetByteBurstOfDefaultSize(myBites) == 0)
+                {
+                    break;
+                }
+            }
+            System.Diagnostics.Debug.WriteLine("Received packet of " + myBites.Count + " length.");
+            return myBites.ToArray();
+        }
+
         protected int GetByteBurstOfDefaultSize(List<byte> myBites)
         {
             byte[] message = new byte[BUF_SIZE];
@@ -67,14 +81,40 @@ namespace kulturServer.Network
             if (bytesRead == 1 && message[0] == CONFIRM_BYTE)
                 return 0;
 
-            myBites.AddRange(message);
+            myBites.AddRange(message.Take(bytesRead));
+
+            System.Diagnostics.Debug.WriteLine(bytesRead);
 
             return bytesRead;
+        }
+
+        protected byte[] GetByteBurstOfSetSize(int size)
+        {
+            byte[] message = new byte[size];
+
+            int bytesRead = 0;
+
+            try
+            {
+                bytesRead = clientStream.Read(message, 0, size);
+            }
+            catch
+            {
+                throw new Exception("Something with the socket or comms went wrong!");
+            }
+
+            return message;
         }
 
         protected void SendConfirmPacket()
         {
             this.clientStream.WriteByte(CONFIRM_BYTE);
+            this.clientStream.Flush();
+        }
+
+        protected void SendFailPacket()
+        {
+            this.clientStream.WriteByte(0);
             this.clientStream.Flush();
         }
 

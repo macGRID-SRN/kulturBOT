@@ -13,7 +13,12 @@ namespace GeneralTest
             {
                 string markov = kulturServer.Helpers.Markov.GetNextTwitterMarkov();
                 Assert.IsTrue(markov.Length <= 140);
-                System.Diagnostics.Debug.WriteLine(markov.Length + " " + markov);
+                //System.Diagnostics.Debug.WriteLine(markov.Length + " " + markov);
+            }
+
+            foreach (byte myByte in kulturServer.Helpers.Hashing.GetMd5HashBytes(new byte[] { 12, 1 }))
+            {
+                System.Diagnostics.Debug.WriteLine(myByte);
             }
         }
     }

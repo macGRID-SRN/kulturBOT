@@ -47,7 +47,6 @@ namespace kulturServer.Helpers
         {
             if (string.IsNullOrWhiteSpace(TweetText))
             {
-                //get stuffs from markov factory
                 try
                 {
                     TweetText = Helpers.Markov.GetNextTwitterPictureMarkov();
@@ -65,13 +64,24 @@ namespace kulturServer.Helpers
 
                 var image = db.Images.FirstOrDefault(l => l.ID == ImageID);
 
-                byte[] imageBytes = Helpers.FileOperations.GetFileBytes(image.FileDirectory);
+                byte[] imageBytes;
+
+                System.Diagnostics.Debug.WriteLine(Helpers.FileOperations.TextOverlayString(image.FileDirectory));
+
+                if (Helpers.FileOperations.TextOverlayExists(image.FileDirectory))
+                {
+                    imageBytes = Helpers.FileOperations.GetFileBytes(Helpers.FileOperations.TextOverlayString(image.FileDirectory));
+                }
+                else
+                {
+                    imageBytes = Helpers.FileOperations.GetFileBytes(image.FileDirectory);
+                }
 
                 try
                 {
                     Status tweet = await twitterContext.TweetWithMediaAsync(TweetText, false, imageBytes);
                 }
-                catch(TwitterQueryException e)
+                catch (TwitterQueryException e)
                 {
                     System.Diagnostics.Debug.WriteLine("Something went wrong with tweeting that image!");
                     throw new Exception();

@@ -72,6 +72,7 @@ namespace kulturServer.Network
 
         public static CommType ImageHandler = new CommType(0, typeof(ImageHandler));
 
+
         private CommType(byte value, Type t)
         {
             //what is this magic?
