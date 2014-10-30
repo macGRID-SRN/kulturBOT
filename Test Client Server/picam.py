@@ -11,8 +11,8 @@ if(not DEBUG):
         class PictureTaker(object):
                 def __init__(self):
                         self.takingPicture = False
-                        self.camera = null
-                        sct = ServerCommunicationsThread()
+                        self.camera = None
+                        self.sct = ServerCommunicationsThread()
                         self.fileNameQueue = []
                         
                 def takePhotoJPG(self):
@@ -25,12 +25,12 @@ if(not DEBUG):
                 def jpg_callback(self,fileName):
                         self.camera.close()
                         takingPicture = False
-                        if(sct.is_alive()):
+                        if(self.sct.is_alive()):
                                 self.fileNameQueue.append(fileName)
                         else:
                                 self.fileNameQueue.append(fileName)
                                 for file in fileNameQueue:
-                                        sct.add(sendJPG, file)
+                                        self.sct.add(sendJPG, file)
                                 self.fileNameQueue = []
                         #removed delay so that function can be called from outside
 

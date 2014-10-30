@@ -118,7 +118,6 @@ namespace kulturServer.Network
             throw new Exception("Couldn't transfer file properly!");
         }
 
-        //not yet implemented
         private byte[] GetImageHash()
         {
             return this.GetByteBurstOfSetSize(HASH_LENGTH);;
