@@ -6,6 +6,7 @@ if(not DEBUG):
         import time
         import picamera
         import RPi.GPIO as GPIO
+		from time import sleep
         PICTURE_INTERVAL_SECONDS = 60
 
         class PictureTaker(object):
@@ -16,15 +17,15 @@ if(not DEBUG):
                         self.fileNameQueue = []
                         
                 def takePhotoJPG(self):
+						self.takingPicture = True
                         self.camera = picamera.PiCamera()
                         fileName = "photos/"+str(int(round(time.time() * 1000)))+'pipic.jpg'
                         self.camera.capture(fileName)
-                        takingPicture = True
                         self.jpg_callback(fileName)
 
                 def jpg_callback(self,fileName):
                         self.camera.close()
-                        takingPicture = False
+                        self.takingPicture = False
                         if(self.sct.is_alive()):
                                 self.fileNameQueue.append(fileName)
                         else:
@@ -43,6 +44,7 @@ if(not DEBUG):
                 while True:
                         if(not(pT.isTakingPicture())):
                                 pT.takePhotoJPG()
+								sleep(PICTURE_INTERVAL_SECONDS)
                         
 else:   
         #test jpg file being sent!
