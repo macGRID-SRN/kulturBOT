@@ -124,6 +124,7 @@ namespace kulturServer.Network
                     break;
             }
 
+            System.Diagnostics.Debug.WriteLine("Failed to transfer file correctly.");
             throw new Exception("Couldn't transfer file properly!");
         }
 
