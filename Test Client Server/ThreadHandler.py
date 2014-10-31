@@ -9,10 +9,11 @@ class ServerCommunicationsThread(threading.Thread):
     def run(self):
         try:
             for i in range(len(self.queue) - 1):
-                queue[0].startFunction()
-                queue.pop(0)
-        except:
-            print "Something went wrong with starting thread.";          
+                self.queue[i].startFunction()
+            self.queue = []
+            
+        except Exception as e:
+            print e;          
                 
     def add(self, target, *args):
         self.activity = Func(target, *args)

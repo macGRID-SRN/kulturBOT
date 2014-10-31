@@ -44,7 +44,7 @@ if(not DEBUG):
                 while True:
                         if(not(pT.isTakingPicture())):
                                 pT.takePhotoJPG()
-								sleep(PICTURE_INTERVAL_SECONDS)
+
                         
 else:   
         #test jpg file being sent!
