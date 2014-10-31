@@ -6,6 +6,7 @@ if(not DEBUG):
         import time
         import picamera
         import RPi.GPIO as GPIO
+		import time
         PICTURE_INTERVAL_SECONDS = 60
 
         class PictureTaker(object):
@@ -43,10 +44,12 @@ if(not DEBUG):
 
         if __name__ == "__main__":
                 pT = PictureTaker()
+				count = 0
                 while True:
                         if(not(pT.isTakingPicture())):
                                 pT.takePhotoJPG()
-
+						time.sleep(60)
+						count+=1
                         
 else:   
         #test jpg file being sent!
