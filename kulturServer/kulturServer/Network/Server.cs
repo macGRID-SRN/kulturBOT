@@ -14,11 +14,22 @@ namespace kulturServer.Network
         private TcpListener tcpListener;
         private Thread listenThread;
 
+        private const uint TWEET_START_DELAY_SECONDS = 60;
+        private const uint TWEET_PERIOD_DELAY_SECONDS = 360;
+
+        private static Timer t = new Timer(MakeMarkovTextTweet, null, TWEET_START_DELAY_SECONDS * 1000, TWEET_PERIOD_DELAY_SECONDS * 1000);
+
         public Server()
         {
             this.tcpListener = new TcpListener(IPAddress.Any, 5000);
             this.listenThread = new Thread(new ThreadStart(ListenForClients));
             this.listenThread.Start();
+        }
+
+        private static void MakeMarkovTextTweet(Object state)
+        {
+            System.Diagnostics.Debug.WriteLine("Sending text tweet from timer.");
+            Helpers.Twitter.PostTweetText();
         }
 
         private void ListenForClients()
@@ -49,7 +60,7 @@ namespace kulturServer.Network
             {
                 infoBytesRead = clientStream.Read(messageInfo, 0, 4);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine("Client didn't send the 4 init bytes correctly");
                 Handlers.ExceptionLogger.LogException(e, Models.Fault.Client);

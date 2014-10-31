@@ -9,8 +9,22 @@ namespace kulturServer.Helpers
 {
     public static class Twitter
     {
-        public static async void PostTweetText(int iRobot, string TweetText = "")
+        public static async void PostTweetText(int iRobot = 1, string TweetText = "")
         {
+            if (string.IsNullOrWhiteSpace(TweetText))
+            {
+                try
+                {
+                    TweetText = Helpers.Markov.GetNextTwitterMarkov();
+                }
+                catch (Exception e)
+                {
+                    TweetText = "Wasn't able to generate Markov.";
+                    System.Diagnostics.Debug.WriteLine("Generating Markov threw an error.");
+                    Handlers.ExceptionLogger.LogException(e, Models.Fault.Server);
+                }
+            }
+
             using (var db = new Models.Database())
             {
                 try
@@ -18,7 +32,7 @@ namespace kulturServer.Helpers
                     string UserID;
                     var twitterContext = GetContext(iRobot, out UserID);
                     Status response = await twitterContext.TweetAsync(TweetText);
-
+                    System.Diagnostics.Debug.WriteLine("Tweet sent successfully: " + TweetText);
                 }
                 //catch (TwitterQueryException e)
                 //{
@@ -38,8 +52,8 @@ namespace kulturServer.Helpers
                 //}
                 catch (Exception e)
                 {
+                    Handlers.ExceptionLogger.LogException(e, Models.Fault.Unknown);
                 }
-                db.SaveChanges();
             }
         }
 
@@ -51,10 +65,11 @@ namespace kulturServer.Helpers
                 {
                     TweetText = Helpers.Markov.GetNextTwitterPictureMarkov();
                 }
-                catch
+                catch (Exception e)
                 {
                     TweetText = "Wasn't able to generate Markov.";
                     System.Diagnostics.Debug.WriteLine("Generating Markov threw an error.");
+                    Handlers.ExceptionLogger.LogException(e, Models.Fault.Server);
                 }
             }
             using (var db = new Models.Database())
@@ -80,6 +95,7 @@ namespace kulturServer.Helpers
                 try
                 {
                     Status tweet = await twitterContext.TweetWithMediaAsync(TweetText, false, imageBytes);
+                    System.Diagnostics.Debug.WriteLine("Tweet with image sent successfully: " + TweetText);
                 }
                 catch (TwitterQueryException e)
                 {
