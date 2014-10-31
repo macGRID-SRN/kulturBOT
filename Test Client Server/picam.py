@@ -28,9 +28,12 @@ if(not DEBUG):
                         if(self.sct.is_alive()):
                                 self.fileNameQueue.append(fileName)
                         else:
+				sct = ServerCommunicationsThread()
                                 self.fileNameQueue.append(fileName)
                                 for file in self.fileNameQueue:
-                                        self.sct.add(sendJPG, file)
+                                        print file
+					self.sct.add(sendJPG, file)
+				sct.start()
                                 self.fileNameQueue = []
                         #removed delay so that function can be called from outside
 
