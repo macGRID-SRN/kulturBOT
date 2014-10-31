@@ -4,7 +4,9 @@ import threading
 
 class ServerCommunicationsThread(threading.Thread):
     def __init__(self):
+        super(ServerCommunicationsThread, self).__init__()
         self.queue = []
+        self.daemon = True
                 
     def run(self):
         try:
