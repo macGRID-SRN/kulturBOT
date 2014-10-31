@@ -1,4 +1,5 @@
 import threading
+import subprocess
 
 #Queue functions to be thrown into the server thread
 
@@ -26,6 +27,14 @@ class ServerCommunicationsThread(threading.Thread):
 
 class StaticList:
     queue = []
+
+class SpeechThread(threading.Thread):
+    def __init__(self, text):
+        super(SpeechThread, self).__init__()
+        self.text = text
+    
+        def run(self):
+            subprocess.call('echo ' + text + '| festival --tts', shell = True)
 
 #Future class to be implemented to check which threads are alive/dead
 class ThreadHandler(threading.Thread):
