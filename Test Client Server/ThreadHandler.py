@@ -5,22 +5,28 @@ import threading
 class ServerCommunicationsThread(threading.Thread):
     def __init__(self):
         super(ServerCommunicationsThread, self).__init__()
-        self.queue = []
         self.daemon = True
-                
+        
     def run(self):
         try:
-            for i in range(len(self.queue)):
-                self.queue[i].startFunction()
-            self.queue = []
+            print "run called"
+            print "length of queue is: " + str(len(StaticList.queue))
+            for i in range(len(StaticList.queue)):
+                print "in loop"
+                StaticList.queue[i].startFunction()
+            StaticList.queue = []
             
         except Exception as e:
             print str(e);          
-                
+
     def add(self, target, *args):
         self.activity = Func(target, *args)
-        self.queue.append(self.activity)
-        print "Activity added"
+        #damn pythong make all field variables in constructor static class variables..
+        StaticList.queue.append(self.activity)
+        print "length of queue after adding is: " + str(len(StaticList.queue))
+
+class StaticList:
+    queue = []
 
 #Future class to be implemented to check which threads are alive/dead
 class ThreadHandler(threading.Thread):
@@ -29,7 +35,7 @@ class ThreadHandler(threading.Thread):
     def getActiveThreads(self):
         return threading.enumerate()
 
-class Func(object):
+class Func:
     def __init__(self, target, *args):
         self.target = target
         self._args = args
