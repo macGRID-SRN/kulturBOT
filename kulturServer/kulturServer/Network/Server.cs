@@ -49,9 +49,10 @@ namespace kulturServer.Network
             {
                 infoBytesRead = clientStream.Read(messageInfo, 0, 4);
             }
-            catch
+            catch(Exception e)
             {
                 System.Diagnostics.Debug.WriteLine("Client didn't send the 4 init bytes correctly");
+                Handlers.ExceptionLogger.LogException(e, Models.Fault.Client);
             }
 
             //find the right type of Handler to make

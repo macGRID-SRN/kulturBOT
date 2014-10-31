@@ -84,7 +84,7 @@ namespace kulturServer.Helpers
                 catch (TwitterQueryException e)
                 {
                     System.Diagnostics.Debug.WriteLine("Something went wrong with tweeting that image!");
-                    throw new Exception();
+                    Handlers.ExceptionLogger.LogException(e, Models.Fault.Unknown);
                 }
             }
         }
