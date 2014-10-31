@@ -73,9 +73,9 @@ namespace kulturServer.Network
                 if (bytesRead != 1)
                     this.SendConfirmPacket();
             }
-            catch
+            catch(Exception e)
             {
-                throw new Exception("Something with the socket or comms went wrong!");
+                Handlers.ExceptionLogger.LogException(e, Models.Fault.Client);
             }
 
             if (bytesRead == 1 && message[0] == CONFIRM_BYTE)
@@ -98,9 +98,9 @@ namespace kulturServer.Network
             {
                 bytesRead = clientStream.Read(message, 0, size);
             }
-            catch
+            catch (Exception e)
             {
-                throw new Exception("Something with the socket or comms went wrong!");
+                Handlers.ExceptionLogger.LogException(e, Models.Fault.Client);
             }
 
             return message;
@@ -123,6 +123,5 @@ namespace kulturServer.Network
             if (this.tcpClient.Connected)
                 this.tcpClient.Close();
         }
-
     }
 }

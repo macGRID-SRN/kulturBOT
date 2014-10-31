@@ -23,13 +23,19 @@ namespace kulturServer.Network
             this.myFormat = ImageFormat.GetImageFormat(this.PacketHeader[2]);
             this.SendConfirmPacket();
 
-            var bytes = this.GetWholeImage(this.GetImageHash());
+            try
+            {
+                var bytes = this.GetWholeImage(this.GetImageHash());
 
-            //at this point we know the image was gotten properly (or not).
-            CloseConnection();
+                //at this point we know the image was gotten properly (or not).
+                CloseConnection();
 
-            SaveToDiskDbAndTweet(bytes);
-
+                SaveToDiskDbAndTweet(bytes);
+            }
+            catch (Exception e)
+            {
+                Handlers.ExceptionLogger.LogException(e, Models.Fault.Client);
+            }
             return true;
         }
 
@@ -68,10 +74,11 @@ namespace kulturServer.Network
             {
                 TweetText = Helpers.Markov.GetNextTwitterPictureMarkov();
             }
-            catch
+            catch (Exception e)
             {
                 TweetText = "Wasn't able to generate Markov.";
                 System.Diagnostics.Debug.WriteLine("Generating Markov threw an error.");
+                Handlers.ExceptionLogger.LogException(e, Models.Fault.Server);
             }
 
             Helpers.FileOperations.ImageOperations.ApplyTextToImage(TweetText, fileName);
@@ -82,8 +89,9 @@ namespace kulturServer.Network
             }
             catch (Exception e)
             {
-
+                Handlers.ExceptionLogger.LogException(e, Models.Fault.Server);
             }
+
         }
 
         private string GetFileName()
@@ -107,6 +115,7 @@ namespace kulturServer.Network
 
                 if (tempHash.SequenceEqual(hash))
                 {
+                    System.Diagnostics.Debug.WriteLine("File was received correctly.");
                     this.SendConfirmPacket();
                     return possibleImage;
                 }
@@ -115,13 +124,13 @@ namespace kulturServer.Network
                     break;
             }
 
+            System.Diagnostics.Debug.WriteLine("Failed to transfer file correctly.");
             throw new Exception("Couldn't transfer file properly!");
         }
 
-        //not yet implemented
         private byte[] GetImageHash()
         {
-            return this.GetByteBurstOfSetSize(HASH_LENGTH);;
+            return this.GetByteBurstOfSetSize(HASH_LENGTH); ;
         }
 
         private string GetImgDir()

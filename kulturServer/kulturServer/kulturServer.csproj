@@ -87,6 +87,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Handlers\ExceptionLogger.cs" />
     <Compile Include="Helpers\FileOperations.cs" />
     <Compile Include="Helpers\Hashing.cs" />
     <Compile Include="Helpers\Markov.cs" />
@@ -99,8 +100,13 @@
     <Compile Include="Migrations\201410221620339_AddTwitterAccounts.Designer.cs">
       <DependentUpon>201410221620339_AddTwitterAccounts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410310455230_ExceptionLogging.cs" />
+    <Compile Include="Migrations\201410310455230_ExceptionLogging.Designer.cs">
+      <DependentUpon>201410310455230_ExceptionLogging.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Database.cs" />
+    <Compile Include="Models\ExceptionLog.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\iRobotCreate.cs" />
     <Compile Include="Models\TwitterAccount.cs" />
@@ -111,7 +117,9 @@
     <Compile Include="Network\Server.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -120,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410221620339_AddTwitterAccounts.resx">
       <DependentUpon>201410221620339_AddTwitterAccounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410310455230_ExceptionLogging.resx">
+      <DependentUpon>201410310455230_ExceptionLogging.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

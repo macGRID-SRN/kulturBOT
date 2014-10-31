@@ -33,18 +33,26 @@ namespace kulturServer.Helpers
             {
                 Font futura = new Font("FuturaExtended", 20);
 
-                var image = Image.FromFile(fileName);
-                var e = Graphics.FromImage(image);
+                try
+                {
+                    var image = Image.FromFile(fileName);
+                    var e = Graphics.FromImage(image);
 
-                //text should be centered!
-                e.DrawString(text, futura, Brushes.White, new PointF(0, 0));
+                    //text should be centered!
+                    e.DrawString(text, futura, Brushes.White, new PointF(0, 0));
 
-                //there has to be a better way..
-                string temp = System.IO.Path.GetDirectoryName(fileName) + @"\" + System.IO.Path.GetFileNameWithoutExtension(fileName) + OVERLAY_FLAG + ".jpg";
+                    //there has to be a better way..
+                    string temp = System.IO.Path.GetDirectoryName(fileName) + @"\" + System.IO.Path.GetFileNameWithoutExtension(fileName) + OVERLAY_FLAG + ".jpg";
 
-                System.Diagnostics.Debug.WriteLine("Added file with text overlay: " + temp);
+                    System.Diagnostics.Debug.WriteLine("Added file with text overlay: " + temp);
 
-                image.Save(temp, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    image.Save(temp, System.Drawing.Imaging.ImageFormat.Jpeg);
+                }
+                catch (OutOfMemoryException e)
+                {
+                    System.Diagnostics.Debug.WriteLine("Couldn't open file to apply text!");
+                    Handlers.ExceptionLogger.LogException(e, Models.Fault.Server);
+                }
             }
         }
     }

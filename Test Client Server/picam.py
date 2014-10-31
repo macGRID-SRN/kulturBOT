@@ -11,26 +11,29 @@ if(not DEBUG):
         class PictureTaker(object):
                 def __init__(self):
                         self.takingPicture = False
-                        self.camera = null
-                        sct = ServerCommunicationsThread()
+                        self.camera = None
+                        self.sct = ServerCommunicationsThread()
                         self.fileNameQueue = []
                         
                 def takePhotoJPG(self):
+			self.takingPicture = True
                         self.camera = picamera.PiCamera()
                         fileName = "photos/"+str(int(round(time.time() * 1000)))+'pipic.jpg'
                         self.camera.capture(fileName)
-                        takingPicture = True
                         self.jpg_callback(fileName)
 
                 def jpg_callback(self,fileName):
                         self.camera.close()
-                        takingPicture = False
-                        if(sct.is_alive()):
+                        self.takingPicture = False
+                        if(self.sct.is_alive()):
                                 self.fileNameQueue.append(fileName)
                         else:
+				sct = ServerCommunicationsThread()
                                 self.fileNameQueue.append(fileName)
-                                for file in fileNameQueue:
-                                        sct.add(sendJPG, file)
+                                for file in self.fileNameQueue:
+                                        print file
+					self.sct.add(sendJPG, file)
+				sct.start()
                                 self.fileNameQueue = []
                         #removed delay so that function can be called from outside
 
@@ -43,7 +46,8 @@ if(not DEBUG):
                 while True:
                         if(not(pT.isTakingPicture())):
                                 pT.takePhotoJPG()
+
                         
 else:   
         #test jpg file being sent!
-        sendJPG("z8Z9wi8.jpg")
+        sendJPG("test.jpg")

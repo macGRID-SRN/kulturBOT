@@ -1,22 +1,40 @@
 import threading
+import subprocess
 
 #Queue functions to be thrown into the server thread
 
 class ServerCommunicationsThread(threading.Thread):
     def __init__(self):
-        self.queue = []
-                
+        super(ServerCommunicationsThread, self).__init__()
+        self.daemon = True
+        
     def run(self):
         try:
-            for i in range(len(self.queue) - 1):
-                queue[0].startFunction()
-                queue.pop(0)
-        except:
-            print "Something went wrong with starting thread.";          
-                
+            print "run called"
+            print "length of queue is: " + str(len(StaticList.queue))
+            for i in range(len(StaticList.queue)):
+                print "in loop"
+                StaticList.queue[i].startFunction()
+            StaticList.queue = []
+            
+        except Exception as e:
+            print str(e);          
+
     def add(self, target, *args):
         self.activity = Func(target, *args)
-        self.queue.append(self.activity)
+        #damn pythong make all field variables in constructor static class variables..
+        StaticList.queue.append(self.activity)
+
+class StaticList:
+    queue = []
+
+class SpeechThread(threading.Thread):
+    def __init__(self, text):
+        super(SpeechThread, self).__init__()
+        self.text = text
+    
+        def run(self):
+            subprocess.call('echo ' + text + '| festival --tts', shell = True)
 
 #Future class to be implemented to check which threads are alive/dead
 class ThreadHandler(threading.Thread):
@@ -25,10 +43,11 @@ class ThreadHandler(threading.Thread):
     def getActiveThreads(self):
         return threading.enumerate()
 
-class Func(object):
+class Func:
     def __init__(self, target, *args):
         self.target = target
         self._args = args
 
     def startFunction(self):
+        print "function started"
         self.target(*self._args)
