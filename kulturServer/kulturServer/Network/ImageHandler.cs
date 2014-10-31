@@ -107,6 +107,7 @@ namespace kulturServer.Network
 
                 if (tempHash.SequenceEqual(hash))
                 {
+                    System.Diagnostics.Debug.WriteLine("File was received correctly");
                     this.SendConfirmPacket();
                     return possibleImage;
                 }
