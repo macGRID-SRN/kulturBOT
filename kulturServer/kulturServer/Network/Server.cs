@@ -16,8 +16,14 @@ namespace kulturServer.Network
 
         private const uint TWEET_START_DELAY_SECONDS = 60;
         private const uint TWEET_PERIOD_DELAY_SECONDS = 360;
+        private const int TWEET_PERIOD_MIN_SECONDS = 100;
+        private const int TWEET_PERIOD_MAX_SECONDS = 600;
+
+        private const bool TWEET_RANDOM_INTERVAL = true;
 
         private static Timer t = new Timer(MakeMarkovTextTweet, null, TWEET_START_DELAY_SECONDS * 1000, TWEET_PERIOD_DELAY_SECONDS * 1000);
+
+        private static Random randy = new Random();
 
         public Server()
         {
@@ -30,6 +36,13 @@ namespace kulturServer.Network
         {
             System.Diagnostics.Debug.WriteLine("Sending text tweet from timer.");
             Helpers.Twitter.PostTweetText();
+            //change the next occurance time to something within the bounds.
+            if (TWEET_RANDOM_INTERVAL)
+            {
+                int randInt = randy.Next(TWEET_PERIOD_MIN_SECONDS, TWEET_PERIOD_MAX_SECONDS) * 1000;
+                System.Diagnostics.Debug.WriteLine("Next tweet is occurring in {0} seconds", randInt / 1000);
+                t.Change(randInt, TWEET_PERIOD_MAX_SECONDS * 1000);
+            }
         }
 
         private void ListenForClients()
