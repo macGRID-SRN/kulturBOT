@@ -7,13 +7,13 @@ namespace kulturServer.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class ExceptionLogging : IMigrationMetadata
+    public sealed partial class AddExceptionLogging : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ExceptionLogging));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddExceptionLogging));
         
         string IMigrationMetadata.Id
         {
-            get { return "201410310455230_ExceptionLogging"; }
+            get { return "201410312006443_AddExceptionLogging"; }
         }
         
         string IMigrationMetadata.Source

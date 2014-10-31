@@ -3,7 +3,7 @@ namespace kulturServer.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class ExceptionLogging : DbMigration
+    public partial class AddExceptionLogging : DbMigration
     {
         public override void Up()
         {
@@ -16,7 +16,7 @@ namespace kulturServer.Migrations
                         Exception = c.String(),
                         StackTrace = c.String(),
                         Source = c.String(),
-                        Fault = c.Int(nullable: false),
+                        Fault = c.String(),
                         Method = c.String(),
                         Time = c.DateTime(nullable: false),
                         Data = c.String(),
