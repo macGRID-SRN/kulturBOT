@@ -23,7 +23,6 @@ class ServerCommunicationsThread(threading.Thread):
         self.activity = Func(target, *args)
         #damn pythong make all field variables in constructor static class variables..
         StaticList.queue.append(self.activity)
-        print "length of queue after adding is: " + str(len(StaticList.queue))
 
 class StaticList:
     queue = []

@@ -30,7 +30,6 @@ if(not DEBUG):
                         else:
 				sct = ServerCommunicationsThread()
                                 self.fileNameQueue.append(fileName)
-				print "length of picam photos queue is : " + str(len(self.fileNameQueue))
                                 for file in self.fileNameQueue:
                                         print file
 					self.sct.add(sendJPG, file)
@@ -51,4 +50,4 @@ if(not DEBUG):
                         
 else:   
         #test jpg file being sent!
-        sendJPG("z8Z9wi8.jpg")
+        sendJPG("test.jpg")
