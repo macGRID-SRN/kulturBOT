@@ -33,6 +33,29 @@ namespace kulturServer.Helpers
                     var twitterContext = GetContext(iRobot, out UserID);
                     Status response = await twitterContext.TweetAsync(TweetText);
                     System.Diagnostics.Debug.WriteLine("Tweet sent successfully: " + TweetText);
+
+                    try
+                    {
+                        var TwitterAccount = db.Robots.First(l => l.ID == iRobot).TwitterAccount;
+
+                        var tweetText = new Models.TweetedText()
+                        {
+                            TweetText = TweetText,
+                            TweetID = response.ID.ToString(),
+                            TimeAdded = DateTime.UtcNow,
+                            ImageTweet = false,
+                            TwitterAccount = TwitterAccount
+                        };
+
+                        db.Tweets.Add(tweetText);
+                        db.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Unable to save Tweet to database.");
+                        Handlers.ExceptionLogger.LogException(e, Models.Fault.Server);
+                    }
+
                 }
                 //catch (TwitterQueryException e)
                 //{
@@ -96,6 +119,28 @@ namespace kulturServer.Helpers
                 {
                     Status tweet = await twitterContext.TweetWithMediaAsync(TweetText, false, imageBytes);
                     System.Diagnostics.Debug.WriteLine("Tweet with image sent successfully: " + TweetText);
+
+                    try
+                    {
+                        var TwitterAccount = db.Robots.First(l => l.ID == iRobotID).TwitterAccount;
+
+                        var tweetText = new Models.TweetedText()
+                        {
+                            TweetText = TweetText,
+                            TweetID = tweet.ID.ToString(),
+                            TimeAdded = DateTime.UtcNow,
+                            ImageTweet = true,
+                            TwitterAccount = TwitterAccount
+                        };
+
+                        db.Tweets.Add(tweetText);
+                        db.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Unable to save Tweet to database.");
+                        Handlers.ExceptionLogger.LogException(e, Models.Fault.Server);
+                    }
                 }
                 catch (TwitterQueryException e)
                 {

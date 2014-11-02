@@ -13,7 +13,7 @@ namespace kulturServer.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201411022154150_AddTweetedText"; }
+            get { return "201411022211147_AddTweetedText"; }
         }
         
         string IMigrationMetadata.Source

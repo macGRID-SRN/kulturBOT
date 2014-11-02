@@ -15,7 +15,7 @@ namespace kulturServer.Migrations
                         Active = c.Boolean(nullable: false),
                         TweetText = c.String(),
                         ImageTweet = c.Boolean(nullable: false),
-                        TweetID = c.Int(),
+                        TweetID = c.String(),
                         TimeAdded = c.DateTime(nullable: false),
                         TwitterAccount_ID = c.Int(),
                     })

@@ -25,7 +25,7 @@ namespace kulturServer.Models
 
         public string TweetText { get; set; }
         public bool ImageTweet { get; set; }
-        public int? TweetID { get; set; }
+        public string TweetID { get; set; }
 
         public virtual TwitterAccount TwitterAccount { get; set; }
         public DateTime TimeAdded { get; set; }

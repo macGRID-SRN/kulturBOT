@@ -104,9 +104,9 @@
     <Compile Include="Migrations\201410312006443_AddExceptionLogging.Designer.cs">
       <DependentUpon>201410312006443_AddExceptionLogging.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201411022154150_AddTweetedText.cs" />
-    <Compile Include="Migrations\201411022154150_AddTweetedText.Designer.cs">
-      <DependentUpon>201411022154150_AddTweetedText.cs</DependentUpon>
+    <Compile Include="Migrations\201411022211147_AddTweetedText.cs" />
+    <Compile Include="Migrations\201411022211147_AddTweetedText.Designer.cs">
+      <DependentUpon>201411022211147_AddTweetedText.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Database.cs" />
@@ -138,8 +138,8 @@
     <EmbeddedResource Include="Migrations\201410312006443_AddExceptionLogging.resx">
       <DependentUpon>201410312006443_AddExceptionLogging.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201411022154150_AddTweetedText.resx">
-      <DependentUpon>201411022154150_AddTweetedText.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201411022211147_AddTweetedText.resx">
+      <DependentUpon>201411022211147_AddTweetedText.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

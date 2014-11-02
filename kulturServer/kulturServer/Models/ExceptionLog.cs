@@ -22,6 +22,6 @@ namespace kulturServer.Models
 
     public enum Fault
     {
-        Client, Server, Unknown
+        Client, Server, Database, Internet, Twitter, Unknown
     }
 }
