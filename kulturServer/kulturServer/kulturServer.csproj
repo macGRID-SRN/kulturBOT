@@ -104,14 +104,20 @@
     <Compile Include="Migrations\201410312006443_AddExceptionLogging.Designer.cs">
       <DependentUpon>201410312006443_AddExceptionLogging.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201411022154150_AddTweetedText.cs" />
+    <Compile Include="Migrations\201411022154150_AddTweetedText.Designer.cs">
+      <DependentUpon>201411022154150_AddTweetedText.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Database.cs" />
     <Compile Include="Models\ExceptionLog.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\iRobotCreate.cs" />
+    <Compile Include="Models\TweetedText.cs" />
     <Compile Include="Models\TwitterAccount.cs" />
     <Compile Include="Network\Handler.cs" />
     <Compile Include="Network\ImageHandler.cs" />
+    <Compile Include="Network\InstructionHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Network\Server.cs" />
@@ -131,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410312006443_AddExceptionLogging.resx">
       <DependentUpon>201410312006443_AddExceptionLogging.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411022154150_AddTweetedText.resx">
+      <DependentUpon>201411022154150_AddTweetedText.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

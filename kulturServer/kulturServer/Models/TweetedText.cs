@@ -9,9 +9,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace kulturServer.Models
 {
-    public class Image
+    public class TweetedText
     {
-        //yes this is stupid but it ~almost~ guarantees a default value
         private const bool DEFAULT_STATE = true;
         private bool _state = DEFAULT_STATE;
 
@@ -24,14 +23,11 @@ namespace kulturServer.Models
             set { _state = value; }
         }
 
-        public string FileDirectory { get; set; }
-        
-        [Required]
-        public virtual iRobotCreate iRobot { get; set; }
-        
-        public DateTime TimeCreated { get; set; }
-        public DateTime? TimeAdded { get; set; }
-        public DateTime? TimeTaken { get; set; }
+        public string TweetText { get; set; }
+        public bool ImageTweet { get; set; }
+        public int? TweetID { get; set; }
 
+        public virtual TwitterAccount TwitterAccount { get; set; }
+        public DateTime TimeAdded { get; set; }
     }
 }

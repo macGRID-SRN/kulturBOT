@@ -20,6 +20,7 @@ namespace kulturServer.Models
         [Required]
         public virtual iRobotCreate iRobotCreate { get; set; }
 
+        public virtual List<TweetedText> Tweets { get; set; }
         public DateTime TimeAdded { get; set; }
     }
 }
