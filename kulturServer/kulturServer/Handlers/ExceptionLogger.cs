@@ -16,7 +16,7 @@ namespace kulturServer.Handlers
                 {
                     var exception = new Models.ExceptionLog();
                     exception.Data = e.Data.ToString();
-                    exception.Fault = Fault;
+                    exception.Fault = Fault.ToString();
                     exception.Message = e.Message;
                     exception.Time = DateTime.UtcNow;
                     exception.Exception = e.InnerException.ToString();

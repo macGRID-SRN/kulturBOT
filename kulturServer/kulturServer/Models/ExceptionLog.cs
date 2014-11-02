@@ -13,7 +13,7 @@ namespace kulturServer.Models
         public virtual string Exception { get; set; }
         public virtual string StackTrace { get; set; }
         public virtual string Source { get; set; }
-        public virtual Fault Fault { get; set; }
+        public virtual string Fault { get; set; }
         public virtual string Method { get; set; }
         public virtual DateTime Time { get; set; }
         public virtual string Data { get; set; }
