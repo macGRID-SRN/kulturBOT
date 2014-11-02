@@ -100,9 +100,9 @@
     <Compile Include="Migrations\201410221620339_AddTwitterAccounts.Designer.cs">
       <DependentUpon>201410221620339_AddTwitterAccounts.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201410310455230_ExceptionLogging.cs" />
-    <Compile Include="Migrations\201410310455230_ExceptionLogging.Designer.cs">
-      <DependentUpon>201410310455230_ExceptionLogging.cs</DependentUpon>
+    <Compile Include="Migrations\201410312006443_AddExceptionLogging.cs" />
+    <Compile Include="Migrations\201410312006443_AddExceptionLogging.Designer.cs">
+      <DependentUpon>201410312006443_AddExceptionLogging.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Database.cs" />
@@ -129,8 +129,8 @@
     <EmbeddedResource Include="Migrations\201410221620339_AddTwitterAccounts.resx">
       <DependentUpon>201410221620339_AddTwitterAccounts.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201410310455230_ExceptionLogging.resx">
-      <DependentUpon>201410310455230_ExceptionLogging.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201410312006443_AddExceptionLogging.resx">
+      <DependentUpon>201410312006443_AddExceptionLogging.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
