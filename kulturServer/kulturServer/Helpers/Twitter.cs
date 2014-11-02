@@ -41,7 +41,7 @@ namespace kulturServer.Helpers
                         var tweetText = new Models.TweetedText()
                         {
                             TweetText = TweetText,
-                            TweetID = response.ID.ToString(),
+                            TweetID = response.StatusID.ToString(),
                             TimeAdded = DateTime.UtcNow,
                             ImageTweet = false,
                             TwitterAccount = TwitterAccount
