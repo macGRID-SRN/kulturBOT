@@ -118,6 +118,12 @@ namespace kulturServer.Network
             this.clientStream.Flush();
         }
 
+        protected void SendSingeBytePacket(byte myByte)
+        {
+            this.clientStream.WriteByte(myByte);
+            this.clientStream.Flush();
+        }
+
         protected void CloseConnection()
         {
             if (this.tcpClient.Connected)

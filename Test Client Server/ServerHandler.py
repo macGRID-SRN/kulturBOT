@@ -6,17 +6,16 @@ from Enumerators import *
 from debug import *
 
 class Connection:
-	HOST, PORT = "10.0.1.82", 5000
+	HOST, PORT = "192.168.1.5", 5000
 	BUF_SIZE = 4096
 	ROBOT_ID = 1
 	
 	if(DEBUG):
-		HOST = "10.0.1.82"
+		HOST = "127.0.0.1"
 	
 	def __init__(self):
 		print "Connecting"
 		self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-		print "Connecting2"
 		self.sock.connect((self.HOST,self.PORT))
 		print "Connected"
 
@@ -48,7 +47,18 @@ class Connection:
 						print "Max send tries reached"
 						return False
 		return False
-
+	
+	def getStrings(self, ComType, UpdateType, ActionType):
+		inits = bytearray([self.ROBOT_ID, ComType, UpdateType, ActionType])
+		self.sock.send(inits)
+		cont = self.sock.recv(1)
+		if (cont):
+			numStrings = self.sock.recv(1)
+			for i in numStrings:
+				print ord(i)
+		else:
+			return False
+	
 	def sendConfirmPacket(self):
 		self.sock.send(bytearray([255]))
 		
@@ -66,7 +76,6 @@ class Connection:
 		
 #Onto functions that can't be put ABOVE THE CLASS BECAUSE STUPID REASONS PYTHON...
 def sendImage(path, ImageType):
-	print "image send method called"
 	server = Connection()
 	server.sendFile(path, ComType.ImageSend, ImageType)
 	server.closeConnection()
@@ -80,4 +89,10 @@ def sendPNG(path):
 	
 def sendBMP(path):
 	sendImage(path, ImageType.BITMAP)
+	
+def getRecentTweets():
+	print "Getting recent tweets"
+	server = Connection()
+	server.getStrings(ComType.RequestUpdate, UpdateType.GetInformation, ActionType.RecentTweets)
+	server.closeConnection()
 	

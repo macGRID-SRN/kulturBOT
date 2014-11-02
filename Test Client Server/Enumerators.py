@@ -14,8 +14,10 @@ class AdditionalInfo:
 class UpdateType:
 	SensorDump = 0
 	GetAction = 1
+	GetInformation = 2
 
 class ActionType:
 	StopEverything = 0
 	TakePicture = 1
-	Surprise = 2
+	RecentTweets = 2
+	Surprise = 3

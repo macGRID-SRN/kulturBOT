@@ -98,7 +98,7 @@ namespace kulturServer.Network
         private static readonly Dictionary<byte, CommType> instance = new Dictionary<byte, CommType>();
 
         public static CommType ImageHandler = new CommType(0, typeof(ImageHandler));
-        public static CommType InstructionHandler = new CommType(1, typeof(InstructionHandler));
+        public static CommType UpdateHandler = new CommType(1, typeof(UpdateHandler));
 
 
         private CommType(byte value, Type t)

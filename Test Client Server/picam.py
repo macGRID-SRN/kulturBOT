@@ -52,4 +52,5 @@ if(not DEBUG):
 			count+=1
 else:   
 	#test jpg file being sent!
-	sendJPG("test.jpg")
+	#sendJPG("test.jpg")
+	getRecentTweets()
