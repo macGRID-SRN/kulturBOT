@@ -31,7 +31,7 @@ This is the first version which we consider an early prototype. This is the *bar
 - [X] Fabric for Wacky Inflatable Tube Man
 - [X] Desktop Fan for said Inflatable Tube Man
 - [X] WiFi Router - Extended Range Preferred
-- [ ] Standalone Computer/Server to run backend. (server could be run in the cloud but this will heavily effect latency in the future versions)
+- [X] Standalone Computer/Server to run backend. (server could be run in the cloud but this will heavily effect latency in the future versions)
 - [ ] DB-25 connector/saddle.
 - [ ] Raspberry Pi IO header/saddle.
 

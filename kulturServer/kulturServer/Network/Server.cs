@@ -27,6 +27,8 @@ namespace kulturServer.Network
 
         public Server()
         {
+            if (t != null)
+                System.Diagnostics.Debug.WriteLine("First text tweet will occur in {0} second(s).", TWEET_START_DELAY_SECONDS);
             this.tcpListener = new TcpListener(IPAddress.Any, 5000);
             this.listenThread = new Thread(new ThreadStart(ListenForClients));
             this.listenThread.Start();
