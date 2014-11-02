@@ -127,7 +127,7 @@ namespace kulturServer.Helpers
                         var tweetText = new Models.TweetedText()
                         {
                             TweetText = TweetText,
-                            TweetID = tweet.ID.ToString(),
+                            TweetID = tweet.StatusID.ToString(),
                             TimeAdded = DateTime.UtcNow,
                             ImageTweet = true,
                             TwitterAccount = TwitterAccount
