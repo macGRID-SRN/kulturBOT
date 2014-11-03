@@ -60,7 +60,7 @@ class Connection:
 				if(len(temp) == 1 and ord(temp) == 255):
 					break
 				stringy+=temp
-			return stringy
+			return stringy.split('\n')
 		else:
 			return False
 	
@@ -78,7 +78,10 @@ class Connection:
 				hasher.update(buf)
 				buf = afile.read(self.BUF_SIZE)
 		return bytearray.fromhex(hasher.hexdigest())
-		
+
+class RecentTweets():
+	Tweets = []
+	
 #Onto functions that can't be put ABOVE THE CLASS BECAUSE STUPID REASONS PYTHON...
 def sendImage(path, ImageType):
 	server = Connection()
@@ -98,6 +101,6 @@ def sendBMP(path):
 def getRecentTweets():
 	print "Getting recent tweets"
 	server = Connection()
-	print server.getStrings(ComType.RequestUpdate, UpdateType.GetInformation, ActionType.RecentTweets)
+	RecentTweets.Tweets = server.getStrings(ComType.RequestUpdate, UpdateType.GetInformation, ActionType.RecentTweets)
 	server.closeConnection()
 	

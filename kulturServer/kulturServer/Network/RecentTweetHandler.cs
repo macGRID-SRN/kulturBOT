@@ -43,7 +43,6 @@ namespace kulturServer.Network
                 this.SendConfirmPacket();
 
                 this.CloseConnection();
-
             }
 
             return true;
