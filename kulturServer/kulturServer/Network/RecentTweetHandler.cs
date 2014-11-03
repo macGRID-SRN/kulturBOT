@@ -34,7 +34,15 @@ namespace kulturServer.Network
                     sb.AppendLine(tweet.TweetText);
                 }
 
-            this.CloseConnection();
+                var tempString = sb.ToString();
+
+                var tempBytes = Encoding.ASCII.GetBytes(tempString);
+
+                this.SendAllBytes(tempBytes);
+
+                this.SendConfirmPacket();
+
+                this.CloseConnection();
 
             }
 

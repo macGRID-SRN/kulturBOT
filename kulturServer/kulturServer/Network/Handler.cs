@@ -73,7 +73,7 @@ namespace kulturServer.Network
                 if (bytesRead != 1)
                     this.SendConfirmPacket();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Handlers.ExceptionLogger.LogException(e, Models.Fault.Client);
             }
@@ -104,6 +104,13 @@ namespace kulturServer.Network
             }
 
             return message;
+        }
+
+        //not fully implemented yet
+        protected void SendAllBytes(byte[] myBytes)
+        {
+            this.clientStream.Write(myBytes, 0, Math.Min(myBytes.Length, BUF_SIZE));
+            this.clientStream.Flush();
         }
 
         protected void SendConfirmPacket()

@@ -54,8 +54,13 @@ class Connection:
 		cont = self.sock.recv(1)
 		if (cont):
 			numStrings = self.sock.recv(1)
-			for i in numStrings:
-				print ord(i)
+			stringy = ""
+			while(True):
+				temp = self.sock.recv(self.BUF_SIZE)
+				if(len(temp) == 1 and ord(temp) == 255):
+					break
+				stringy+=temp
+			return stringy
 		else:
 			return False
 	
@@ -93,6 +98,6 @@ def sendBMP(path):
 def getRecentTweets():
 	print "Getting recent tweets"
 	server = Connection()
-	server.getStrings(ComType.RequestUpdate, UpdateType.GetInformation, ActionType.RecentTweets)
+	print server.getStrings(ComType.RequestUpdate, UpdateType.GetInformation, ActionType.RecentTweets)
 	server.closeConnection()
 	
