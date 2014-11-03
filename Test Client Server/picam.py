@@ -44,12 +44,12 @@ if(not DEBUG):
 
 	if __name__ == "__main__":
 		tts = TextToSpeechEngine()
-		tts.speak("test text")
+		
 		getRecentTweets()
 		pT = PictureTaker()
 		count = 0
 		while True:
-			print RecentTweets.Tweets[0]
+			tts.speak(RecentTweets.Tweets[count])
 			if(not(pT.isTakingPicture())):
 					pT.takePhotoJPG()
 			time.sleep(60)
