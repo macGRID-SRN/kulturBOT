@@ -1,4 +1,3 @@
-from ThreadHandler import *
 
 
 class TextToSpeechEngine:
