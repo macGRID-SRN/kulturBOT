@@ -44,7 +44,8 @@ if(not DEBUG):
 
 	if __name__ == "__main__":
 		getRecentTweets()
-		ttse = TextToSpeechEngine()
+		ttse = SpeechThread()
+		ttse.start()
 		pT = PictureTaker()
 		count = 0
 		while True:
