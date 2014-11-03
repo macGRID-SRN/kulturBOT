@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace kulturServer.Helpers
 {
@@ -65,7 +66,21 @@ namespace kulturServer.Helpers
             StringBuilder sb = this.generateText();
             string text = sb.ToString();
             text = text.Substring(0, 1).ToUpper() + text.Substring(1, text.Length - 1) + punc[puncNum];
+
             return text;
+        }
+
+        public static string textHelper(string s)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (char c in s)
+            {
+                if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '.' || c == '!' || c == '?')
+                {
+                    sb.Append(c);
+                }
+            }
+            return sb.ToString();
         }
 
         public static string GetNextTwitterMarkov()

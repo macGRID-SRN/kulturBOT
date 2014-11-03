@@ -21,5 +21,12 @@ namespace GeneralTest
                 System.Diagnostics.Debug.WriteLine(myByte);
             }
         }
+
+        [TestMethod]
+        public void TestMarkovForSpecialCharacters()
+        {
+                Assert.AreEqual(kulturServer.Helpers.Markov.textHelper("|@#$%^&*()"), "");
+        }
+
     }
 }
