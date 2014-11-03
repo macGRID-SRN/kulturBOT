@@ -58,9 +58,14 @@ class Connection:
 			done = False
 			while(not done):
 				temp = self.sock.recv(self.BUF_SIZE)
-				if(len(temp) == 1 and ord(temp) == 255):
+				if(len(temp)>0):
+					print len(temp), ord(temp[0])
+					if(len(temp) == 1 and ord(temp) == 255):
+						print "Done Sending"
+						done = True
+					stringy+=temp
+				else:
 					done = True
-				stringy+=temp
 			return stringy.split('\n')
 		else:
 			return False
