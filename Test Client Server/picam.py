@@ -1,5 +1,6 @@
 from ServerHandler import *
 from ThreadHandler import *
+from TextToSpeechEngine import *
 
 if(not DEBUG):
 	import io
