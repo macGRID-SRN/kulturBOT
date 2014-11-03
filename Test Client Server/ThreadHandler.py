@@ -1,6 +1,5 @@
 import threading
 import subprocess
-from TextToSpeechEngine import *
 #Queue functions to be thrown into the server thread
 
 class ServerCommunicationsThread(threading.Thread):
@@ -39,6 +38,14 @@ class SpeechThread(threading.Thread):
         subprocess.call('echo ' + self.text + '| festival --tts', shell = True)
         print "Speech Done"
 
+class TextToSpeechEngine:
+    def __init__(self):
+        print "tts init called"
+    def speak(self, text):
+       #Decide here if speech events get overwritten or queued
+        st = SpeechThread(text)
+        st.start()
+		
 #Future class to be implemented to check which threads are alive/dead
 class ThreadHandler(threading.Thread):
     def __init__(self):
