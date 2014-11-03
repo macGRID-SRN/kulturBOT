@@ -44,12 +44,10 @@ if(not DEBUG):
 
 	if __name__ == "__main__":
 		getRecentTweets()
-		ttse = SpeechThread()
-		ttse.start()
 		pT = PictureTaker()
 		count = 0
 		while True:
-			ttse.speak(RecentTweets.Tweets[0])
+			print RecentTweets.Tweets[0]
 			if(not(pT.isTakingPicture())):
 					pT.takePhotoJPG()
 			time.sleep(60)
