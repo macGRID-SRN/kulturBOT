@@ -31,10 +31,13 @@ class StaticList:
 class SpeechThread(threading.Thread):
     def __init__(self, text):
         super(SpeechThread, self).__init__()
+        print "speech init called"
         self.text = text
     
-        def run(self):
-            subprocess.call('echo ' + text + '| festival --tts', shell = True)
+    def run(self):
+        print "Speech Started"
+        subprocess.call('echo ' + self.text + '| festival --tts', shell = True)
+        print "Speech Done"
 
 #Future class to be implemented to check which threads are alive/dead
 class ThreadHandler(threading.Thread):

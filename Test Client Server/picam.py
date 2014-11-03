@@ -43,6 +43,8 @@ if(not DEBUG):
 			return self.takingPicture
 
 	if __name__ == "__main__":
+		tts = TextToSpeechEngine()
+		tts.speak("test text")
 		getRecentTweets()
 		pT = PictureTaker()
 		count = 0

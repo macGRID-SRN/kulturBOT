@@ -1,16 +1,17 @@
 from ThreadHandler import *
 
 
-class TextToSpeechEngine(object):
+class TextToSpeechEngine:
     def __init__(self):
-        self.st = SpeechThread("")
-    
+        print "tts init called"
     def speak(self, text):
-        if(self.st.is_alive()):
-            #Decide here if speech events get overwritten or queued
-            self.st = SpeechThread(text)
-            self.st.start()
-        else:
-            self.st = SpeechThread(text)
-            self.st.start()
+       #Decide here if speech events get overwritten or queued
+        st = SpeechThread(text)
+        st.start()
+       
+if __name__ == "__main__":
+    tts = TextToSpeechEngine()
+    tts.speak("test text")
+
+           
         
