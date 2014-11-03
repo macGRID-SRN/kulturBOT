@@ -55,10 +55,11 @@ class Connection:
 		if (cont):
 			numStrings = self.sock.recv(1)
 			stringy = ""
-			while(True):
+			done = False
+			while(not done):
 				temp = self.sock.recv(self.BUF_SIZE)
 				if(len(temp) == 1 and ord(temp) == 255):
-					break
+					done = True
 				stringy+=temp
 			return stringy.split('\n')
 		else:

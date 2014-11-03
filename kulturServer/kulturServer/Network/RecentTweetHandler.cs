@@ -44,7 +44,6 @@ namespace kulturServer.Network
 
                 this.CloseConnection();
             }
-
             return true;
         }
     }
