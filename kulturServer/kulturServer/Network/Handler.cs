@@ -106,11 +106,18 @@ namespace kulturServer.Network
             return message;
         }
 
-        //not fully implemented yet
         protected void SendAllBytes(byte[] myBytes)
         {
-            this.clientStream.Write(myBytes, 0, Math.Min(myBytes.Length, BUF_SIZE));
-            this.clientStream.Flush();
+            int bytesSent = 0;
+            while (bytesSent < myBytes.Length)
+            {
+                int bytesToSend = Math.Min(myBytes.Length - bytesSent, BUF_SIZE);
+                this.clientStream.Write(myBytes, 0, bytesToSend);
+                this.clientStream.Flush();
+                bytesSent += bytesToSend;
+            }
+
+            System.Diagnostics.Debug.WriteLine("Send packet of {0} length.", bytesSent);
         }
 
         protected void SendConfirmPacket()
