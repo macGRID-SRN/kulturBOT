@@ -25,13 +25,16 @@ namespace kulturServer.Network
 
                 this.SendSingeBytePacket((byte)Math.Min(robotTweets.Count, MAX_SEND_TWEETS));
 
-                robotTweets = robotTweets.Skip(Math.Max(0, robotTweets.Count() - MAX_SEND_TWEETS)).Take(MAX_SEND_TWEETS).ToList();
+                var robotTweetsText = robotTweets.Skip(Math.Max(0, robotTweets.Count() - MAX_SEND_TWEETS)).Take(MAX_SEND_TWEETS).Select(l => l.TweetText).ToList();
+
+                //
+                Helpers.Markov.removeSpecialCharacters(robotTweetsText);
 
                 StringBuilder sb = new StringBuilder();
 
-                foreach (var tweet in robotTweets)
+                foreach (var tweet in robotTweetsText)
                 {
-                    sb.AppendLine(tweet.TweetText);
+                    sb.AppendLine(tweet);
                 }
 
                 var tempString = sb.ToString();
