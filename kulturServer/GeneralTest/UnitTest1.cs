@@ -1,5 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GeneralTest
 {
@@ -26,6 +28,19 @@ namespace GeneralTest
         public void TestMarkovForSpecialCharacters()
         {
                 Assert.AreEqual(kulturServer.Helpers.Markov.textHelper("|@#$%^&*()"), "");
+        }
+
+        [TestMethod]
+        public void TestForMarkovList()
+        {
+            var correct = new List<string>{"", "", "", "!", ".", ".?"};
+            var testList = new List<string>{"@#$%^&*(", ";'@#$%^&*()", "@#$%^&*()", "!@#$%^&*()", ".@#$%^&*()", ".?@#$%^;'[]&*()"};
+            var otherlist = kulturServer.Helpers.Markov.removeSpecials(testList);
+            //Assert.IsTrue(correct.SequenceEqual(testList));
+            for(int i = 0; i < correct.Count; i ++)
+            {
+                Assert.IsTrue(correct.SequenceEqual(testList));
+            }
         }
 
     }
