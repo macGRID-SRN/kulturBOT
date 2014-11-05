@@ -35,7 +35,7 @@ namespace GeneralTest
         {
             var correct = new List<string>{"", "", "", "!", ".", ".?"};
             var testList = new List<string>{"@#$%^&*(", ";'@#$%^&*()", "@#$%^&*()", "!@#$%^&*()", ".@#$%^&*()", ".?@#$%^;'[]&*()"};
-            var otherlist = kulturServer.Helpers.Markov.removeSpecials(testList);
+            var otherlist = kulturServer.Helpers.Markov.removeSpecialCharacters(testList);
             //Assert.IsTrue(correct.SequenceEqual(testList));
             for(int i = 0; i < correct.Count; i ++)
             {
