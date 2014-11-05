@@ -70,9 +70,9 @@ namespace kulturServer.Helpers
             return text;
         }
 
-        public static void removeSpecialCharacters(List<string> myList)
+        public static List<string> removeSpecialCharacters(List<string> myList)
         {
-            myList = myList.Select(l => textHelper(l)).ToList();
+            return myList.Select(x => textHelper(x)).ToList();
         }
 
         public static string textHelper(string s)
