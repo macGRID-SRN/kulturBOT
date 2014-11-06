@@ -45,7 +45,8 @@ if(not DEBUG):
 
 	if __name__ == "__main__":
 		tts = TextToSpeechEngine()
-		
+		GPIO.setmode(GPIO.BCM)
+		GPIO.setup(18, GPIO.IN)
 		getRecentTweets()
 		import serial
 		serialport = serial.Serial("/dev/ttyAMA0", 57600, timeout=0.5)
@@ -58,6 +59,7 @@ if(not DEBUG):
 		pT = PictureTaker()
 		count = 1
 		while True:
+			print GPIO.input(port_or_pin)
 			if(not (count % (PICTURE_INTERVAL_SECONDS - 20))):
 				tts.speak(RecentTweets.Tweets[random.randint(0,len(RecentTweets.Tweets) - 1)])
 			if(not (count % PICTURE_INTERVAL_SECONDS)):
