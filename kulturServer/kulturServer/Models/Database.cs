@@ -9,7 +9,7 @@ namespace kulturServer.Models
     class Database : DbContext
     {
         public Database()
-            : base("Database")
+            : base()
         {
 
         }
