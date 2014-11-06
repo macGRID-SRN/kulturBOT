@@ -1,4 +1,5 @@
 import threading
+import os
 import subprocess
 #Queue functions to be thrown into the server thread
 
@@ -61,3 +62,4 @@ class Func:
     def startFunction(self):
         print "function started"
         self.target(*self._args)
+        os.remove("photos/" + self._args)
