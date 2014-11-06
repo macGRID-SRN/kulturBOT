@@ -57,7 +57,7 @@ if(not DEBUG):
 				robot.stop()
 			
 			if(not ((count % 20) - 10)):
-				robot.start()
+				robot.demo()
 			
 			if(not (count % (PICTURE_INTERVAL_SECONDS - 20))):
 				tts.speak(RecentTweets.Tweets[random.randint(0,len(RecentTweets.Tweets) - 1)])
