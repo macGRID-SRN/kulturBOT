@@ -1,10 +1,8 @@
 from ServerHandler import *
 from ThreadHandler import *
-<<<<<<< HEAD
 from TextToSpeechEngine import *
-=======
 import random
->>>>>>> 94ff71f37bb860fff0a63fc94279809b38a809d1
+
 
 if(not DEBUG):
 	import io
