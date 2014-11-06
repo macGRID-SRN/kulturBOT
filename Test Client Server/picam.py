@@ -59,7 +59,7 @@ if(not DEBUG):
 		count = 1
 		while True:
 			if(not (count % (PICTURE_INTERVAL_SECONDS - 20))):
-				tts.speak(RecentTweets.Tweets[random.randint(0,len(RecentTweets.Tweets - 1))])
+				tts.speak(RecentTweets.Tweets[random.randint(0,len(RecentTweets.Tweets) - 1)])
 			if(not (count % PICTURE_INTERVAL_SECONDS)):
 				if(not(pT.isTakingPicture())):
 						pT.takePhotoJPG()
