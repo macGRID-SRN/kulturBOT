@@ -60,7 +60,8 @@ if(not DEBUG):
 		pT = PictureTaker()
 		count = 1
 		while True:
-			print GPIO.input(18)
+			serialport.write("\x95\x15");
+			print serialport.read(1)
 			if(not (count % (PICTURE_INTERVAL_SECONDS - 20))):
 				tts.speak(RecentTweets.Tweets[random.randint(0,len(RecentTweets.Tweets) - 1)])
 			if(not (count % PICTURE_INTERVAL_SECONDS)):
