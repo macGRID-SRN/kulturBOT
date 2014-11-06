@@ -1,5 +1,6 @@
 from ServerHandler import *
 from ThreadHandler import *
+from RobotHandler import *
 import random
 
 if(not DEBUG):
@@ -45,23 +46,19 @@ if(not DEBUG):
 
 	if __name__ == "__main__":
 		tts = TextToSpeechEngine()
-		GPIO.setmode(GPIO.BCM)
-		GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 		
 		getRecentTweets()
-		import serial
-		serialport = serial.Serial("/dev/ttyAMA0", 57600, timeout=0.5)
-		serialport.write("\x80");
-		serialport.write("\x88\x00");
-		
-		time.sleep(5);
-		serialport.write("\x88\xFF");
-		
+		robot = Robot()
 		pT = PictureTaker()
 		count = 1
+		robot.demo()
 		while True:
-			serialport.write("\x95\x15");
-			print ord(serialport.read(size=1))
+			if(not (count % 20)):
+				robot.stop()
+			
+			if(not ((count % 20) - 10)):
+				robot.start()
+			
 			if(not (count % (PICTURE_INTERVAL_SECONDS - 20))):
 				tts.speak(RecentTweets.Tweets[random.randint(0,len(RecentTweets.Tweets) - 1)])
 			if(not (count % PICTURE_INTERVAL_SECONDS)):
