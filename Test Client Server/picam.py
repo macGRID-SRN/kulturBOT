@@ -1,5 +1,6 @@
 from ServerHandler import *
 from ThreadHandler import *
+import random
 
 if(not DEBUG):
 	import io
@@ -46,13 +47,23 @@ if(not DEBUG):
 		tts = TextToSpeechEngine()
 		
 		getRecentTweets()
+		import serial
+		serialport = serial.Serial("/dev/ttyAMA0", 57600, timeout=0.5)
+		serialport.write("\x80");
+		serialport.write("\x88\x00");
+		
+		time.sleep(5);
+		serialport.write("\x88\xFF");
+		
 		pT = PictureTaker()
-		count = 0
+		count = 1
 		while True:
-			tts.speak(RecentTweets.Tweets[count])
-			if(not(pT.isTakingPicture())):
-					pT.takePhotoJPG()
-			time.sleep(60)
+			if(not (count % (PICTURE_INTERVAL_SECONDS - 20))):
+				tts.speak(RecentTweets.Tweets[random.randint(0,len(RecentTweets.Tweets) - 1)])
+			if(not (count % PICTURE_INTERVAL_SECONDS)):
+				if(not(pT.isTakingPicture())):
+						pT.takePhotoJPG()
+			time.sleep(1)
 			count+=1
 else:   
 	#test jpg file being sent!

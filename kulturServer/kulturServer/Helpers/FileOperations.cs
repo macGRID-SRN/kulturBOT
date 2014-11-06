@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace kulturServer.Helpers
 {
@@ -46,12 +47,30 @@ namespace kulturServer.Helpers
 
                     RectangleF rekt = new RectangleF(image.Width / 10, image.Height / 3 * 2, image.Width * 4 / 5, image.Height / 3);
 
-                    Font futura = new Font("FuturaExtended", 25);
+                    Font futura = new Font("FuturaExtended", 25, FontStyle.Bold, GraphicsUnit.Pixel);
+
+                    Pen p = new Pen(ColorTranslator.FromHtml("#000000"), 8);
+                    p.LineJoin = LineJoin.Round;
+
                     //text should be centered!
-                    SolidBrush myBrush = new SolidBrush(Color.AntiqueWhite);
+                    //SolidBrush myBrush = new SolidBrush(Color.AntiqueWhite);
+                    Rectangle fr = new Rectangle(0, image.Height - futura.Height, image.Width, futura.Height);
 
-                    e.DrawString(text, futura, myBrush, rekt, sf);
+                    SolidBrush sb = new SolidBrush(ColorTranslator.FromHtml("#ffffff"));
+                    GraphicsPath gp = new GraphicsPath();
+                    gp.AddString(text, futura.FontFamily, (int)futura.Style, 25, rekt, sf);
+                    e.DrawPath(p, gp);
+                    e.FillPath(sb, gp);
 
+                    e.DrawPath(p, gp);
+                    e.FillPath(sb, gp);
+                    //cleanup
+                    gp.Dispose();
+                    sb.Dispose();
+                    sb.Dispose();
+                    futura.Dispose();
+                    sf.Dispose();
+                    e.Dispose();
                     //there has to be a better way..
                     string temp = System.IO.Path.GetDirectoryName(fileName) + @"\" + System.IO.Path.GetFileNameWithoutExtension(fileName) + OVERLAY_FLAG + ".jpg";
 
