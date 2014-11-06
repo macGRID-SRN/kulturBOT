@@ -57,9 +57,9 @@ if(not DEBUG):
 		pT = PictureTaker()
 		count = 1
 		while True:
-			if(not ((PICTURE_INTERVAL_SECONDS + 20) % count)):
+			if(not (count % (PICTURE_INTERVAL_SECONDS + 20))):
 				tts.speak(RecentTweets.Tweets[count])
-			if(not (PICTURE_INTERVAL_SECONDS % count)):
+			if(not (count % PICTURE_INTERVAL_SECONDS)):
 				if(not(pT.isTakingPicture())):
 						pT.takePhotoJPG()
 			time.sleep(1)
