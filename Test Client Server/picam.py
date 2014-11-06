@@ -46,13 +46,22 @@ if(not DEBUG):
 		tts = TextToSpeechEngine()
 		
 		getRecentTweets()
+		import serial
+		serialport = serial.Serial("/dev/ttyAMA0", 57600, timeout=0.5)
+		serialport.write("\x88\x00");
+		
+		time.sleep(5);
+		serialport.write("\x88\xFF");
+		
 		pT = PictureTaker()
 		count = 0
 		while True:
-			tts.speak(RecentTweets.Tweets[count])
-			if(not(pT.isTakingPicture())):
-					pT.takePhotoJPG()
-			time.sleep(60)
+			if(not ((PICTURE_INTERVAL_SECONDS + 20) % count)):
+				tts.speak(RecentTweets.Tweets[count])
+			if(not (PICTURE_INTERVAL_SECONDS % count)):
+				if(not(pT.isTakingPicture())):
+						pT.takePhotoJPG()
+			time.sleep(1)
 			count+=1
 else:   
 	#test jpg file being sent!
