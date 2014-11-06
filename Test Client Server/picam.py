@@ -46,7 +46,8 @@ if(not DEBUG):
 	if __name__ == "__main__":
 		tts = TextToSpeechEngine()
 		GPIO.setmode(GPIO.BCM)
-		GPIO.setup(18, GPIO.IN)
+		GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+		
 		getRecentTweets()
 		import serial
 		serialport = serial.Serial("/dev/ttyAMA0", 57600, timeout=0.5)
