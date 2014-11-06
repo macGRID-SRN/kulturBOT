@@ -14,7 +14,7 @@ namespace kulturServer.Network
         private TcpListener tcpListener;
         private Thread listenThread;
 
-        private const uint TWEET_START_DELAY_SECONDS = 0;
+        private const uint TWEET_START_DELAY_SECONDS = 60;
         private const uint TWEET_PERIOD_DELAY_SECONDS = 360;
         private const int TWEET_PERIOD_MIN_SECONDS = 100;
         private const int TWEET_PERIOD_MAX_SECONDS = 600;

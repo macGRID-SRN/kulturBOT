@@ -48,9 +48,10 @@ if(not DEBUG):
 		getRecentTweets()
 		import serial
 		serialport = serial.Serial("/dev/ttyAMA0", 57600, timeout=0.5)
+		serialport.write("\x80");
 		serialport.write("\x88\x00");
 		
-		time.sleep(5);
+		time.sleep(3);
 		serialport.write("\x88\xFF");
 		
 		pT = PictureTaker()
