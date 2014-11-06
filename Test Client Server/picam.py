@@ -1,5 +1,6 @@
 from ServerHandler import *
 from ThreadHandler import *
+import random
 
 if(not DEBUG):
 	import io
@@ -57,8 +58,8 @@ if(not DEBUG):
 		pT = PictureTaker()
 		count = 1
 		while True:
-			if(not (count % (PICTURE_INTERVAL_SECONDS + 20))):
-				tts.speak(RecentTweets.Tweets[count])
+			if(not (count % (PICTURE_INTERVAL_SECONDS - 20))):
+				tts.speak(RecentTweets.Tweets[random.randint(0,len(RecentTweets.Tweets - 1))])
 			if(not (count % PICTURE_INTERVAL_SECONDS)):
 				if(not(pT.isTakingPicture())):
 						pT.takePhotoJPG()
