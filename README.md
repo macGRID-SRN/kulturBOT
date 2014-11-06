@@ -18,9 +18,9 @@ This is the first version which we consider an early prototype. This is the *bar
 - [X] Pi using a 5V step down board (borrowed from hitchBOT) to bring the built in ~~NiCad's~~ NiMH's down for use with the Pi
 - [X] Backend Server (not sure the implementation details yet) which will receive the pictures from Pi Cam via WiFi. Store them accordingly.
 - [X] Python script to take a picture using the Pi Cam, connect to the backend server and send it over the WiFi.
-- [ ] Run iRobot Create in it's various 'demo' modes. This will require no interfacing from the Pi.
+- [X] Run iRobot Create in it's various 'demo' modes. This will require ~~no~~ some interfacing from the Pi.
 - [X] Tweet pictures that KulturBOT takes with some generated Markov Chain text.
-- [ ] Python Script always running
+- [ ] Python Script always running - this is probably going to change
 - [ ] Wacky inflatable airtube man ontop of a strainer for the robot. Let's do it!
 
 **Shopping List**
@@ -32,8 +32,8 @@ This is the first version which we consider an early prototype. This is the *bar
 - [X] Desktop Fan for said Inflatable Tube Man
 - [X] WiFi Router - Extended Range Preferred
 - [X] Standalone Computer/Server to run backend. (server could be run in the cloud but this will heavily effect latency in the future versions)
-- [ ] DB-25 connector/saddle.
-- [ ] Raspberry Pi IO header/saddle.
+- [X] DB-25 connector/saddle.
+- [X] Raspberry Pi IO header/saddle.
 
 **Version 2**
 
