@@ -1,5 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GeneralTest
 {
@@ -21,5 +23,14 @@ namespace GeneralTest
                 System.Diagnostics.Debug.WriteLine(myByte);
             }
         }
+
+        [TestMethod]
+        public void TestMarkovForSpecialCharacters()
+        {
+            Assert.AreEqual(kulturServer.Helpers.Markov.textHelper("Ridle, and celestial grime, amidst the monotonous railway stations devouring smoking serpents; factories where you sleep side by side for t."), "Ridle and celestial grime amidst the monotonous railway stations devouring smoking serpents factories where you sleep side by side for t.");
+        }
+
+        
+
     }
 }

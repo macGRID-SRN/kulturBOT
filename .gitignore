@@ -162,5 +162,5 @@ $RECYCLE.BIN/
 # Mac desktop service store files
 .DS_Store
 /kulturServer/SeedData/TwitterAccount.linq
-kulturServer/kulturServer/App.config
-kulturServer/kulturServer/Models/Database.cs
+/kulturServer/kulturServer/App.config
+/kulturServer/kulturServer/Models/Database.cs
