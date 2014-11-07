@@ -19,7 +19,7 @@ namespace kulturServer.Handlers
                     exception.Fault = Fault.ToString();
                     exception.Message = e.Message;
                     exception.Time = DateTime.UtcNow;
-                    exception.Exception = e.InnerException.ToString();
+                    exception.Exception = e.InnerException.ToString() ?? "No inner Exception";
                     exception.StackTrace = e.StackTrace;
                     exception.Method = e.TargetSite.Name;
                     exception.Source = e.Source;
