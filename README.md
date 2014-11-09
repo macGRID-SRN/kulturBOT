@@ -37,7 +37,7 @@ This is the first version which we consider an early prototype. This is the *bar
 
 **Version 2**
 
-The idea of this version is to start the integration of the Pi and the iRobot Create. The Raspberry Pi should only act as a conveyor of information and instructions.
+The idea of this version is to start the integration of the Pi and the iRobot Create. The Raspberry Pi should only act as a conveyor of information and instructions. That being said, should the Pi ever stop the robot if it detects trouble OR what about when the server is not available?
 
 - [ ] Dynamic battery life monitoring. This means the robot should return to base when its batteries are low, but still ensure there is enough time for it to make it back to its charging base
 - [ ] Further develop backend to communicate with the Pi. The sensor data which will be very important is whether the robot is charging or not, battery status, if it is docked, moving, in trouble.. etc.. 
