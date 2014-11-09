@@ -39,9 +39,11 @@ This is the first version which we consider an early prototype. This is the *bar
 
 The idea of this version is to start the integration of the Pi and the iRobot Create. The Raspberry Pi should only act as a conveyor of information and instructions.
 
+- [ ] Dynamic battery life monitoring. This means the robot should return to base when its batteries are low, but still ensure there is enough time for it to make it back to its charging base
 - [ ] Further develop backend to communicate with the Pi. The sensor data which will be very important is whether the robot is charging or not, battery status, if it is docked, moving, in trouble.. etc.. 
 - [ ] Abstacle avoidance. Using an Ultra Sonic sensor or similar. This should allow KulturBOT to stop before bumping into something. I am not sure whether or not the Pi should enact this or the backend. Obviously due to latency, we probably want to Pi to handle it.
 - [ ] Mount the distance/optical sensor on the front, much like the Pi Cam.
+- [ ] Motion sensor mounted on the front. When kulturBOT stops it will wait until the motion sensor is tripped to start moving again. (maybe this in the future)
 
 
 **Shopping List**
