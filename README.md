@@ -12,9 +12,9 @@ We want to keep kulturBOT as simple as possible. Our overall plan is to incremen
 
 This is the first version which we consider an early prototype. This is the *bare minimum* functionality required. This is designed to mimic the 'original' kulturBOT.
 
-- [ ] Raspberry Pi mounted on the iRobot Create, hopefully using a 3D printed bracket.
-- [ ] Pi Cam mounted such that it's FOV is pointed straight, again hopefully 3D printed. Mounting should be in such a way not to interfere with the front IR beacon of the iRobot Create.
-- [ ] Pi Cam vibration dampening. While I cannot yet say for sure, I expect there to be a huge vibration problem with the Pi Cam, making the pictures extremely blurry/un-useable. Some kind of gimbal mount may solve this problem.
+- [X] Raspberry Pi mounted on the iRobot Create, hopefully using a 3D printed bracket.
+- [X] Pi Cam mounted such that it's FOV is pointed straight, again hopefully 3D printed. Mounting should be in such a way not to interfere with the front IR beacon of the iRobot Create.
+- [X] Pi Cam vibration dampening. While I cannot yet say for sure, I expect there to be a huge vibration problem with the Pi Cam, making the pictures extremely blurry/un-useable. Some kind of gimbal mount may solve this problem. This was solved by making sure the robot stopped before taking a picture.
 - [X] Pi using a 5V step down board (borrowed from hitchBOT) to bring the built in ~~NiCad's~~ NiMH's down for use with the Pi
 - [X] Backend Server (not sure the implementation details yet) which will receive the pictures from Pi Cam via WiFi. Store them accordingly.
 - [X] Python script to take a picture using the Pi Cam, connect to the backend server and send it over the WiFi.
