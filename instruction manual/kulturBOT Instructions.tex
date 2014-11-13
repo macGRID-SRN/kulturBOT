@@ -1,6 +1,7 @@
 \documentclass[]{article}
 \usepackage{listings}
 \usepackage{hyperref}
+\usepackage{graphicx}
 
 %Commands
 \newcommand{\kb}{kulturBOT}
@@ -26,12 +27,24 @@ Hello there! You have been tasked with taking care of \mykb! Welcome to the team
 
 \subsection{Quick Facts}
 
-
-Twitter Profile: @kulturBOT OR https://twitter.com/kulturBOT
+Twitter Profile: \href{https://twitter.com/kulturBOT}{@kulturBOT} \\
 Facebook Profile: https://www.facebook.com/thekulturbot
 
 \section{Normal Operation}
+The following outlines how to get \mykbspace operating normally.
 
+\begin{enumerate}
+	\item With the Laptop logged in, open up Visual Studio from the desktop shortcut and hit \texttt{F5}. A black Console window will open up. Refer to Figure \ref{normalVS} for an example.
+	
+	\begin{figure}[h!]
+	\label{normalVS}
+		\centering
+	    \includegraphics[width=1\textwidth]{img/normalVSlook.png}
+	    \caption{Normal Operation of the Laptop}
+	\end{figure}
+	
+	\item After you have done this, check the \href{https://twitter.com/kulturBOT}{\kbspace twitter feed} and ensure a tweet has been sent in the last 60 seconds.
+\end{enumerate}
 \begin{lstlisting}[frame=single]
 THIS IS CODES
 \end{lstlisting}

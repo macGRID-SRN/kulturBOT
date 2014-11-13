@@ -1,6 +1,6 @@
-\contentsline {section}{\numberline {1}Getting Started}{3}
-\contentsline {subsection}{\numberline {1.1}Quick Facts}{3}
-\contentsline {section}{\numberline {2}Normal Operation}{3}
-\contentsline {section}{\numberline {3}Troubleshooting}{3}
-\contentsline {subsection}{\numberline {3.1}kulturBOT is taking pictures but not moving.}{3}
-\contentsline {subsection}{\numberline {3.2}kulturBOT won't turn on.}{3}
+\contentsline {section}{\numberline {1}Getting Started}{3}{section.1}
+\contentsline {subsection}{\numberline {1.1}Quick Facts}{3}{subsection.1.1}
+\contentsline {section}{\numberline {2}Normal Operation}{3}{section.2}
+\contentsline {section}{\numberline {3}Troubleshooting}{4}{section.3}
+\contentsline {subsection}{\numberline {3.1}kulturBOT is taking pictures but not moving.}{4}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}kulturBOT won't turn on.}{4}{subsection.3.2}
