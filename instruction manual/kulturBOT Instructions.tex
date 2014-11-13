@@ -51,9 +51,23 @@ Expected Charge Time: 3 Hours.\\
 	    \label{3button}
 	\end{figure}
 
+\subsection{Turning \kbspace on.}
+\begin{enumerate}
+\item Press the \texttt{Power Button}. The \texttt{Power LED} should now be green and you will hear a \textit{beep}.
+\end{enumerate}
+
 \subsubsection{Is \kbspace turned on?}
 \label{isKbOn}
 To determine if \kbspace is on, observe the \texttt{Power LED}. If it is \texttt{Green}, \kbspace is on. If it is \texttt{Orange/Amber} \kbspace is on but needs to be charged (See Section \ref{chargingKB}). If the \texttt{Power LED} is not on, \kbspace is either off or the batteries are dead.
+
+\subsubsection{Restarting \kb}
+\label{restartKb}
+From time to time you will need to restart \kbspace. To restart \kb:
+
+\begin{enumerate}
+\item Press the \texttt{Power Button}. The \texttt{Power LED} should now be off.
+\item Press the \texttt{Power Button} again. The \texttt{Power LED} should now be green and you will hear a \textit{beep}.
+\end{enumerate}
 
 \section{Normal Operation}
 The following outlines how to get \mykbspace operating normally.
@@ -89,6 +103,8 @@ The following outlines how to get \mykbspace operating normally.
 
 \subsection{Connecting to the \mykbspace Unit}
 
+First ensure \kbspace is turned on. Refer to \ref{isKbOn}.
+
 \subsubsection{From a MAC or Linux Machine}
 
 \begin{enumerate}
@@ -113,7 +129,6 @@ sudo python picam.py
 \kbspace should \textit{beep} and then everything should function normally. The Terminal window \underline{must} remain open or kulturBOT will stop functioning.
 
 \end{enumerate}
-
 
 \subsubsection{From a Windows Machine}
 
