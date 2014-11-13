@@ -3,7 +3,11 @@
 \contentsline {subsection}{\numberline {1.2}my kulturBOT's Anatomy}{3}{subsection.1.2}
 \contentsline {section}{\numberline {2}Normal Operation}{3}{section.2}
 \contentsline {subsection}{\numberline {2.1}Laptop Server and Twitter Feed}{3}{subsection.2.1}
-\contentsline {section}{\numberline {3}Troubleshooting}{4}{section.3}
-\contentsline {subsection}{\numberline {3.1}kulturBOT isn't tweeting!}{4}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}kulturBOT is taking pictures but not moving.}{4}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}kulturBOT won't turn on.}{4}{subsection.3.3}
+\contentsline {subsection}{\numberline {2.2}Connecting to the my kulturBOT Unit}{5}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}From a MAC or Linux Machine}{5}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}From a Windows Machine}{5}{subsubsection.2.2.2}
+\contentsline {subsection}{\numberline {2.3}Stopping my kulturBOT}{5}{subsection.2.3}
+\contentsline {section}{\numberline {3}Troubleshooting}{6}{section.3}
+\contentsline {subsection}{\numberline {3.1}kulturBOT isn't tweeting!}{6}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}kulturBOT is taking pictures but not moving.}{6}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}kulturBOT won't turn on.}{6}{subsection.3.3}
