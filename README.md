@@ -12,15 +12,15 @@ We want to keep kulturBOT as simple as possible. Our overall plan is to incremen
 
 This is the first version which we consider an early prototype. This is the *bare minimum* functionality required. This is designed to mimic the 'original' kulturBOT.
 
-- [ ] Raspberry Pi mounted on the iRobot Create, hopefully using a 3D printed bracket.
-- [ ] Pi Cam mounted such that it's FOV is pointed straight, again hopefully 3D printed. Mounting should be in such a way not to interfere with the front IR beacon of the iRobot Create.
-- [ ] Pi Cam vibration dampening. While I cannot yet say for sure, I expect there to be a huge vibration problem with the Pi Cam, making the pictures extremely blurry/un-useable. Some kind of gimbal mount may solve this problem.
-- [ ] Pi using a 5V step down board (borrowed from hitchBOT) to bring the built in ~~NiCad's~~ NiMH's down for use with the Pi
+- [X] Raspberry Pi mounted on the iRobot Create, hopefully using a 3D printed bracket.
+- [X] Pi Cam mounted such that it's FOV is pointed straight, again hopefully 3D printed. Mounting should be in such a way not to interfere with the front IR beacon of the iRobot Create.
+- [X] Pi Cam vibration dampening. While I cannot yet say for sure, I expect there to be a huge vibration problem with the Pi Cam, making the pictures extremely blurry/un-useable. Some kind of gimbal mount may solve this problem. This was solved by making sure the robot stopped before taking a picture.
+- [X] Pi using a 5V step down board (borrowed from hitchBOT) to bring the built in ~~NiCad's~~ NiMH's down for use with the Pi
 - [X] Backend Server (not sure the implementation details yet) which will receive the pictures from Pi Cam via WiFi. Store them accordingly.
 - [X] Python script to take a picture using the Pi Cam, connect to the backend server and send it over the WiFi.
-- [ ] Run iRobot Create in it's various 'demo' modes. This will require no interfacing from the Pi.
+- [X] Run iRobot Create in it's various 'demo' modes. This will require ~~no~~ some interfacing from the Pi.
 - [X] Tweet pictures that KulturBOT takes with some generated Markov Chain text.
-- [ ] Python Script always running
+- [ ] Python Script always running - this is probably going to change
 - [ ] Wacky inflatable airtube man ontop of a strainer for the robot. Let's do it!
 
 **Shopping List**
@@ -32,16 +32,18 @@ This is the first version which we consider an early prototype. This is the *bar
 - [X] Desktop Fan for said Inflatable Tube Man
 - [X] WiFi Router - Extended Range Preferred
 - [X] Standalone Computer/Server to run backend. (server could be run in the cloud but this will heavily effect latency in the future versions)
-- [ ] DB-25 connector/saddle.
-- [ ] Raspberry Pi IO header/saddle.
+- [X] DB-25 connector/saddle.
+- [X] Raspberry Pi IO header/saddle.
 
 **Version 2**
 
-The idea of this version is to start the integration of the Pi and the iRobot Create. The Raspberry Pi should only act as a conveyor of information and instructions.
+The idea of this version is to start the integration of the Pi and the iRobot Create. The Raspberry Pi should only act as a conveyor of information and instructions. That being said, should the Pi ever stop the robot if it detects trouble OR what about when the server is not available?
 
+- [ ] Dynamic battery life monitoring. This means the robot should return to base when its batteries are low, but still ensure there is enough time for it to make it back to its charging base
 - [ ] Further develop backend to communicate with the Pi. The sensor data which will be very important is whether the robot is charging or not, battery status, if it is docked, moving, in trouble.. etc.. 
 - [ ] Abstacle avoidance. Using an Ultra Sonic sensor or similar. This should allow KulturBOT to stop before bumping into something. I am not sure whether or not the Pi should enact this or the backend. Obviously due to latency, we probably want to Pi to handle it.
 - [ ] Mount the distance/optical sensor on the front, much like the Pi Cam.
+- [ ] Motion sensor mounted on the front. When kulturBOT stops it will wait until the motion sensor is tripped to start moving again. (maybe this in the future)
 
 
 **Shopping List**

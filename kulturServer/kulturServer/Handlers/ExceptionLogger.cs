@@ -12,6 +12,9 @@ namespace kulturServer.Handlers
         {
             try
             {
+                string eInnerString = "No InnerException";
+                if (e.InnerException != null)
+                    eInnerString = e.InnerException.ToString();
                 using (var db = new Models.Database())
                 {
                     var exception = new Models.ExceptionLog();
@@ -19,7 +22,7 @@ namespace kulturServer.Handlers
                     exception.Fault = Fault.ToString();
                     exception.Message = e.Message;
                     exception.Time = DateTime.UtcNow;
-                    exception.Exception = e.InnerException.ToString();
+                    exception.Exception = eInnerString;
                     exception.StackTrace = e.StackTrace;
                     exception.Method = e.TargetSite.Name;
                     exception.Source = e.Source;

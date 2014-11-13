@@ -13,7 +13,7 @@ namespace kulturServer.Network
     {
         public RecentTweetHandler(byte[] PacketHeader, TcpClient tcpClient) : base(PacketHeader, tcpClient) { }
 
-        private const int MAX_SEND_TWEETS = 100;
+        private const int MAX_SEND_TWEETS = 200;
 
         public override bool PerformAction()
         {

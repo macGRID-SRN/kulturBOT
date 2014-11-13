@@ -49,7 +49,7 @@ namespace kulturServer.Helpers
 
                     Font futura = new Font("FuturaExtended", 25, FontStyle.Bold, GraphicsUnit.Pixel);
 
-                    Pen p = new Pen(ColorTranslator.FromHtml("#000000"), 8);
+                    Pen p = new Pen(ColorTranslator.FromHtml("#000000"), 3);
                     p.LineJoin = LineJoin.Round;
 
                     //text should be centered!
