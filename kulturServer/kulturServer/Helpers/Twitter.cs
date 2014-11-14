@@ -97,26 +97,27 @@ namespace kulturServer.Helpers
             }
             using (var db = new Models.Database())
             {
-                string UserID;
-                var twitterContext = GetContext(iRobotID, out UserID);
-
-                var image = db.Images.FirstOrDefault(l => l.ID == ImageID);
-
-                byte[] imageBytes;
-
-                System.Diagnostics.Debug.WriteLine(Helpers.FileOperations.TextOverlayString(image.FileDirectory));
-
-                if (Helpers.FileOperations.TextOverlayExists(image.FileDirectory))
-                {
-                    imageBytes = Helpers.FileOperations.GetFileBytes(Helpers.FileOperations.TextOverlayString(image.FileDirectory));
-                }
-                else
-                {
-                    imageBytes = Helpers.FileOperations.GetFileBytes(image.FileDirectory);
-                }
-
                 try
                 {
+                    string UserID;
+                    var twitterContext = GetContext(iRobotID, out UserID);
+
+                    var image = db.Images.FirstOrDefault(l => l.ID == ImageID);
+
+                    byte[] imageBytes;
+
+                    System.Diagnostics.Debug.WriteLine(Helpers.FileOperations.TextOverlayString(image.FileDirectory));
+
+                    if (Helpers.FileOperations.TextOverlayExists(image.FileDirectory))
+                    {
+                        imageBytes = Helpers.FileOperations.GetFileBytes(Helpers.FileOperations.TextOverlayString(image.FileDirectory));
+                    }
+                    else
+                    {
+                        imageBytes = Helpers.FileOperations.GetFileBytes(image.FileDirectory);
+                    }
+
+
                     Status tweet = await twitterContext.TweetWithMediaAsync(TweetText, false, imageBytes);
                     System.Diagnostics.Debug.WriteLine("Tweet with image sent successfully: " + TweetText);
 
@@ -146,6 +147,12 @@ namespace kulturServer.Helpers
                 {
                     System.Diagnostics.Debug.WriteLine("Something went wrong with tweeting that image!");
                     Handlers.ExceptionLogger.LogException(e, Models.Fault.Unknown);
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine("Internet is probably not working.");
+                    Console.WriteLine("Internet is probably not working.");
+                    Handlers.ExceptionLogger.LogException(e, Models.Fault.Internet);
                 }
             }
         }

@@ -15,9 +15,9 @@ namespace kulturServer.Network
         private Thread listenThread;
 
         private const uint TWEET_START_DELAY_SECONDS = 0;
-        private const uint TWEET_PERIOD_DELAY_SECONDS = 360;
-        private const int TWEET_PERIOD_MIN_SECONDS = 100;
-        private const int TWEET_PERIOD_MAX_SECONDS = 600;
+        private const uint TWEET_PERIOD_DELAY_SECONDS = 1005;
+        private const int TWEET_PERIOD_MIN_SECONDS = 1000;
+        private const int TWEET_PERIOD_MAX_SECONDS = 3600;
 
         private const bool TWEET_RANDOM_INTERVAL = true;
 
