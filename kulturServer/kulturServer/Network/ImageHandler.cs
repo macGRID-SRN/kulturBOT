@@ -13,6 +13,7 @@ namespace kulturServer.Network
         public const string fileDirectory = @"kulturbotIMG\";
         public const int IMAGE_SEND_MAX_TRIES = 5;
         public const int HASH_LENGTH = 16;
+        public static Random randy = new Random();
 
         public ImageFormat myFormat;
 
@@ -85,7 +86,8 @@ namespace kulturServer.Network
 
             try
             {
-                Helpers.Twitter.PostTweetWithImage(this.ROBOT_ID, imageID, TweetText);
+                if (randy.Next(10) == 2)
+                    Helpers.Twitter.PostTweetWithImage(this.ROBOT_ID, imageID, TweetText);
             }
             catch (Exception e)
             {
