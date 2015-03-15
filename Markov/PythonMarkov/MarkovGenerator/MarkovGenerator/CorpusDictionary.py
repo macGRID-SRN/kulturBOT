@@ -20,7 +20,10 @@ class CorpusDictionary:
             self.dic.setdefault(tempArray, [])
             self.dic[tempArray].append(self.corpus[i + self.numChar])
 
+    def getDic(self):
+        return self.dic
+
     def toString(self):
         for key in self.dic:
-            print(key + "  =>   " + self.dic[key])
+            print(self.dic[key])
 
