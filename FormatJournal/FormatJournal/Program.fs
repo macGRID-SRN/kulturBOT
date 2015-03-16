@@ -4,12 +4,23 @@
 open System
 open System.IO
 
-let readLines =
-    "TXT.rtf"
-    |> File.ReadAllLines
-
+let removeBadCharacters stringArr =
+    0
 
 [<EntryPoint>]
 let main argv = 
-    printf "Opened File. Parsed Out."
+    let parse file =
+        try
+            let toParse file =  
+                file  
+                |> File.ReadAllLines
+
+            toParse file
+            with
+                | :? System.IO.FileNotFoundException -> printfn "File Name invalid."; [||]
+
+
+    ignore(parse "TXT.rtf")
+    Console.WriteLine "Opened File. Parsed Out."
+    ignore(Console.ReadKey false)
     0 // return an integer exit code
