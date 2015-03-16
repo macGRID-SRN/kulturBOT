@@ -10,7 +10,7 @@ class CorpusDictionary:
 
     def cleanCorpus(self):
         self.corpus = self.corpus.replace("\r", "")
-        self.corpus = self.corpus.replace("\n", "")
+        #self.corpus = self.corpus.replace("\n", "")
 
     def makeDictionary(self):
         for i in range(0, len(self.corpus) - self.numChar):
