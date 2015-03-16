@@ -4,7 +4,7 @@ This document outlines the use of MarkovGenerator.py in generating pseudo random
 ***
 
 ## Steps
--   
+-   Import the module to your python program:
 ```
 from MarkovGenerator.py import * 
 ```
