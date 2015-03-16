@@ -43,6 +43,9 @@ let removeBadCharFromString (text : string) =
 let removeBadCharacters (textArr : string[]) =
     Array.map (fun (n : string) -> removeBadCharFromString n) textArr
 
+let removeDoubleSpace (text : string[]) = 
+    Array.map (fun (n : string) -> String.Join (" ", n.Split ([|' '|],StringSplitOptions.RemoveEmptyEntries))) text
+
 [<EntryPoint>]
 let main argv = 
     let parse file out =
@@ -51,8 +54,9 @@ let main argv =
                 file  
                 |> File.ReadAllLines
                 |> findSuperScriptNum
-                |> removePhrases
                 |> removeBadCharacters
+                |> removePhrases
+                |> removeDoubleSpace
 
             File.WriteAllLines (out, toParse file)
             true
