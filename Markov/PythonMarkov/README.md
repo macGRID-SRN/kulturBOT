@@ -4,11 +4,15 @@ This document outlines the use of MarkovGenerator.py in generating pseudo random
 ***
 
 ## Steps
--   ````
+-   
+```
 from MarkovGenerator.py import * 
-````
+```
 
-- ```` markov = Markov(pathToCorpusFile, characterLimit, chainSize ) ````
+- Create a Markov object:
+```
+ markov = Markov(pathToCorpusFile, characterLimit, chainSize ) 
+```
 
 pathToCorpusFile is the relative path to the corpus file
 
@@ -16,8 +20,11 @@ characterLimit is the maximum allowable character count of the final pseudo-rand
 
 chainSize decides the chain size to use, smaller -> less context, bigger -> more context. Play around with it to find best results
 
-- call setup with  ```markov.setup()```
-this parses the corpus
+- call setup to parse corpuse with:
+```
+markov.setup()
+```
+
 
 - Finally, to generate the text call:
 ```
