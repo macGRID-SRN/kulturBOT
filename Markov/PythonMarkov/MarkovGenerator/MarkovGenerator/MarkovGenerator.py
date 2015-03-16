@@ -48,13 +48,13 @@ class Markov:
         return text.capitalize()
 
 
-if __name__=="__main__":
+#if __name__=="__main__":
     # Markov(1:2:3)
     '''
     1: name of file to parse as corpus dictionary
     2: maximum length of text chain
     3. chain size (shorter => less context)
     '''
-    markov = Markov("corpus.txt", 144, 4)
-    markov.setup()
-    print(markov.generateText())
+ #   markov = Markov("corpus.txt", 144, 4)
+ #   markov.setup()
+ #   print(markov.generateText())

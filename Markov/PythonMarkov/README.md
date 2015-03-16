@@ -1,0 +1,25 @@
+# Pseudo random text generation #
+
+This document outlines the use of MarkovGenerator.py in generating pseudo random text
+***
+
+## Steps
+-   ````
+from MarkovGenerator.py import * 
+````
+
+- ```` markov = Markov(pathToCorpusFile, characterLimit, chainSize ) ````
+
+pathToCorpusFile is the relative path to the corpus file
+
+characterLimit is the maximum allowable character count of the final pseudo-random phrase (ex/ for twitter may want to set it to 144), this does not guarentee a minimum, only a maximum.
+
+chainSize decides the chain size to use, smaller -> less context, bigger -> more context. Play around with it to find best results
+
+- call setup with  ```markov.setup()```
+this parses the corpus
+
+- Finally, to generate the text call:
+```
+markov.generateText()
+``` 
