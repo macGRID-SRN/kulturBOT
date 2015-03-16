@@ -14,13 +14,13 @@ from MarkovGenerator.py import *
  markov = Markov(pathToCorpusFile, characterLimit, chainSize ) 
 ```
 
-pathToCorpusFile is the relative path to the corpus file
+**pathToCorpusFile** is the relative path to the corpus file
 
-characterLimit is the maximum allowable character count of the final pseudo-random phrase (ex/ for twitter may want to set it to 144), this does not guarentee a minimum, only a maximum.
+**characterLimit** is the maximum allowable character count of the final pseudo-random phrase (ex/ for twitter may want to set it to 144), this does not guarentee a minimum, only a maximum.
 
-chainSize decides the chain size to use, smaller -> less context, bigger -> more context. Play around with it to find best results
+**chainSize** decides the chain size to use, smaller -> less context, bigger -> more context. Play around with it to find best results
 
-- call setup to parse corpuse with:
+- call setup to parse corpus with:
 ```
 markov.setup()
 ```
