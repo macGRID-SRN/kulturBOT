@@ -21,6 +21,8 @@ let replacePhrases =
     [
         ("M^'", "Mc");
         ("M'^", "Mc");
+        ("M'", "Mc");
+        ("M^", "Mc");
     ]
 
 //option to replace case.
@@ -54,8 +56,8 @@ let main argv =
                 file  
                 |> File.ReadAllLines
                 |> findSuperScriptNum
-                |> removeBadCharacters
                 |> removePhrases
+                |> removeBadCharacters
                 |> removeDoubleSpace
 
             File.WriteAllLines (out, toParse file)
