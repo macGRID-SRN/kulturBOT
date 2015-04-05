@@ -39,6 +39,7 @@ class Markov:
     def setup(self):
         self.parseDictionary()
         self.isParsed = True
+        print "Successfully setup markov lib " + self.filename;
 
     def generateText(self):
         punctuation = ['.', '!', '?'] 
