@@ -7,7 +7,7 @@ from debug import *
 import sys
 sys.path.insert(0, '/markov')
 
-from MarkovGenerator import *
+import MarkovGenerator
 
 import random
 
