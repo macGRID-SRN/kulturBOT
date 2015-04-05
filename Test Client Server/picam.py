@@ -1,13 +1,8 @@
 from ThreadHandler import *
 from TextToSpeechEngine import *
 from RobotHandler import *
+from MarkovGenerator import *
 from debug import *
-
-#add path for markov libraries
-import sys
-sys.path.insert(0, '/markov')
-
-import MarkovGenerator
 
 import random
 
