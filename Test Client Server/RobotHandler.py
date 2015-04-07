@@ -13,8 +13,8 @@ class Netduino:
 	def sendSentence(self, sentence):
 		b = sentence.encode('utf-8')
 		print sentence, len(sentence), len(b)
-		self.serialport.write([129, len(b)])
-		netOk = self.serialport.read(1)
+		self.serialport.write(bytes([129, len(b)]))
+		netOk = self.serialport.read(bytes([1]))
 		#self.serialport.write()
 		if netOk == 128:
 			print "confirm packet received"
