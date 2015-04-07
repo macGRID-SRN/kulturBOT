@@ -46,7 +46,7 @@ namespace kulturBOT
                 else
                 {
                     Raspi.WriteByte(255);
-                    for (int i = 0; i < 5; i++)
+                    for (int i = 0; i < 1; i++)
                     {
                         led.Write(true);
                         Thread.Sleep(250);
@@ -60,7 +60,7 @@ namespace kulturBOT
 
         public static void raspSetup()
         {
-            Raspi = new SerialPort(SerialPorts.COM4, 57600, Parity.None, 8, StopBits.One);
+            Raspi = new SerialPort(SerialPorts.COM3, 57600, Parity.None, 8, StopBits.One);
             Raspi.WriteTimeout = 1000;
             Raspi.Open();
 
