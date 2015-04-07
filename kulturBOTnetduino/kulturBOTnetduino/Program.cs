@@ -27,7 +27,7 @@ namespace kulturBOT
 
             while (true)
             {
-                byte[] commandDesc = new byte[2];
+                byte[] commandDesc = new byte[100];
 
                 Raspi.Read(commandDesc, 0, 100);
                 //is sending a sentence
