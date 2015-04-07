@@ -9,20 +9,52 @@ using SecretLabs.NETMF.Hardware;
 using SecretLabs.NETMF.Hardware.Netduino;
 using Toolbox.NETMF.Hardware;
 using System.IO.Ports;
+using System.Text;
 
 namespace kulturBOT
 {
     public class Program
     {
+        public static SerialPort Raspi;
+
         public static void Main()
         {
             Thread.Sleep(1000);
 
-            iRobotTest();
+            raspSetup();
 
             while (true)
             {
                 Thread.Sleep(100000);
+            }
+        }
+
+        public static void raspSetup()
+        {
+            Raspi = new SerialPort(SerialPorts.COM3, 57600);
+
+            Raspi.Open();
+
+            Raspi.DataReceived += new SerialDataReceivedEventHandler(Raspi_DataReceived);
+        }
+
+        public static void Raspi_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            byte[] commandDesc = new byte[2];
+
+            Raspi.Read(commandDesc, 0, 2);
+
+            //is sending a sentence
+            if (commandDesc[0] == 129)
+            {
+                System.Text.Encoding enc = System.Text.Encoding.UTF8;
+                byte[] sentence = new byte[commandDesc[1]];
+
+                Raspi.Read(sentence, 0, sentence.Length);
+
+                string myString = new string(enc.GetChars(sentence));
+
+                PrinterTest(myString);
             }
         }
 

@@ -5,7 +5,7 @@ class Netduino:
 	
 	def __init__(self):
 		self.serialport = serial.Serial("/dev/ttyAMA0", 57600, timeout=3.5)
-		self.serialport.write("\x80")
+		#self.serialport.write("\x80")
 		
 	def demo(self):
 		self.serialport.write("\x88\x00")
