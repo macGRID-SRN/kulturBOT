@@ -4,7 +4,7 @@ import binascii
 class Netduino:
 	
 	def __init__(self):
-		self.serialport = serial.Serial("/dev/ttyAMA0", 57600, timeout=3.5)
+		self.serialport = serial.Serial("/dev/ttyAMA0", 57600, timeout=3.5, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE)
 		#self.serialport.write("\x80")
 		
 	def demo(self):

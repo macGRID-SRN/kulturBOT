@@ -60,7 +60,7 @@ namespace kulturBOT
 
         public static void raspSetup()
         {
-            Raspi = new SerialPort(SerialPorts.COM4, 57600);
+            Raspi = new SerialPort(SerialPorts.COM4, 57600, Parity.None);
             Raspi.WriteTimeout = 1000;
             Raspi.Open();
 
