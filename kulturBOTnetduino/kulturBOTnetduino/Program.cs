@@ -27,23 +27,31 @@ namespace kulturBOT
 
             while (true)
             {
-                byte[] commandDesc = new byte[100];
+                byte[] commandDesc = new byte[16];
 
-                Raspi.Read(commandDesc, 0, 100);
+                Raspi.Read(commandDesc, 0, 16);
                 //is sending a sentence
                 if (commandDesc[0] == 129)
                 {
-                    Raspi.Read(commandDesc, 0, 2);
-                    byte[] sentence = new byte[commandDesc[0]];
+                    byte[] sentence = new byte[commandDesc[2]];
 
                     Raspi.WriteByte(128);
                     System.Text.Encoding enc = System.Text.Encoding.UTF8;
 
+                    //Raspi.ReadTimeout = 500;
                     Raspi.Read(sentence, 0, sentence.Length);
+                    //Raspi.ReadTimeout = 5000;
 
-                    string myString = new string(enc.GetChars(sentence));
+                    try
+                    {
+                        string myString = new string(enc.GetChars(sentence));
+                        PrinterTest(myString);
+                    }
+                    catch
+                    {
 
-                    PrinterTest(myString);
+                    }
+
                 }
                 else
                 {

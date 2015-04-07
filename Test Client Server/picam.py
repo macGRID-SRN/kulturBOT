@@ -23,7 +23,7 @@ if(not DEBUG):
 				marks = markov.generateText()
 				netduino.sendSentence(marks)
 				#tts.speak(marks)
-				time.sleep(10)
+				time.sleep(5)
 			
 			time.sleep(1)
 			count+=1
