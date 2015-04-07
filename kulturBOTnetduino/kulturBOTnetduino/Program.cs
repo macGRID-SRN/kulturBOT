@@ -33,9 +33,11 @@ namespace kulturBOT
                 //is sending a sentence
                 if (commandDesc[0] == 129)
                 {
+                    Raspi.Read(commandDesc, 0, 2);
+                    byte[] sentence = new byte[commandDesc[0]];
+
                     Raspi.WriteByte(128);
                     System.Text.Encoding enc = System.Text.Encoding.UTF8;
-                    byte[] sentence = new byte[commandDesc[1]];
 
                     Raspi.Read(sentence, 0, sentence.Length);
 
@@ -60,7 +62,7 @@ namespace kulturBOT
 
         public static void raspSetup()
         {
-            Raspi = new SerialPort(SerialPorts.COM3, 57600, Parity.None, 8, StopBits.One);
+            Raspi = new SerialPort(SerialPorts.COM3, 57600, Parity.None, 8, StopBits.None);
             Raspi.WriteTimeout = 1000;
             Raspi.Open();
 
