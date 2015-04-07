@@ -29,7 +29,7 @@ namespace kulturBOT
             {
                 byte[] commandDesc = new byte[2];
 
-                Raspi.Read(commandDesc, 0, 2);
+                Raspi.Read(commandDesc, 0, 100);
                 //is sending a sentence
                 if (commandDesc[0] == 129)
                 {
