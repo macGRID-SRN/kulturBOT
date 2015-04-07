@@ -27,15 +27,15 @@ namespace kulturBOT
 
             while (true)
             {
-                byte[] commandDesc = new byte[100];
+                byte[] commandDesc = new byte[2];
 
-                Raspi.Read(commandDesc, 0, 100);
-
+                Raspi.Read(commandDesc, 0, 2);
                 //is sending a sentence
                 if (commandDesc[0] == 129)
                 {
+                    Raspi.WriteByte(128);
                     System.Text.Encoding enc = System.Text.Encoding.UTF8;
-                    byte[] sentence = new byte[commandDesc[2]];
+                    byte[] sentence = new byte[commandDesc[1]];
 
                     Raspi.Read(sentence, 0, sentence.Length);
 
@@ -45,6 +45,7 @@ namespace kulturBOT
                 }
                 else
                 {
+                    Raspi.WriteByte(255);
                     for (int i = 0; i < 5; i++)
                     {
                         led.Write(true);
@@ -60,7 +61,7 @@ namespace kulturBOT
         public static void raspSetup()
         {
             Raspi = new SerialPort(SerialPorts.COM4, 57600);
-
+            Raspi.WriteTimeout = 1000;
             Raspi.Open();
 
             //Raspi.DataReceived += new SerialDataReceivedEventHandler(Raspi_DataReceived);
