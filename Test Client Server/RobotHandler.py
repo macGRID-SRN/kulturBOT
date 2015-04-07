@@ -12,6 +12,6 @@ class Netduino:
 		
 	def sendSentence(self, sentence):
 		b = sentence.encode('utf-8')
-		self.serialport.write("\x81" + bytes([len(b)]))
+		self.serialport.write(bytes([129, len(b)]))
 		#self.serialport.write()
 		self.serialport.write(b)
