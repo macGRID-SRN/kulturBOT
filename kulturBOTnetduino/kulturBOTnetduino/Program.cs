@@ -27,13 +27,16 @@ namespace kulturBOT
 
             while (true)
             {
+                byte[] why = new byte[1];
                 byte[] command1 = new byte[255];
 
-                Raspi.Read(command1, 0, 255);
+                Raspi.Read(why, 0, 1);
+
+                Raspi.Read(command1, 0, 254);
                 Raspi.WriteByte(128);
 
                 //is sending a sentence
-                if (command1[0] == 129)
+                if (command1[0] == 1)
                 {
                     byte[] sentence = new byte[command1[1]];
 

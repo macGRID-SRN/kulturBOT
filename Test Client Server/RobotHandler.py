@@ -13,7 +13,7 @@ class Netduino:
 	def sendSentence(self, sentence):
 		b = sentence.encode('utf-8')
 		print sentence, len(sentence), len(b)
-		self.serialport.write(bytearray(chr(129) + chr(len(b)) + b + bytes(255-len(b) - 2)))
+		self.serialport.write(bytearray(chr(1) + chr(len(b)) + b + bytes(255- len(b) - 2)))
 		numOk = self.serialport.read(1)
 		print ord(numOk)
 		#self.serialport.write()
