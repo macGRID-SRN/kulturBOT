@@ -27,44 +27,7 @@ namespace kulturBOT
 
             while (true)
             {
-                byte[] why = new byte[1];
-                byte[] command1 = new byte[255];
-
-                Raspi.Read(why, 0, 1);
-
-                Raspi.Read(command1, 0, 254);
-                Raspi.WriteByte(128);
-
-                //is sending a sentence
-                if (command1[0] == 1)
-                {
-                    byte[] sentence = new byte[command1[1]];
-
-                    System.Text.Encoding enc = System.Text.Encoding.UTF8;
-
-                    try
-                    {
-                        string myString = new string(enc.GetChars(command1, 2, command1[1]));
-                        PrinterTest(myString);
-                    }
-                    catch
-                    {
-
-                    }
-
-                }
-                else
-                {
-                    Raspi.WriteByte(255);
-                    for (int i = 0; i < 1; i++)
-                    {
-                        led.Write(true);
-                        Thread.Sleep(250);
-                        led.Write(false);
-                        Thread.Sleep(250);
-                    }
-                }
-
+                Thread.Sleep(100);
             }
         }
 
@@ -72,14 +35,64 @@ namespace kulturBOT
         {
             Raspi = new SerialPort(SerialPorts.COM3, 57600, Parity.None, 8, StopBits.One);
             Raspi.WriteTimeout = 1000;
-            Raspi.Open();
 
-            //Raspi.DataReceived += new SerialDataReceivedEventHandler(Raspi_DataReceived);
+            Raspi.DataReceived += new SerialDataReceivedEventHandler(Raspi_DataReceived);
+            Raspi.Open();
         }
 
         public static void Raspi_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
+            int bufferSize = 255;
+            int bufferPtr = 0;
+            byte[] command1 = new byte[bufferSize];
 
+            while (Raspi.BytesToRead > 0 && bufferPtr < bufferSize)
+            {
+                Raspi.Read(command1, bufferPtr++, 1);
+                bufferPtr++;
+            }
+
+            Raspi.WriteByte(128);
+
+            //is sending a sentence
+            if (command1[0] == 1)
+            {
+                byte[] sentence = new byte[command1[1]];
+
+                for (int i = 0; i < command1[i]; i++)
+                {
+                    if (command1[i * 2 + 2] == 0 || command1[i * 2 + 3] != 0)
+                    {
+                        return;
+                    }
+
+                    sentence[i] = command1[i * 2 + 2];
+                }
+
+                System.Text.Encoding enc = System.Text.Encoding.UTF8;
+
+                try
+                {
+                    string myString = new string(enc.GetChars(command1, 2, command1[1]));
+                    PrinterTest(myString);
+                }
+                catch
+                {
+
+                }
+
+            }
+            else
+            {
+                Raspi.WriteByte(255);
+                for (int i = 0; i < 1; i++)
+                {
+                    led.Write(true);
+                    Thread.Sleep(250);
+                    led.Write(false);
+                    Thread.Sleep(250);
+                }
+            }
         }
 
         public static void iRobotTest()

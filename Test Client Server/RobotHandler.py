@@ -17,7 +17,7 @@ class Netduino:
 		numOk = self.serialport.read(1)
 		print ord(numOk)
 		#self.serialport.write()
-		if numOk == 128:
+		if ord(numOk) == 128:
 			print "confirm packet received"
 		else:
 			print "something bad happened"
