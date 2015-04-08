@@ -14,7 +14,7 @@ class Netduino:
 		b = sentence.encode('utf-8')
 		print sentence, len(sentence), len(b)
 		self.serialport.write(bytearray(chr(128) + chr(len(b)) + b))
-		numOK = self.serialport.read(1)
+		numOk = self.serialport.read(1)
 		print numOk
 		#self.serialport.write()
 		if numOk == 128:
