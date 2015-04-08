@@ -57,23 +57,23 @@ namespace kulturBOT
             //is sending a sentence
             if (command1[0] == 1)
             {
-                byte[] sentence = new byte[command1[1]];
+                byte[] sentence = new byte[command1[2]];
 
-                for (int i = 0; i < command1[i]; i++)
+                for (int i = 0; i < command1[2]; i++)
                 {
-                    if (command1[i * 2 + 2] == 0 || command1[i * 2 + 3] != 0)
+                    if (command1[i * 2 + 4] == 0 || command1[i * 2 + 5] != 0)
                     {
                         return;
                     }
 
-                    sentence[i] = command1[i * 2 + 2];
+                    sentence[i] = command1[i * 2 + 4];
                 }
 
                 System.Text.Encoding enc = System.Text.Encoding.UTF8;
 
                 try
                 {
-                    string myString = new string(enc.GetChars(command1, 2, command1[1]));
+                    string myString = new string(enc.GetChars(sentence));
                     PrinterTest(myString);
                 }
                 catch
@@ -120,6 +120,15 @@ namespace kulturBOT
 
         //    //return string.Empty;
         //}
+
+        public static void PrintPoem(string poem)
+        {
+            ThermalPrinter Printer = new ThermalPrinter();
+
+            Printer.PrintLine(poem);
+
+            Printer.Dispose();
+        }
 
         public static void PrinterTest()
         {
