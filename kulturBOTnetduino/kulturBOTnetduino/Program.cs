@@ -21,10 +21,10 @@ namespace kulturBOT
         public static void Main()
         {
             Thread.Sleep(1000);
+            //PrinterTest("testing the printer");
             led.Write(false);
-
+            PrintPoem("test1");
             raspSetup();
-
             while (true)
             {
                 Thread.Sleep(100);
@@ -59,6 +59,7 @@ namespace kulturBOT
             {
                 byte[] sentence = new byte[command1[2]];
 
+                //filtering out the stop bits -- there is probably a better way to do this!
                 for (int i = 0; i < command1[2]; i++)
                 {
                     if (command1[i * 2 + 4] == 0 || command1[i * 2 + 5] != 0)
@@ -74,11 +75,19 @@ namespace kulturBOT
                 try
                 {
                     string myString = new string(enc.GetChars(sentence));
-                    PrinterTest(myString);
+                    lock (PrintText) { PrintText = myString; }
+                    //PrintPoem(myString);
+                    // Create a delegate of type "ThreadStart", which is a pointer to the worker thread's main function
+                    ThreadStart delegateWorkerMain = new ThreadStart(PrintThread);
+
+                    // Next create the actual thread, passing it the delegate to the main function
+                    Thread threadWorker = new Thread(delegateWorkerMain);
+
+                    // Now start the thread.
+                    threadWorker.Start();
                 }
                 catch
                 {
-
                 }
 
             }
@@ -93,6 +102,13 @@ namespace kulturBOT
                     Thread.Sleep(250);
                 }
             }
+        }
+
+        public static string PrintText;
+
+        public static void PrintThread()
+        {
+            lock (PrintText) { PrintPoem(PrintText); }
         }
 
         public static void iRobotTest()
@@ -111,22 +127,15 @@ namespace kulturBOT
             serial.Close();
         }
 
-        //IO from the SD card breaks it :(
-        //public static string ReadLineFromSD()
-        //{
-        //    var file = new StreamReader(@"\SD\t.txt");
-
-        //    return file.ReadLine();
-
-        //    //return string.Empty;
-        //}
-
         public static void PrintPoem(string poem)
         {
             ThermalPrinter Printer = new ThermalPrinter();
+            foreach (string myString in poem.Split('\n'))
+            {
+                Printer.PrintLine(myString);
+            }
 
-            Printer.PrintLine(poem);
-
+            Printer.LineFeed(3);
             Printer.Dispose();
         }
 
