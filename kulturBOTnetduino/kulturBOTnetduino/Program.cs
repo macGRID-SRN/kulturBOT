@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -18,13 +19,20 @@ namespace kulturBOT
         public static SerialPort Raspi;
         static OutputPort led = new OutputPort(Pins.ONBOARD_LED, false);
 
+        public static string[] tempPrint = new string[] { "Imself for a red with. these people trees east contain the 17th may we!", "the loaded eight. the brooks compassage of theirteen seventy miles w!", "'Ave before from the basalt was paddling been feet in the lake, some?" };
+        public static DateTime fakeTime = new DateTime(2015, 4, 4, 10, 12, 23);
         public static void Main()
         {
+            Microsoft.SPOT.Hardware.Utility.SetLocalTime(fakeTime);
+
             Thread.Sleep(1000);
-            //PrinterTest("testing the printer");
             led.Write(false);
-            PrintPoem("test1");
-            raspSetup();
+
+            for (int i = 0; i < 3; i++)
+            {
+                PrintPoem(tempPrint[i]);
+                Thread.Sleep(5000);
+            }
             while (true)
             {
                 Thread.Sleep(100);
@@ -135,6 +143,9 @@ namespace kulturBOT
                 Printer.PrintLine(myString);
             }
 
+            Printer.PrintLine("@kulturBOT");
+            Printer.LineFeed(1);
+            Printer.Print(DateTime.UtcNow.ToString());
             Printer.LineFeed(3);
             Printer.Dispose();
         }
