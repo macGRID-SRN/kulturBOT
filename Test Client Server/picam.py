@@ -14,7 +14,7 @@ if(not DEBUG):
 
 	if __name__ == "__main__":
 		tts = TextToSpeechEngine()
-		markov = Markov("corpus.txt", 350, 6)
+		markov = Markov("corpus.txt", 240, 6)
 		markov.setup()
 		netduino = Netduino()
 		count = 1
