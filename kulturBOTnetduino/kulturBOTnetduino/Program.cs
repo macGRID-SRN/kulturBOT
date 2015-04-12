@@ -103,7 +103,7 @@ namespace kulturBOT
             }
             else
             {
-                Raspi.WriteByte(255);
+                //Raspi.WriteByte(255);
                 PrinterTest(command1[0].ToString());
                 for (int i = 0; i < 1; i++)
                 {
