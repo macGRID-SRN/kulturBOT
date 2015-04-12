@@ -64,7 +64,7 @@ namespace kulturBOT
         public static void Raspi_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             var port = (SerialPort)sender;
-            int bufferSize = 255;
+            int bufferSize = 512;
             int bufferPtr = 0;
             byte[] command1 = new byte[bufferSize];
 
@@ -81,9 +81,9 @@ namespace kulturBOT
                 byte[] sentence = new byte[command1[2]];
 
                 //filtering out the stop bits -- there is probably a better way to do this!
-                for (int i = 0; i < command1[2]; i++)
+                for (int i = 0; i < command1[1]; i++)
                 {
-                    if (command1[i + 2] == 0 || command1[i + 3] != 0)
+                    if (command1[i + 2] == 0)
                     {
                         return;
                     }
@@ -96,7 +96,7 @@ namespace kulturBOT
                 try
                 {
                     string myString = new string(enc.GetChars(sentence));
-                    lock (PrintText) { PrintText = myString; }
+                    PrintText = myString;
                 }
                 catch
                 {
@@ -114,11 +114,6 @@ namespace kulturBOT
                     Thread.Sleep(250);
                 }
             }
-        }
-
-        public static void PrintThread()
-        {
-            lock (PrintText) { PrintPoem(PrintText); }
         }
 
         public static void iRobotTest()
@@ -140,7 +135,7 @@ namespace kulturBOT
         public static void PrintPoem(string poem)
         {
             ThermalPrinter Printer = new ThermalPrinter();
-            foreach (string myString in poem.Split('\n'))
+            foreach (string myString in poem.Split('\n', ',', '.', ';'))
             {
                 Printer.PrintLine(myString);
             }
@@ -149,7 +144,7 @@ namespace kulturBOT
             Printer.LineFeed(1);
             Printer.Print(DateTime.UtcNow.ToString());
             Printer.LineFeed(3);
-            Printer.Dispose();
+            //Printer.Dispose();
         }
 
         public static void PrinterTest()
@@ -171,7 +166,7 @@ namespace kulturBOT
             Printer.Print(DateTime.UtcNow.ToString());
             Printer.LineFeed(3);
 
-            Printer.Dispose();
+            //Printer.Dispose();
         }
 
         public static void PrinterTest(string printText)
