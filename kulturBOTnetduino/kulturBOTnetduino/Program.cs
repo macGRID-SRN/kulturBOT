@@ -18,23 +18,34 @@ namespace kulturBOT
     {
         public static SerialPort Raspi;
         static OutputPort led = new OutputPort(Pins.ONBOARD_LED, false);
+        public static string PrintText;
 
-        public static string[] tempPrint = new string[] { "Imself for a red with. these people trees east contain the 17th may we!", "the loaded eight. the brooks compassage of theirteen seventy miles w!", "'Ave before from the basalt was paddling been feet in the lake, some?" };
-        public static DateTime fakeTime = new DateTime(2015, 4, 4, 10, 12, 23);
         public static void Main()
         {
-            Microsoft.SPOT.Hardware.Utility.SetLocalTime(fakeTime);
-
             Thread.Sleep(1000);
             led.Write(false);
 
-            for (int i = 0; i < 3; i++)
-            {
-                PrintPoem(tempPrint[i]);
-                Thread.Sleep(5000);
-            }
+            raspSetup();
+
             while (true)
             {
+                if (PrintText != null)
+                {
+                    lock (PrintText)
+                    {
+                        //there is text to be printed!
+
+                        // todo: stop robot
+
+                        // todo: start lights flashing (probably around the printer)
+
+                        PrintPoem(PrintText);
+                        PrintText = null;
+
+                        //wait some period of time
+                        // todo: start moving robot 
+                    }
+                }
                 Thread.Sleep(100);
             }
         }
@@ -84,15 +95,6 @@ namespace kulturBOT
                 {
                     string myString = new string(enc.GetChars(sentence));
                     lock (PrintText) { PrintText = myString; }
-                    //PrintPoem(myString);
-                    // Create a delegate of type "ThreadStart", which is a pointer to the worker thread's main function
-                    ThreadStart delegateWorkerMain = new ThreadStart(PrintThread);
-
-                    // Next create the actual thread, passing it the delegate to the main function
-                    Thread threadWorker = new Thread(delegateWorkerMain);
-
-                    // Now start the thread.
-                    threadWorker.Start();
                 }
                 catch
                 {
@@ -102,6 +104,7 @@ namespace kulturBOT
             else
             {
                 Raspi.WriteByte(255);
+                PrinterTest(command1[0].ToString());
                 for (int i = 0; i < 1; i++)
                 {
                     led.Write(true);
@@ -111,8 +114,6 @@ namespace kulturBOT
                 }
             }
         }
-
-        public static string PrintText;
 
         public static void PrintThread()
         {
