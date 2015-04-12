@@ -53,25 +53,27 @@ namespace kulturBOT
         public static void raspSetup()
         {
             Raspi = new SerialPort(SerialPorts.COM3, 57600, Parity.None, 8, StopBits.One);
+            Raspi.Handshake = Handshake.XOnXOff;
             Raspi.WriteTimeout = 1000;
 
-            Raspi.DataReceived += new SerialDataReceivedEventHandler(Raspi_DataReceived);
             Raspi.Open();
+            Raspi.DataReceived += new SerialDataReceivedEventHandler(Raspi_DataReceived);
+
         }
 
         public static void Raspi_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
+            var port = (SerialPort)sender;
             int bufferSize = 255;
             int bufferPtr = 0;
             byte[] command1 = new byte[bufferSize];
 
-            while (Raspi.BytesToRead > 0 && bufferPtr < bufferSize)
+            while (port.BytesToRead > 0 && bufferPtr < bufferSize)
             {
-                Raspi.Read(command1, bufferPtr++, 1);
-                bufferPtr++;
+                port.Read(command1, bufferPtr++, 1);
             }
 
-            Raspi.WriteByte(128);
+            port.WriteByte(128);
 
             //is sending a sentence
             if (command1[0] == 1)
@@ -81,12 +83,12 @@ namespace kulturBOT
                 //filtering out the stop bits -- there is probably a better way to do this!
                 for (int i = 0; i < command1[2]; i++)
                 {
-                    if (command1[i * 2 + 4] == 0 || command1[i * 2 + 5] != 0)
+                    if (command1[i + 2] == 0 || command1[i + 3] != 0)
                     {
                         return;
                     }
 
-                    sentence[i] = command1[i * 2 + 4];
+                    sentence[i] = command1[i + 2];
                 }
 
                 System.Text.Encoding enc = System.Text.Encoding.UTF8;
@@ -103,7 +105,6 @@ namespace kulturBOT
             }
             else
             {
-                //Raspi.WriteByte(255);
                 PrinterTest(command1[0].ToString());
                 for (int i = 0; i < 1; i++)
                 {
