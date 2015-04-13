@@ -99,6 +99,10 @@ namespace kulturBOT
 
         }
 
+        public static int bufferOffset = 0;
+        public static byte int1;
+        public static byte int2;
+
         public static void Raspi_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             var port = (SerialPort)sender;
@@ -106,9 +110,19 @@ namespace kulturBOT
             int bufferPtr = 0;
             byte[] command1 = new byte[bufferSize];
 
+            if (bufferOffset != 0)
+            {
+                bufferPtr = bufferOffset;
+                command1[0] = int1;
+                command1[1] = int2;
+                bufferOffset = 0;
+            }
+
+
             while (port.BytesToRead > 0 && bufferPtr < bufferSize)
             {
-                port.Read(command1, bufferPtr++, 1);
+                port.Read(command1, bufferPtr, 16);
+                bufferPtr += 16;
             }
 
             port.WriteByte(128);
@@ -116,6 +130,14 @@ namespace kulturBOT
             //is sending a sentence
             if (command1[0] == 1)
             {
+                if (bufferPtr == 2)
+                {
+                    int1 = command1[0];
+                    int2 = command1[1];
+                    bufferOffset = 2;
+                    return;
+                }
+
                 byte[] sentence = new byte[command1[1]];
 
                 //filtering out the stop bits -- there is probably a better way to do this!
@@ -133,7 +155,7 @@ namespace kulturBOT
 
                 try
                 {
-                    string myString = new string(enc.GetChars(command1));
+                    string myString = new string(enc.GetChars(sentence));
                     if (myString.Length > 100)
                         PrintText = myString;
                 }

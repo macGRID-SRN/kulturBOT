@@ -18,8 +18,9 @@ class Netduino:
 		self.serialport.write(bytearray(chr(1) + chr(len(b)) + b + bytes(255- len(b) - 2)))
 		numOk = self.serialport.read(1)
 		self.serialport.close()
-		print ord(numOk)
-		if ord(numOk) == 128:
-			print "confirm packet received"
-		else:
-			print "something bad happened"
+		if numOk:
+			print ord(numOk)
+			if ord(numOk) == 128:
+				print "confirm packet received"
+			else:
+				print "something bad happened"
