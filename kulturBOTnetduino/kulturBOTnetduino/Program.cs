@@ -38,9 +38,47 @@ namespace kulturBOT
                         // todo: stop robot
 
                         // todo: start lights flashing (probably around the printer)
+                        PWM printerLight = new PWM(Pins.GPIO_PIN_D5);
+
+                        printerLight.SetPulse(100, 0);
+                        printerLight.SetDutyCycle(100);
+
+                        for (int pulse = 0; pulse < 5; pulse++)
+                        {
+                            for (uint i = 0; i < 100; i++)
+                            {
+                                printerLight.SetDutyCycle(i);
+                                Thread.Sleep(3);
+                            }
+
+                            for (uint i = 0; i < 100; i++)
+                            {
+                                printerLight.SetDutyCycle(100 - i);
+                                Thread.Sleep(3);
+                            }
+                        }
 
                         PrintPoem(PrintText);
                         PrintText = null;
+
+                        for (int pulse = 0; pulse < 5; pulse++)
+                        {
+                            for (uint i = 0; i < 100; i++)
+                            {
+                                printerLight.SetDutyCycle(i);
+                                Thread.Sleep(10);
+                            }
+
+                            for (uint i = 0; i < 100; i++)
+                            {
+                                printerLight.SetDutyCycle(100 - i);
+                                Thread.Sleep(10);
+                            }
+                        }
+
+                        printerLight.SetDutyCycle(0);
+
+                        PowerState.RebootDevice(false);
 
                         //wait some period of time
                         // todo: start moving robot 
@@ -95,8 +133,9 @@ namespace kulturBOT
 
                 try
                 {
-                    string myString = new string(enc.GetChars(sentence));
-                    PrintText = myString;
+                    string myString = new string(enc.GetChars(command1));
+                    if (myString.Length > 100)
+                        PrintText = myString;
                 }
                 catch
                 {
@@ -105,7 +144,6 @@ namespace kulturBOT
             }
             else
             {
-                PrinterTest(command1[0].ToString());
                 for (int i = 0; i < 1; i++)
                 {
                     led.Write(true);

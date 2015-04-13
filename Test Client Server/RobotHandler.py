@@ -17,8 +17,8 @@ class Netduino:
 		print sentence, len(sentence), len(b)
 		self.serialport.write(bytearray(chr(1) + chr(len(b)) + b + bytes(255- len(b) - 2)))
 		numOk = self.serialport.read(1)
-		print ord(numOk)
 		self.serialport.close()
+		print ord(numOk)
 		if ord(numOk) == 128:
 			print "confirm packet received"
 		else:
