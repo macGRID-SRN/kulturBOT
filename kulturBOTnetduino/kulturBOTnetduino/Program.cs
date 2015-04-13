@@ -78,7 +78,7 @@ namespace kulturBOT
             //is sending a sentence
             if (command1[0] == 1)
             {
-                byte[] sentence = new byte[command1[2]];
+                byte[] sentence = new byte[command1[1]];
 
                 //filtering out the stop bits -- there is probably a better way to do this!
                 for (int i = 0; i < command1[1]; i++)
@@ -135,6 +135,7 @@ namespace kulturBOT
         public static void PrintPoem(string poem)
         {
             ThermalPrinter Printer = new ThermalPrinter();
+
             foreach (string myString in poem.Split('\n', ',', '.', ';'))
             {
                 Printer.PrintLine(myString);
@@ -143,7 +144,7 @@ namespace kulturBOT
             Printer.PrintLine("@kulturBOT");
             Printer.LineFeed(1);
             Printer.Print(DateTime.UtcNow.ToString());
-            Printer.LineFeed(3);
+            Printer.LineFeed(4);
             //Printer.Dispose();
         }
 
