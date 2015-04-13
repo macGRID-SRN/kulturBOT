@@ -93,7 +93,7 @@ namespace kulturBOT
             Raspi = new SerialPort(SerialPorts.COM3, 57600, Parity.None, 8, StopBits.One);
             Raspi.Handshake = Handshake.XOnXOff;
             Raspi.WriteTimeout = 1000;
-
+            Raspi.ReadTimeout = 1000;
             Raspi.Open();
             Raspi.DataReceived += new SerialDataReceivedEventHandler(Raspi_DataReceived);
 
@@ -109,6 +109,7 @@ namespace kulturBOT
             int bufferSize = 512;
             int bufferPtr = 0;
             byte[] command1 = new byte[bufferSize];
+            Thread.Sleep(1);
 
             if (bufferOffset != 0)
             {
@@ -121,8 +122,9 @@ namespace kulturBOT
 
             while (port.BytesToRead > 0 && bufferPtr < bufferSize)
             {
-                port.Read(command1, bufferPtr, 16);
-                bufferPtr += 16;
+                port.Read(command1, bufferPtr, 4);
+                bufferPtr += 4;
+                Thread.Sleep(1);
             }
 
             port.WriteByte(128);
@@ -166,6 +168,7 @@ namespace kulturBOT
             }
             else
             {
+                //PrinterTest(string.Concat(command1[0], " ", command1[1], " ", command1[2], " ", command1[3]));
                 for (int i = 0; i < 1; i++)
                 {
                     led.Write(true);
@@ -203,7 +206,10 @@ namespace kulturBOT
 
             Printer.PrintLine("@kulturBOT");
             Printer.LineFeed(1);
-            Printer.Print(DateTime.UtcNow.ToString());
+            Printer.PrintLine("Algorithmic poem derived");
+            Printer.PrintLine("from David Thompson's");
+            Printer.PrintLine("narrative, 1770-1857.");
+            //Printer.Print(DateTime.UtcNow.ToString());
             Printer.LineFeed(4);
             //Printer.Dispose();
         }
