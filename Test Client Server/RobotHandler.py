@@ -12,7 +12,7 @@ class Netduino:
 		self.serialport.write("\x88\x00")
 		
 	def sendSentence(self, sentence):
-		self.serialport = serial.Serial("/dev/ttyAMA0", 9600, timeout=3.5, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE)
+		self.serialport = serial.Serial("/dev/ttyAMA0", 57600, timeout=3.5, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE)
 		b = sentence.encode('utf-8')
 		print sentence, len(sentence), len(b)
 		self.serialport.write(bytearray(chr(1) + chr(len(b)) + b + bytes(255- len(b) - 2)))
