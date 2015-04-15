@@ -14,7 +14,7 @@ namespace MarkovChainGenerator
 
         public Markov(int characterCount, int numChars)
         {
-            cD = new CorpusDictionary("corpus.txt", numChars);
+            cD = new CorpusDictionary("raw-data", numChars);
             this.numChar = numChars;
             this.characterCount = characterCount;
         }
@@ -55,8 +55,8 @@ namespace MarkovChainGenerator
         public string formatText()
         {
             Random r = new Random();
-            int puncNum = r.Next(3);
-            string[] punc = new string[] {"!", ".", "?"};
+            string[] punc = new string[] {"!", ".", "?", ".", ".", ".", "."};
+            int puncNum = r.Next(punc.Length);
             StringBuilder sb = this.generateText();
             string text = sb.ToString();
             text = text.TrimStart();

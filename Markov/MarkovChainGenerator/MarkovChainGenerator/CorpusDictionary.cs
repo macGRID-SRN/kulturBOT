@@ -19,8 +19,9 @@ namespace MarkovChainGenerator
             using (StreamReader sr = new StreamReader(filePath))
             {
                 futuristManifesto = sr.ReadToEnd();
-                futuristManifesto = futuristManifesto.Replace("\r", "");
-                futuristManifesto = futuristManifesto.Replace("\n", "");
+                futuristManifesto = futuristManifesto.Replace("\r", " ");
+                futuristManifesto = futuristManifesto.Replace("\n", " ");
+                futuristManifesto = string.Join(" ", futuristManifesto.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
 
             }
             dic = new Dictionary<string, List<char>>();
