@@ -18,12 +18,13 @@ namespace MarkovChainGenerator
             this.numChar = numChars;
             this.characterCount = characterCount;
         }
+        
+        private Random seed = new Random();
 
         private StringBuilder generateText()
         {
             StringBuilder sb = new StringBuilder();
 
-            Random seed = new Random();
 
             var dic = cD.dic;
             var keys = cD.keyCollection;
@@ -54,9 +55,8 @@ namespace MarkovChainGenerator
 
         public string formatText()
         {
-            Random r = new Random();
             string[] punc = new string[] {"!", ".", "?", ".", ".", ".", "."};
-            int puncNum = r.Next(punc.Length);
+            int puncNum = seed.Next(punc.Length);
             StringBuilder sb = this.generateText();
             string text = sb.ToString();
             text = text.TrimStart();
