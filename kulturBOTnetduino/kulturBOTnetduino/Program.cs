@@ -20,20 +20,33 @@ namespace kulturBOT
         static OutputPort led = new OutputPort(Pins.ONBOARD_LED, false);
         static string PrintText = string.Empty;
         static int IROBOT_RUN_TIME_MS = 15000;
+        static int IROBOT_SLEEP_TIME_MS = 15000;
+        static int IROBOT_RUN_CYCLES = 2;
+        static bool IROBOT_BEEP = true;
+        static bool PRINT = true;
 
         public static void Main()
         {
             Thread.Sleep(1000);
             led.Write(false);
 
-            var stream = File.Open(@"SD\t.txt", FileMode.Open, FileAccess.Read);
-            byte[] buffer = new byte[30];
+            int fileNum = randy.Next(19999);
 
-            stream.Read(buffer, 0, 30);
+            try
+            {
+                var stream = File.Open(@"SD\chain\" + fileNum + ".txt", FileMode.Open, FileAccess.Read);
+                byte[] buffer = new byte[1024];
 
-            System.Text.Encoding enc = System.Text.Encoding.UTF8;
+                stream.Read(buffer, 0, buffer.Length);
 
-            PrintText = new string(enc.GetChars(buffer));
+                System.Text.Encoding enc = System.Text.Encoding.UTF8;
+
+                PrintText = new string(enc.GetChars(buffer));
+            }
+            catch (Exception e)
+            {
+                PrinterTest("Could not access SD Card. Or other issues related to generating text");
+            }
 
             while (true)
             {
@@ -63,7 +76,8 @@ namespace kulturBOT
                     }
                 }
 
-                PrintPoem(PrintText);
+                if (PRINT)
+                    PrintPoem(PrintText);
 
                 for (int pulse = 0; pulse < 5; pulse++)
                 {
@@ -86,17 +100,45 @@ namespace kulturBOT
             }
         }
 
+        static Random randy = new Random();
+
+        public static void iRobotBeep(SerialPort serial)
+        {
+            serial.Write(new byte[] { 141, 0 }, 0, 2);
+        }
+
+        static byte[] song0 = new byte[] { 140, 0, 16, 61, 32, 63, 8, 61, 8, 63, 8, 67, 8, 68, 8, 67, 8, 97, 8, 75, 8, 74, 8, 73, 32, 72, 8, 71, 8, 76, 8, 79, 16, 73, 8 };
+        static byte[] song1 = new byte[] { 140, 1, 6, 93, 32, 92, 8, 91, 8, 96, 8, 99, 16, 93, 8 };
+        static byte[] song2 = new byte[] { 140, 2, 7, 88, 8, 88, 16, 88, 16, 84, 8, 88, 16, 91, 32, 79, 16 };
+
         public static void iRobotTest()
         {
             Thread.Sleep(2000);
             var serial = new SerialPort(SerialPorts.COM2, 57600);
 
             serial.Open();
-
             serial.WriteByte(128);
 
-            serial.Write(new byte[] { 136, 0 }, 0, 2);
-            Thread.Sleep(15000);
+            serial.Write(song0, 0, song0.Length);
+            serial.Write(song1, 0, song1.Length);
+            serial.Write(song2, 0, song2.Length);
+
+            for (int i = 0; i < IROBOT_RUN_CYCLES; i++)
+            {
+                serial.Write(new byte[] { 136, 0 }, 0, 2);
+                Thread.Sleep(IROBOT_RUN_TIME_MS);
+                serial.Write(new byte[] { 136, 255 }, 0, 2);
+                if (IROBOT_BEEP && randy.Next(2) == 0)
+                {
+                    serial.Write(new byte[] { 141, 0 }, 0, 2);
+
+                    //                    iRobotBeep(serial);
+                    Thread.Sleep(5000);
+                }
+                Thread.Sleep(IROBOT_SLEEP_TIME_MS);
+            }
+
+            //send command to stop the bot again -- just incase
             serial.Write(new byte[] { 136, 255 }, 0, 2);
 
             serial.Close();
@@ -106,11 +148,12 @@ namespace kulturBOT
         {
             ThermalPrinter Printer = new ThermalPrinter();
 
-            foreach (string myString in poem.Split('\n', ',', '.', ';'))
+            foreach (string myString in poem.Split('\n'))
             {
                 Printer.PrintLine(myString);
             }
 
+            Printer.LineFeed(1);
             Printer.PrintLine("@kulturBOT");
             Printer.LineFeed(1);
             Printer.PrintLine("Algorithmic poem derived");
