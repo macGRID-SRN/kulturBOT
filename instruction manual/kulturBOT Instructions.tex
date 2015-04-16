@@ -17,7 +17,7 @@
 
 % Title Page
 \title{\kbspace Instruction Manual}
-\author{Colin Gagich \\ \textnormal Version 1.0}
+\author{Colin Gagich \\ \textnormal Version 2.0}
 \date{Last Updated: \today}
 
 \begin{document}
@@ -36,9 +36,8 @@ Hello there! You have been tasked with taking care of \mykb! Welcome to the team
 Twitter Profile: \href{https://twitter.com/kulturBOT}{@kulturBOT} \\
 Facebook Profile: \href{https://www.facebook.com/thekulturbot}{Facebook Homepage}\\
 Expected Battery Life: 3 Hours.\\
-Expected Charge Time: 3 Hours.\\
-\kbspace uses \textbf{The Futurist Manifesto} by \textit{F. T. Marinetti, 1909} to create its tweets.\\
-\kb 's speech comes from the last 200 things it has tweeted.
+Expected Charge Time: 3 Hours.\\ \\
+\textbf{DO NOT LIFT \kbspace BY THE HANDLES OF THE STRAINER} - Instead lift the robot from the white base.
 
 \subsection{\mykb 's Anatomy}
 
@@ -54,12 +53,13 @@ Expected Charge Time: 3 Hours.\\
 \subsection{Turning \kbspace on.}
 \begin{enumerate}
 \item Press the \texttt{Power Button}. The \texttt{Power LED} should now be green and you will hear a \textit{beep}.
-\item Wait approximately 2 minutes before trying to connect to \kb.
+\item The main white Dome light will also turn on when \kbspace is on.
 \end{enumerate}
 
 \subsubsection{Is \kbspace turned on?}
 \label{isKbOn}
-To determine if \kbspace is on, observe the \texttt{Power LED}. If it is \texttt{Green}, \kbspace is on. If it is \texttt{Orange/Amber} \kbspace is on but needs to be charged (See Section \ref{chargingKB}). If the \texttt{Power LED} is not on, \kbspace is either off or the batteries are dead.
+To determine if \kbspace is on, observe the \texttt{Power LED}. If it is \texttt{Green}, \kbspace is on. If it is \texttt{Orange/Amber} \kbspace is on but needs to be charged (See Section \ref{chargingKB}). If the \texttt{Power LED} is not on, \kbspace is either off or the batteries are dead.\\
+The main Dome light will also be on when \kbspace is on.
 
 \subsubsection{Restarting \kb}
 \label{restartKb}
@@ -68,143 +68,136 @@ From time to time you will need to restart \kbspace. To restart \kb:
 \begin{enumerate}
 \item Press the \texttt{Power Button}. The \texttt{Power LED} should now be off.
 \item Press the \texttt{Power Button} again. The \texttt{Power LED} should now be green and you will hear a \textit{beep}.
-\item Wait approximately 2 minutes before trying to connect to \kb.
+\item After around 20 seconds \kbspace will start moving.
 \end{enumerate}
 
 \subsection{Virtual Walls}
 Use the virtual walls to prevent \kbspace from leaving a room or getting too close to delicate items. To turn them on press the power button on the front so the green LED is illuminated.\\
-\textbf{DO NOT PLACE VIRTUAL WALLS WITHIN 1.5m OF THE CHARGING STATION.} \\ The walls can confuse \kbspace and it may not be able to find it's charging station. 
-\\
 
-\textbf{NOTE: } The walls will only stay on for 2.5 hours and must be restarted.
+\textbf{NOTE: } The walls will only stay on for 45 minutes at a time and must be turned on again when the LED turns off.
 
 \section{Normal Operation}
 The following outlines how to get \mykbspace operating normally.
 
-\subsection{Laptop Server and Twitter Feed}
-\begin{enumerate}
-	\item With the Laptop logged in, open up Visual Studio from the desktop shortcut and hit \texttt{F5}. A black Console window will open up. Refer to Figure \ref{normalVS} for an example of how it should look.
-	
-	\begin{figure}[h!]
-		\centering
-	    \includegraphics[width=1\textwidth]{img/normalVSlook.png}
-	    \caption{Normal Operation of the Laptop}
-	    \label{normalVS}
-	\end{figure}
-	
-	\item Check the \href{https://twitter.com/kulturBOT}{\kbspace twitter feed} and ensure a tweet has been sent in the last 60 seconds. If after waiting 2 minutes no tweet appears, refer to Section \ref{kbNoTweet}. Under normal operation, no messages will appear on the black console window. If there is a problem with the internet, there will be a message in the black console window.
-	
-	\item To set up the live twitter feed, first connect the laptop to the projector. Ensure the projector is set up as an external display (should automatically do this). Open up Chrome from the Desktop shortcut and navigate to the \href{https://twitter.com/kulturBOT}{\kbspace twitter feed}.
-	
-	\item Enable the Chrome Browser Plugin "Auto Refresh Plus". Set the interval to \texttt{1 minute} and press \texttt{Start}. See Figure \ref{autorefresh} for reference.
-	
-	\begin{figure}[h!]
-			\centering
-		    \includegraphics[width=0.55\textwidth]{img/autorefresh.png}
-		    \caption{Auto Refresh Plus}
-		    \label{autorefresh}
-		\end{figure}
-		
-		\item Fullscreen the Chrome Browser by pressing \texttt{F11}.
-		
-		\item \textbf{NOTE:} When the Laptop turned on and the black console window is open, it will tweet \textbf{text without an image} every 2-6 minutes. This happens independently of \kbspace being turned on and functioning. Because of this, the Laptop should be shut down when the gallery is not open.
-\end{enumerate}
 
-\subsection{Connecting to the \mykbspace Unit}
+\subsection{Using the \mykbspace Unit}
 \label{connect2kb}
 First ensure \kbspace is turned on. Refer to \ref{isKbOn}.
 
-\subsubsection{From a MAC or Linux Machine}
-
 \begin{enumerate}
-\item Ensure you are on the same WiFi network as \kb. In this case, kulturBOT was on the WiFi network: \texttt{Robot} with password: \texttt{Robot}
-\item Open up the Terminal and enter in the following command.\\
-
-\begin{lstlisting}[style=ssh]
-ssh pi@10.20.58.151
-\end{lstlisting}
-
-\textbf{NOTICE:} The 'underscore' character represents a space.
-
-\item You will then be prompted for a password. The password is: \texttt{raspberry} While you are typing in the password the cursor will not advance, this is a security measure.
-
-\item You have now started an "SSH Session" with \kb. This allows you to send commands to it. To get \kbspace to move and function normally, run the following two commands, pressing enter in-between each of them.\\
-
-\begin{lstlisting}[style=ssh]
-cd kulturBOT/Test\ Client\ Server/
-sudo python picam.py
-\end{lstlisting}
-
-\kbspace should \textit{beep} and then everything should function normally. The Terminal window \underline{must} remain open or kulturBOT will stop functioning.
-
+	\item The main dome light should be on - it is a bright white LED array (which is very hard to miss).
+	\item There is a small green LED on the printer which should be blinking once every 2 seconds. This indicates the printer is functioning properly.
+	\item The unit will then operate on its own - repeating a stop - go - stop -print cycle until it is powered down or its batteries have died.
 \end{enumerate}
-
-\subsubsection{From a Windows Machine}
-
-Instructions coming soon.
 
 \subsection{Stopping \mykb}
 \label{stoppingKb}
 \begin{enumerate}
-\item Wait until \kbspace has temporarily stopped moving. This should happen every 15-30 seconds.
-\item From your Terminal Window, press \texttt{CONTROL + C}. This will end all functions on \kb.
-\item To end the SSH Session with \kb, enter the following command.
-
-\begin{lstlisting}[style=ssh]
-exit
-\end{lstlisting}
+\item Wait until \kbspace has temporarily stopped moving. This should happen every 45-60 seconds. It is best to turn \kbspace off just after a poem has printed. Press the power button once to turn off \kb. The main dome light should be off.
+\item It is important \mykbspace \textbf{is not turned off shortly after being turned on.} This may cause corruption of the onboard memory - before turning it off wait until \kbspace has moved.
 
 \end{enumerate}
 
-If you were unable to stop \kbspace using the previous steps, try these next:
+%If you were unable to stop \kbspace using the previous steps, try these next:
 
-\begin{enumerate}
-\item Find the \kbspace unit.
-\item \textit{Aggressively} press the \texttt{Power Button} as depicted in Figure \ref{3button}.
-\end{enumerate}
+%\begin{enumerate}
+%\item Find the \kbspace unit.
+%\item \textit{Aggressively} press the \texttt{Power Button} as depicted in Figure \ref{3button}.
+%\end{enumerate}
 
 \subsection{Charging \mykb}
 \label{chargingKB}
 
 \begin{enumerate}
 \item Determine if the \kbspace unit is on. Refer to Section \ref{isKbOn}
-\item IF \kbspace \textbf{is on}, stop it if it is running (See Section \ref{stoppingKb}). Next press the \texttt{Advance Button} one time. You should immediately hear two quick \textit{beeps}. Now press the \texttt{Play Button}. \kbspace will move on its own and find it's charging dock.
-\subitem \textbf{NOTE: if you do not hear two quick beeps after pressing the \texttt{Advance Button}, restart \kb.}
-\item IF \kbspace \textbf{is not on} or \textbf{wont turn on} manually pick up \kbspace and place it onto it's charging dock.
+\item IF \kbspace \textbf{is on}, stop it if it is running (See Section \ref{stoppingKb}).
+\item Plug \kbspace into the provided wall adapter. The chargingout outlet on \kbspace is on the right rear side section.
+\item The main dome will light up and about 10 seconds after it is plugged in the Red Printer Status light will fade slowly indicating it is charging. Note: \textbf{The red light will still fade on and off even when \kbspace is fully charged.}
 \end{enumerate}
 
 \section{Normal Behaviour}
 
-This section will describe the "loop" which \kbspace follows. If \kbspace is behaving in any other way, it should be restarted.
+This section will describe the "loop" which \kbspace follows. If \kbspace is behaving in any other way, it should be stopped and restarted.
 
 \begin{enumerate}
 \item After turning on, \kbspace will \textit{beep} and start moving.
-\item After 15-30 seconds, \kbspace will stop.
-\item After 15-30 seconds, \kbspace will \textit{beep} and start moving again.
-\item This cycle will repeat.
+\item After 45 seconds, \kbspace will stop. The robot may play a song if it deems it necessary.
+\item After 90 seconds, \kbspace will \textit{beep} and start moving again.
+\item This cycle will repeat a few times until \kbspace comes to a stop and the Red Light Bar by the printer starts flashing.
+\item A poem will then print and the light bar will continue to flash for 20 seconds allowing adequate time for the print to be collected by a bystander.
 \end{enumerate}
+
+The robot will then reboot and repeat the cycle.
+\\
 
 When \kbspace is stopped, it will do one of three things:
 
 \begin{enumerate}
-\item Take a picture. A bright Red LED will become visible for 3 seconds. The picture will then be tweeted.
-\item Say a sentence of text. This is one of the past 200 things it has tweeted.
+\item Make loud robot noises.
+\item Print a poem.
 \item Do nothing.
 \end{enumerate}
 
-After 3 hours, \kbspace should be charged. See Section \ref{chargingKB}.
+After 3 hours \kbspace should be charged. See Section \ref{chargingKB}.
 
+\section{Maintenance}
+\subsection{Replacing the paper}
+If you noticed a purple/pink streak in the prints - the paper is low and should be replaced soon. Note: The paper can be feed line by line by pressing the small black button on the top of the printer.
+\begin{enumerate}
+\item Ensure \mykbspace is \textbf{off}.
+\item Open the printer by pulling up the small tab.
+	\begin{figure}[h!]
+		\centering
+	    \includegraphics[width=0.8\textwidth]{img/tab.jpg}
+	    \caption{Opening printer paper compartment}
+
+	\end{figure}
+\item Remove the remaining paper spool.
+\item Open a new paper spool and remove the first layer.
+\item Place the spool such that \textbf{LOOSE END ON THE BOTTOM OF THE SPOOL.} Ensure there is an excess length of paper on the bottom of the spool.
+	\begin{figure}[h!]
+		\centering
+	    \includegraphics[width=0.8\textwidth]{img/paper.jpg}
+	    \caption{Placing spool in compartment}
+
+	\end{figure}
+\item Press the printer cover down firmly. The tab will move back into place on its own.
+	\begin{figure}[h!]
+		\centering
+	    \includegraphics[width=0.8\textwidth]{img/close.jpg}
+	    \caption{Closing paper compartment}
+	\end{figure}
+\item Rip off the extra length of paper. This leaves a clean edge for the next print.
+\end{enumerate}
+\subsection{Preparing for shipping}
+
+Remove the flag by firmly pulling it upwards about 2 inches. Then point the flag horizontally and pull it out.\\ 
+
+	\begin{figure}[h!]
+		\centering
+	    \includegraphics[width=0.8\textwidth]{img/out.jpg}
+	    \caption{Flag Pole - Horizontal}
+	\end{figure}
+	
+\newpage
+
+The flag can be broken down into two pieces (in a camping pole like fashion) for shipping.
+
+	\begin{figure}[h!]
+		\centering
+	    \includegraphics[width=0.8\textwidth]{img/camp.jpg}
+	    \caption{Flag Pole}
+	\end{figure}
+\newpage
 \section{Troubleshooting}
-\subsection{\kbspace isn't tweeting!}
-\label{kbNoTweet}
-This is most likely due to internet problems. Check the output of the black console window of the laptop.
-\subsection{\kbspace is taking pictures but not moving.}
-Restart the SSH Session with \kb, running all the commands found in Section \ref{connect2kb}
-\subsection{\kbspace is moving but not taking pictures.}
-Restart the SSH Session with \kb, running all the commands found in Section \ref{connect2kb}
+\subsection{\kbspace is moving but no longer stopping!}
+Try to catch the robot and lift it up by the base. \textbf{DO NOT LIFT \kbspace BY THE HANDLES OF THE STRAINER} This will cause to the robot to stop moving.
+\subsection{\kbspace printed an error message!}
+Uh oh! The on board memory may need to be replaced!!!
 \subsection{\kbspace won't turn on.}
-\kbspace batteries are probably dead. Try the instructions in Section \ref{chargingKB}.
-
+\kbspace batteries are probably dead. See the instructions in Section \ref{chargingKB}.
+\subsection{\kbspace has become self aware!}
+Well .. I'll take your word for it; but it is now your problem!
 \subsection{Something else has happened!}
 Try restarting \underline{everything}. Laptop, \kb, and anything else. If you are still having issues contact \texttt{Colin Gagich - colin.gagich@gmail.com}
 \end{document}          
