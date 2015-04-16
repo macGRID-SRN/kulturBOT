@@ -30,16 +30,38 @@ namespace kulturBOT
             Thread.Sleep(1000);
             led.Write(false);
 
-            int fileNum = randy.Next(19999);
-
             try
             {
+                System.Text.Encoding enc = System.Text.Encoding.UTF8;
+
+                int fileNum = randy.Next(19999);
+                var fileStream = File.Open(@"SD\rand.txt", FileMode.Open);
+
+                byte[] randNum = new byte[30];
+
+                fileStream.Read(randNum, 0, 30);
+
+                int seed = int.Parse(new string(enc.GetChars(randNum)));
+
+                randy = new Random(seed);
+
+                fileStream.Close();
+
+                fileStream = File.OpenWrite(@"SD\rand.txt");
+
+                byte[] tempToWriteInt = enc.GetBytes(randy.Next(int.MaxValue).ToString());
+
+                fileStream.Write(tempToWriteInt, 0, tempToWriteInt.Length);
+
+                fileStream.Close();
+
                 var stream = File.Open(@"SD\chain\" + fileNum + ".txt", FileMode.Open, FileAccess.Read);
                 byte[] buffer = new byte[1024];
 
                 stream.Read(buffer, 0, buffer.Length);
 
-                System.Text.Encoding enc = System.Text.Encoding.UTF8;
+
+                stream.Close();
 
                 PrintText = new string(enc.GetChars(buffer));
             }
@@ -130,10 +152,12 @@ namespace kulturBOT
                 serial.Write(new byte[] { 136, 255 }, 0, 2);
                 if (IROBOT_BEEP && randy.Next(2) == 0)
                 {
+                    //serial.WriteByte(131);
                     serial.Write(new byte[] { 141, 0 }, 0, 2);
 
                     //                    iRobotBeep(serial);
                     Thread.Sleep(5000);
+                    //serial.WriteByte(128);
                 }
                 Thread.Sleep(IROBOT_SLEEP_TIME_MS);
             }
