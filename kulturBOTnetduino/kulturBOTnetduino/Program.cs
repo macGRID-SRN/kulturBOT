@@ -41,7 +41,7 @@ namespace kulturBOT
 
                 fileStream.Read(randNum, 0, 30);
 
-                int seed = int.Parse(new string(enc.GetChars(randNum)));
+                int seed = int.Parse(new string(enc.GetChars(randNum)).Trim());
 
                 randy = new Random(seed);
 
@@ -49,7 +49,7 @@ namespace kulturBOT
 
                 fileStream = File.OpenWrite(@"SD\rand.txt");
 
-                byte[] tempToWriteInt = enc.GetBytes(randy.Next(int.MaxValue).ToString());
+                byte[] tempToWriteInt = enc.GetBytes((seed + 1).ToString() + "          ");
 
                 fileStream.Write(tempToWriteInt, 0, tempToWriteInt.Length);
 
@@ -83,7 +83,7 @@ namespace kulturBOT
                 printerLight.SetPulse(100, 0);
                 printerLight.SetDutyCycle(100);
 
-                for (int pulse = 0; pulse < 5; pulse++)
+                for (int pulse = 0; pulse < 10; pulse++)
                 {
                     for (uint i = 0; i < 100; i++)
                     {
@@ -99,9 +99,11 @@ namespace kulturBOT
                 }
 
                 if (PRINT)
+                {
+                    Thread.Sleep(1500);
                     PrintPoem(PrintText);
-
-                for (int pulse = 0; pulse < 5; pulse++)
+                }
+                for (int pulse = 0; pulse < 15; pulse++)
                 {
                     for (uint i = 0; i < 100; i++)
                     {
@@ -126,7 +128,12 @@ namespace kulturBOT
 
         public static void iRobotBeep(SerialPort serial)
         {
-            serial.Write(new byte[] { 141, 0 }, 0, 2);
+            int rand = randy.Next(3);
+            serial.WriteByte(131);
+            serial.Write(new byte[] { 141, (byte)rand }, 0, 2);
+            Thread.Sleep(5000);
+            serial.WriteByte(128);
+            Thread.Sleep(100);
         }
 
         static byte[] song0 = new byte[] { 140, 0, 16, 61, 32, 63, 8, 61, 8, 63, 8, 67, 8, 68, 8, 67, 8, 97, 8, 75, 8, 74, 8, 73, 32, 72, 8, 71, 8, 76, 8, 79, 16, 73, 8 };
@@ -152,12 +159,8 @@ namespace kulturBOT
                 serial.Write(new byte[] { 136, 255 }, 0, 2);
                 if (IROBOT_BEEP && randy.Next(2) == 0)
                 {
-                    //serial.WriteByte(131);
-                    serial.Write(new byte[] { 141, 0 }, 0, 2);
-
-                    //                    iRobotBeep(serial);
-                    Thread.Sleep(5000);
-                    //serial.WriteByte(128);
+                    Thread.Sleep(1500);
+                    iRobotBeep(serial);
                 }
                 Thread.Sleep(IROBOT_SLEEP_TIME_MS);
             }
@@ -177,7 +180,6 @@ namespace kulturBOT
                 Printer.PrintLine(myString);
             }
 
-            Printer.LineFeed(1);
             Printer.PrintLine("@kulturBOT");
             Printer.LineFeed(1);
             Printer.PrintLine("Algorithmic poem derived");
