@@ -20,9 +20,9 @@ namespace kulturBOT
         static OutputPort led = new OutputPort(Pins.ONBOARD_LED, false);
         static InputPort isCharging = new InputPort(Pins.GPIO_PIN_D7, false, Port.ResistorMode.PullDown);
         static string PrintText = string.Empty;
-        static int IROBOT_RUN_TIME_MS = 15000;
-        static int IROBOT_SLEEP_TIME_MS = 15000;
-        static int IROBOT_RUN_CYCLES = 2;
+        static int IROBOT_RUN_TIME_MS = 45000;
+        static int IROBOT_SLEEP_TIME_MS = 95000;
+        static int IROBOT_RUN_CYCLES = 6;
         static bool IROBOT_BEEP = true;
         static bool PRINT = true;
 
@@ -52,6 +52,7 @@ namespace kulturBOT
                             printerLight.SetDutyCycle(100 - i);
                             Thread.Sleep(10);
                         }
+                        Thread.Sleep(2000);
                     }
                 }
             }
