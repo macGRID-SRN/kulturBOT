@@ -18,6 +18,7 @@ namespace kulturBOT
     public class Program
     {
         static OutputPort led = new OutputPort(Pins.ONBOARD_LED, false);
+        static InputPort isCharging = new InputPort(Pins.GPIO_PIN_D7, false, Port.ResistorMode.PullDown);
         static string PrintText = string.Empty;
         static int IROBOT_RUN_TIME_MS = 15000;
         static int IROBOT_SLEEP_TIME_MS = 15000;
@@ -29,6 +30,31 @@ namespace kulturBOT
         {
             Thread.Sleep(1000);
             led.Write(false);
+
+            if (isCharging.Read())
+            {
+                PWM printerLight = new PWM(Pins.GPIO_PIN_D5);
+
+                printerLight.SetPulse(100, 0);
+                printerLight.SetDutyCycle(100);
+                while (true)
+                {
+                    for (int pulse = 0; pulse < 15; pulse++)
+                    {
+                        for (uint i = 0; i < 100; i++)
+                        {
+                            printerLight.SetDutyCycle(i);
+                            Thread.Sleep(15);
+                        }
+
+                        for (uint i = 0; i < 100; i++)
+                        {
+                            printerLight.SetDutyCycle(100 - i);
+                            Thread.Sleep(10);
+                        }
+                    }
+                }
+            }
 
             try
             {
