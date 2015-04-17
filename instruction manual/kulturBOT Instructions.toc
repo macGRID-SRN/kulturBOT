@@ -12,10 +12,11 @@
 \contentsline {section}{\numberline {3}Normal Behaviour}{5}{section.3}
 \contentsline {section}{\numberline {4}Maintenance}{6}{section.4}
 \contentsline {subsection}{\numberline {4.1}Replacing the paper}{6}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Preparing for shipping}{7}{subsection.4.2}
-\contentsline {section}{\numberline {5}Troubleshooting}{9}{section.5}
-\contentsline {subsection}{\numberline {5.1}kulturBOT is moving but no longer stopping!}{9}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}kulturBOT printed an error message!}{9}{subsection.5.2}
-\contentsline {subsection}{\numberline {5.3}kulturBOT won't turn on.}{10}{subsection.5.3}
-\contentsline {subsection}{\numberline {5.4}kulturBOT has become self aware!}{10}{subsection.5.4}
-\contentsline {subsection}{\numberline {5.5}Something else has happened!}{10}{subsection.5.5}
+\contentsline {section}{\numberline {5}Preparing for shipping}{7}{section.5}
+\contentsline {subsection}{\numberline {5.1}Removing the Battery}{10}{subsection.5.1}
+\contentsline {section}{\numberline {6}Troubleshooting}{11}{section.6}
+\contentsline {subsection}{\numberline {6.1}kulturBOT is moving but no longer stopping!}{11}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}kulturBOT printed an error message!}{11}{subsection.6.2}
+\contentsline {subsection}{\numberline {6.3}kulturBOT won't turn on.}{11}{subsection.6.3}
+\contentsline {subsection}{\numberline {6.4}kulturBOT has become self aware!}{11}{subsection.6.4}
+\contentsline {subsection}{\numberline {6.5}Something else has happened!}{11}{subsection.6.5}
